@@ -36,22 +36,12 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)
 
 # Tutorials
-[0 - Elements and Structure of ANT](./tutorials/0%20-%20Elements%20and%20Structure%20of%20ANT.md)
-
-[1 - Creating Zones and Openings](./tutorials/1%20-%20Creating%20Zones%20and%20Openings.md)
-
-[2 - Contminants](./tutorials/2%20-%20Contminants.md)
-
-[3 - Air Handling System](./tutorials/3%20-%20Air%20Handling%20System.md)
-
-[4 - Filter](./tutorials/4%20-%20Filter.md)
-
-[5 - Schedule](./tutorials/5%20-%20Schedule.md)
+[0 - Introduction to ANT components and CONTAM elements](./tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
 
 # Example cases
 ## Example 1 - A simple house
 ### Building geometry in Rhino
-![Example 1 - Building geometry](./examples/Example_1/img/geometry.png)
+![Example 1 - Building geometry](./examples/Example_1/img/geometry_w_bkg.png)
 
 ### ANT model in Grasshopper
 ![Example 1 - ANT model](./examples/Example_1/img/screenshot%20-%20ANT%202.png)
@@ -64,4 +54,4 @@ Contours of contaminant concentrations
 Animation of contaminant concentration change
 ![Example 1 - Animation of contaminant concentration change](./examples/Example_1/img/animation.gif)
 Plot of contaminant concentrations in different zones
-![Example 1 - Plot of contaminant concentrations in different zones](./examples/Example_1/img/plot_2.png)
+![Example 1 - Plot of contaminant concentrations in different zones](./examples/Example_1/img/plot_3.png)
