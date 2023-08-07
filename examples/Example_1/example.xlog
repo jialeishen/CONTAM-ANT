@@ -1,0 +1,40 @@
+
+Upgrade project:
+From File: C:/Users/Jialei Shen/OneDrive - Syracuse University/NIST/ANT/examples/Example_1/example.prj
+To File: C:\Users\Jialei Shen\AppData\Local\Temp\PROJECT.TMP
+fileCopy
+  from C:/Users/Jialei Shen/OneDrive - Syracuse University/NIST/ANT/examples/Example_1/example.prj
+  to C:/Users/Jialei Shen/OneDrive - Syracuse University/NIST/ANT/examples/Example_1/example.tmp
+From Version: 3.4
+To Version: 3.4
+Upgrade not required.
+
+Reading project file: C:/Users/Jialei Shen/OneDrive - Syracuse University/NIST/ANT/examples/Example_1/example.prj
+Run Control section read successfully.
+Species section read successfully.
+Level section read successfully.
+Day Schedule section read successfully.
+Week Schedule section read successfully.
+WindP Profile section read successfully.
+Kinetic Reaction section read successfully.
+Filter Element section read successfully.
+Filter section read successfully.
+Source/Sink Element section read successfully.
+Airflow Element section read successfully.
+Airflow Element section read successfully.
+Control Super Element section read successfully.
+Controls section read successfully.
+AHS section read successfully.
+Zone section read successfully.
+Zone CC section read successfully.
+Path section read successfully.
+Duct Junction section read successfully.
+Duct Junction CC section read successfully.
+Duct Segment section read successfully.
+Source/Sink section read successfully.
+Occupant Day Schedule section read successfully.
+Occupant Exposure section read successfully.
+Note section read successfully.
+fileCopy
+  from C:/Users/Jialei Shen/OneDrive - Syracuse University/NIST/ANT/examples/Example_1/example.prj
+  to C:\Users\Jialei Shen\AppData\Local\Temp\/PROJECT.BKP
