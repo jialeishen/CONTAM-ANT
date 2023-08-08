@@ -32,6 +32,18 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 # Installation
 1. Download and unzip ANT from [Food4Rhino](https://www.food4rhino.com/en/app/ant) 
 2. Place the **entire ANT folder** (including .gha and other dependencies) under Grasshopper's **Components Folder** (via Grasshopper - File - Special Folders). *(In Windows, the Components Folder is located under "%Appdata%\Roaming\Grasshopper\Libraries")*
+3. Unblock files in ANT folder 
+    - Manually unblock all files
+        - Right click on the files in ANT folder and select "Properties"
+        - Check "Unblock" under "General" tab (or "Security" tab)
+        - Click "Apply" or "OK"
+    - Or, unblock all files using PowerShell
+        - Open PowerShell as administrator
+        - Run the following command (replace `"path_to_ANT_folder"` with the actual path to ANT folder)
+        ```powershell
+        Get-ChildItem -Path "path_to_ANT_folder" -Recurse | Unblock-File
+        ```
+4. Restart Rhino/Grasshopper and enjoy.
 
 # Support Forum
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)
