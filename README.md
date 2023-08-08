@@ -1,5 +1,5 @@
 # ANT
- ![ANT logo](logo/contam_ant_wt_contam_icons.png)
+ ![ANT logo](logo/banner.png)
  
 <!--ts-->
  - [Introduction](#introduction)
