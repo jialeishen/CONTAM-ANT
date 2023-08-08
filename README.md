@@ -4,6 +4,7 @@
 <!--ts-->
  - [Introduction](#introduction)
  - [Installation](#installation)
+ - [Support Forum](#support-forum)
  - [Tutorials](#tutorials)
  - [Example cases](#example-cases)
 <!--te-->
