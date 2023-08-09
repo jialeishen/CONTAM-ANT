@@ -37,7 +37,7 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
         - Right click on the files in ANT folder and select "Properties"
         - Check "Unblock" under "General" tab (or "Security" tab)
         - Click "Apply" or "OK"
-    - Or, unblock all files using PowerShell
+    - Or, unblock all files using PowerShell (recommended)
         - Open PowerShell as administrator
         - Run the following command (replace `"path_to_ANT_folder"` with the actual path to ANT folder)
         ```powershell
