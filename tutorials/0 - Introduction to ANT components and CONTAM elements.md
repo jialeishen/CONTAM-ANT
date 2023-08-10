@@ -516,6 +516,114 @@ Create a week schedule by defining the day schedules for each day of the week an
 
 ## 05-Species
 ![Species components](./img/icons-species.png)
+### Contaminant/Species
+Create a contaminant/species element.\
+Contaminant/species concentration unit can be changed by right-clicking the component and selecting the desired one. All contaminants/species are assumed to be trace contaminants/species by default.
+ - **Inputs**:
+    - **_name_** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the contaminant/species. Must NOT be the same as the species names defined in the system species library, including PM2.5, CO2, CO, NO2, Ozone, SO2, IV1. 
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the contaminant/species.
+    - **molar mass**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Molar mass of the contaminant/species in g/mol (kg/kmol).
+    - **Dm**:
+        - Type: Number [Item]
+        - Default: 0.00002 m²/s
+        - Description: Diffusion coefficient of the contaminant/species. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **Cp**:
+        - Type: Number [Item]
+        - Default: 1000 J/(kgK)
+        - Description: Specific heat capacity of the contaminant/species. Unit can be changed by right-clicking the component and selecting the desired one. Only used when the *variable junction temperatures* method is selected (invalid in the current version of ANT).
+    - **mean diam**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Mean diameter of the contaminant/species if this species is to be a particulate type species. Unit is micrometer (μm). Used when converting between particle count units and particle mass and volume units, and to determine filter efficiency of *simple particle filter elements* for this size particle.
+    - **eff dens**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Effective density of the contaminant/species that is considered to be a particulate type species. Unit can be changed by right-clicking the component and selecting the desired one. Only used when converting between particle count units and particle mass and volume units.
+    - **decay**: 
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Exponential decay constant based upon the half-life of the radioactive species. Unit is in 1/s.
+    - **Kuv**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Species-dependent rate constant used to determine UVGI filter effectiveness for a specific contaminant. Unit is m²/J.
+    - **default conc**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Default concentration of the contaminant/species. Unit can be changed by right-clicking the component and selecting the desired one. This value will be applied as the default initial concentration for each zone. Initial concentration for individual zones can be revised in [Zone](#zone) component per requirements. This value will also be used as the ambient contaminant concentration during simulations when no external ambient contaminant data file (CTM or WPC) is provided.
+ - **Outputs**:
+    - **species**:
+        - Type: Species [Item]
+        - Description: A contaminant/species element with updated settings.
+
+### Edit contaminant/species
+Edit existing contaminant/species.
+Contaminant/species settings will show up when the component is connected to an existing contaminant/species.
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A contaminant/species element to be edited.
+    - *species settings*: Same as the inputs of [Contaminant/Species](#contaminantspecies).
+ - **Outputs**:
+    - **species**:
+        - Type: Species [Item]
+        - Description: A contaminant/species element with updated settings.
+
+### Reactant-Product (R-P) pair
+Create a reactant-product (R-P) pair to create a kinetic reaction between two species.
+ - **Inputs**:
+    - **_reac** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: The reactant contaminant/species element in the R-P pair.
+    - **_prod** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: The product contaminant/species element in the R-P pair.
+    - **_coef** [required]:
+        - Type: Number [Item]
+        - Default: None
+        - Description: The reaction coefficiency from the reactant to the product.
+ - **Outputs**:
+    - **R-P pair**:
+        - Type: R-P pair [Item]
+        - Description: A reactant-product (R-P) pair element with updated settings.
+
+### Reaction
+Create a kinetic reaction between contaminants/species.
+ - **Inputs**: 
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the reaction.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the reaction.
+    - **_R-P pairs** [required]:
+        - Type: R-P pair [List]
+        - Default: None
+        - Description: A list of R-P pairs that define the reaction.
+ - **Outputs**:
+    - **reaction**:
+        - Type: Reaction [Item]
+        - Description: A kinetic reaction element with updated settings.
+
+### Particle distribution calculator
+Calculate particle distribution and generate a species library of particles with desired distributions and a CTM file of particles.\
+The original calculator is a web application on CONTAM website: [Particle Distribution Calculator](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software/contam-particle).
+ - **Inputs**:
+
 ## 06-Source/Sink
 ![Source/Sink components](./img/icons-src-sink.png)
 ## 07-Occupancy
