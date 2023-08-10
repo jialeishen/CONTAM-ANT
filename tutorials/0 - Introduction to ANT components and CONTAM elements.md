@@ -43,7 +43,7 @@ Create zones.
     - **init ctm conc**: 
         - Type: Number [List]
         - Default: 0 for all contaminants
-        - Description: Initial concentrations of simulated contaminants (specified in [Project](###project) component). Must match the size of contaminant inputs in [Project](###project) component. Same input for all specified zones (in **_zone**).
+        - Description: Initial concentrations of simulated contaminants (specified in [Project](#project) component). Must match the size of contaminant inputs in [Project](#project) component. Same input for all specified zones (in **_zone**).
     - **srcs/sinks**: 
         - Type: Source/Sink [List]
         - Default: None
@@ -148,7 +148,7 @@ Each generic opening contains an airflow path defined in **_path**. For openings
 ## 02-HVAC
 ![HVAC system components](./img/icons-hvac.png)
 ### Air handing system (AHS)
-Create air handling systems (AHS).\
+Create air handling system (AHS).\
 A simple AHS with a default name of "\_ahs\_?" is created, where "?" is the number of AHS created (AHS components that created).
 - **Inputs**:\
     ── Out Air ──
@@ -173,7 +173,7 @@ A simple AHS with a default name of "\_ahs\_?" is created, where "?" is the numb
     - **init ctm conc**: 
         - Type: Number [List]
         - Default: 0 for all contaminants
-        - Description: Initial concentrations of simulated contaminants (specified in [Project](###project) component) for the supply sub-system of the simple AHS. Must match the size of contaminant inputs in [Project](###project) component.
+        - Description: Initial concentrations of simulated contaminants (specified in [Project](#project) component) for the supply sub-system of the simple AHS. Must match the size of contaminant inputs in [Project](#project) component.
     
     ── Return ──
     - **volume**:
@@ -183,17 +183,17 @@ A simple AHS with a default name of "\_ahs\_?" is created, where "?" is the numb
     - **init ctm conc**: 
         - Type: Number [List]
         - Default: 0 for all contaminants
-        - Description: Initial concentrations of simulated contaminants (specified in [Project](###project) component) for the return sub-system of the simple AHS. Must match the size of contaminant inputs in [Project](###project) component.
+        - Description: Initial concentrations of simulated contaminants (specified in [Project](#project) component) for the return sub-system of the simple AHS. Must match the size of contaminant inputs in [Project](#project) component.
     
     ── Filters ──
     - **OA filter**:
         - Type: Filter element [Item]
         - Default: None
-        - Description: Outdoor air filter which affects the air brought in by the simple AHS from outside the building.
+        - Description: Outdoor air filter element which affects the air brought in by the simple AHS from outside the building.
     - **Rec filter**:
         - Type: Filter element [Item]
         - Default: None
-        - Description: Recirculation air filter which affects the return air being circulated back through the simple AHS.
+        - Description: Recirculation air filter element which affects the return air being circulated back through the simple AHS.
 - **Outputs**:
     - **ahs**:
         - Type: Air handling system [Item]
@@ -217,7 +217,7 @@ Create AHS supply.
     - **filter**:
         - Type: Filter element [Item]
         - Default: None
-        - Description: Filter that affects the supply air.
+        - Description: Filter element that affects the supply air.
 - **Outputs**:
     - **supply**:
         - Type: Airflow path (AHS supply) [Item]
@@ -241,7 +241,7 @@ Create AHS return.
     - **filter**:
         - Type: Filter element [Item]
         - Default: None
-        - Description: Filter that affects the return air.
+        - Description: Filter element that affects the return air.
 - **Outputs**:
     - **return**:
         - Type: Airflow path (AHS return) [Item]
@@ -250,10 +250,144 @@ Create AHS return.
 ## 03-Filter
 ![Filter components](./img/icons-filter.png)
 ### Filter element
+Create filter element.\
+Four types of filter elements are available: constant efficiency, simple gaseous, simple particle, and ultraviolet germicidal irradiation (UVGI). The type of filter element is selected by clicking the option buttons on the component.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the filter element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 1 m²
+        - Description: Face area of the filter element.
+    - **depth**:
+        - Type: Number [Item]
+        - Default: 0.1 m
+        - Description: Depth of the filter element along the axis of airflow.
+    - **density**:
+        - Type: Number [Item]
+        - Default: 100 kg/m³
+        - Description: Density of the filter element. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **_data** [required]:
+        - Type: Filter efficiency data [List]
+        - Default: None
+        - Description: A list of filter efficiency data that defines the contaminant removel efficiency by this filter element. Must match the type of filter element.
+- **Outputs**:
+    - **filter**:
+        - Type: Filter element [Item]
+        - Description: Filter element with updated settings.
+
 ### Filter efficiency data - Constant efficiency
+Create filter efficiency data for constant efficiency filter element.
+- **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: The contaminant species that is filtered by the filter element.
+    - **eff**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The efficiency of the filter element to filter the given contaminant species. Value must be between 0 and 1.
+- **Outputs**: 
+    - **filter data**:
+        - Type: Filter efficiency data (constant efficiency) [Item]
+        - Description: Filter efficiency data for constant efficiency filter element with updated settings.
+
 ### Filter efficiency data - Simple gaseous
+Create filter efficiency data for simple gaseous filter element.
+- **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: The contaminant species that is filtered by the filter element.
+    - **brk thru**: 
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The breakthrough concentration of the contaminant species for the simple gaseous filter element. This value will be used during simulation to report if and when the filter efficiency drops below this value. 
+    - **_effs** [required]:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the loading-efficiency pairs of the filter element. The loading-efficiency pair defines the efficiency of the filter element at the given loading. Each pair must be presented as a text in the format of `loading efficiency`. Loading and efficiency can be separated by a space, a comma, a tab, a colon, or a dashline. For example, `0.1 0.9`, `0.1,0.9`, and `0.1:0.9` are all valid loading-efficiency pairs.
+- **Outputs**:
+    - **filter data**:
+        - Type: Filter efficiency data (simple gaseous) [Item]
+        - Description: Filter efficiency data for simple gaseous filter element with updated settings.
+
 ### Filter efficiency data - Simple particle
+Create filter efficiency data for simple particle filter element.
+- **Inputs**:
+    - **_size_** [required]:
+        - Type: Number [Item]
+        - Default: None
+        - Description: The size of the particle, i.e. mean diameter, that is filtered by the filter element. Unit is in micrometer (μm).
+    - **eff**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The efficiency of the filter element to filter particles of the given particle size. Value must be between 0 and 1.
+- **Outputs**:
+    - **filter data**:
+        - Type: Filter efficiency data (simple particle) [Item]
+        - Description: Filter efficiency data for simple particle filter element with updated settings.
 ### Filter efficiency data - UVGI
+Create filter efficiency data for ultraviolet germicidal irradiation (UVGI) filter element.
+- **Inputs**:
+    - **survivability**:
+        - Type: Number [Item]
+        - Default: 0.01
+        - Description: Desired survivability of the filter. Value must be between 0 and 1. The single-pass filter inactivation efficiency is equal to `1 - survivability`.
+    - **velocity**:
+        - Type: Number [Item]
+        - Default: 4 m/s
+        - Description: Design maximum Velocity expected through the filter flow region. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mass flow**:
+        - Type: Number [Item]
+        - Default: 0.5 kg/s
+        - Description: Design maximum airflow rate expected through the filter flow region (mass flow rate). Unit can be changed by right-clicking the component and selecting the desired one. This will be used along with the **velocity** to calculate the cross-sectional flow area. 
+    - **const**:
+        - Type: Number [Item]
+        - Default: 0.02172
+        - Description: Design minimum microorganism-specific rate constant. Unit is in m²/J. This will be used to determine the design UV dose.
+
+    ─── TU ───
+    - **C0**:
+        - Type: Number [Item]
+        - Default: 5.79
+        - Description: TU constant C0. Used to determine the output as a percentage of design based on current conditions including flow velocity and temperature. 
+    - **C1**:
+        - Type: Number [Item]
+        - Default: 5.66
+        - Description: TU constant C1. Used to determine the output as a percentage of design based on current conditions including flow velocity and temperature. 
+    - **C2**:
+        - Type: Number [Item]
+        - Default: -20.3
+        - Description: TU constant C2. Used to determine the output as a percentage of design based on current conditions including flow velocity and temperature. 
+    - **C3**:
+        - Type: Number [Item]
+        - Default: -0.0701
+        - Description: TU constant C3. Used to determine the output as a percentage of design based on current conditions including flow velocity and temperature. 
+    - **C4**:
+        - Type: Number [Item]
+        - Default: 4.01
+        - Description: TU constant C4. Used to determine the output as a percentage of design based on current conditions including flow velocity and temperature. 
+
+    ─── Age ───
+    - **K0**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Age constant K0. Used to determine the percentage of output based on the lamp age function. 
+    - **K1**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Age constant K1. Used to determine the percentage of output based on the lamp age function. 
+- **Outputs**:
+    - **filter data**:
+        - Type: Filter efficiency data (UVGI) [Item]
+        - Description: Filter efficiency data for UVGI filter element with updated settings.
 
 ## 04-Schedule
 ![Schedule components](./img/icons-schedule.png)
