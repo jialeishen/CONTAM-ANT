@@ -13,7 +13,15 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [AHS Supply](#AHS-Supply)
     - [AHS Return](#AHS-Return)
  - [03-Filter](#03-Filter)
+    - [Filter element](#filter-element)
+    - [Filter efficiency data - Constant efficiency](#filter-efficiency-data---constant-efficiency)
+    - [Filter efficiency data - Simple gaseous](#filter-efficiency-data---simple-gaseous)
+    - [Filter efficiency data - Simple particle](#filter-efficiency-data---simple-particle)
+    - [Filter efficiency data - UVGI](#filter-efficiency-data---UVGI)
  - [04-Schedule](#04-Schedule)
+    - [Day schedule](#day-schedule)
+    - [Week schedule (weekdays & weekends)](#week-schedule-(weekdays-&-weekends))
+    - [Week schedule (detailed days)](#week-schedule-(detailed-days))
  - [05-Species](#05-Species)
  - [06-Source/Sink](#06-Source/Sink)
  - [07-Occupancy](#07-Occupancy)
@@ -23,12 +31,13 @@ ANT conponents are organized into 12 categories, each of which is represented by
  - [11-Simulation](#11-Simulation)
  - [12-Results](#12-Results)
 <!--te-->
-CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. The details of CONTAM elements can be found in CONTAM documents (e.g., [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34)). Some elements are introduced here for better understanding of ANT components.
+CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. Detailed introductions of CONTAM elements can be found in [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34). Some elements are introduced here for better understanding of ANT components.
 
 ## 01-Geometry
 ![geometry components](./img/icons-geometry.png)
 ### Zone
-Create zones.
+Create zones.\
+Zones with default names of `_zone_?` are created, where `?` is the number of zone created.
  - **Inputs**:
     - **_zone** [required]:
         - Type: Brep geometry [List]
@@ -149,7 +158,7 @@ Each generic opening contains an airflow path defined in **_path**. For openings
 ![HVAC system components](./img/icons-hvac.png)
 ### Air handing system (AHS)
 Create air handling system (AHS).\
-A simple AHS with a default name of "\_ahs\_?" is created, where "?" is the number of AHS created (AHS components that created).
+A simple AHS with a default name of `_ahs_?` is created, where `?` is the number of AHS created (AHS components that created).
 - **Inputs**:\
     ── Out Air ──
     - **min OA**:
@@ -251,7 +260,7 @@ Create AHS return.
 ![Filter components](./img/icons-filter.png)
 ### Filter element
 Create filter element.\
-Four types of filter elements are available: constant efficiency, simple gaseous, simple particle, and ultraviolet germicidal irradiation (UVGI). The type of filter element is selected by clicking the option buttons on the component.
+Four types of filter elements are available: constant efficiency, simple gaseous, simple particle, and ultraviolet germicidal irradiation (UVGI). The type of filter element can be selected by clicking the option buttons on the component.
  - **Inputs**:
     - **_name** [required]:
         - Type: Text [Item]
@@ -339,7 +348,7 @@ Create filter efficiency data for ultraviolet germicidal irradiation (UVGI) filt
     - **survivability**:
         - Type: Number [Item]
         - Default: 0.01
-        - Description: Desired survivability of the filter. Value must be between 0 and 1. The single-pass filter inactivation efficiency is equal to `1 - survivability`.
+        - Description: Desired survivability of the filter. Value must be between 0 and 1. The single-pass filter inactivation efficiency is equal to: 1 - survivability.
     - **velocity**:
         - Type: Number [Item]
         - Default: 4 m/s
@@ -391,6 +400,120 @@ Create filter efficiency data for ultraviolet germicidal irradiation (UVGI) filt
 
 ## 04-Schedule
 ![Schedule components](./img/icons-schedule.png)
+### Day schedule
+Create a day schedule.\
+Three types of day schedules are available: dimensionless, temperature, and occupancy. The type of day schedule can be selected by clicking the option buttons on the component. The interpretion shape of the data can be changed by right-clicking the component and selecting the desired one (rectangular or trapezoidal).
+- **Inputs**:
+    - **_name_** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the day schedule.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the day schedule.
+    - **_data** [required]:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the day schedule data. Each text must be presented as a text in the format of `time value`. Time and value can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0 0.1`, `0,0.1`, and `0:0.1` are all valid time-value pairs.
+            - `time`: needs to be in the format of `H:mm:ss`, `H:mm`, or simply `H`. For example, `6`, `6:00`, and `6:00:00` are all valid time formats for 6AM. A valid day schedule must be started with time 0 (`0`, `0:00`, or `0:00:00`) and ended with time 24 (`24`, `24:00`, or `24:00:00`). 
+            - `value`: 
+                - Dimensionless day schedule: `value` needs to be a number between 0 and 1.
+                - Temperature day schedule: `value` can be any number in °C or °F. Unit can be changed by right-clicking the component and selecting the desired one.
+                - Occupancy day schedule: `value` needs to be a string of zone name. Zone names can be visualized by right-clicking the component and clicking the *visualize zone names* item. For example, `6, _zone_1` represents the occupant is in *_zone_1* at 6AM.
+ - **Outputs**:
+    - **day sched**:
+        - Type: Day schedule [Item]
+        - Description: A day schedule element with updated settings.
+
+### Week schedule (weekdays & weekends)
+Create a week schedule by defining the day schedules for weekdays and weekends.
+ - **Inputs**:
+    - **_name_** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the week schedule.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the week schedule.
+    - **_weekdays** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for all weekdays  (Monday through Friday).
+    - **_weekends** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for all weekends (Saturday and Sunday) and extra days (day type 8 - 12, defined for days with non-typical schedules, such as holidays).
+ - **Outputs**: 
+    - **sched**:
+        - Type: Week schedule [Item]
+        - Description: A week schedule element with updated settings.
+
+### Week schedule (detailed days)
+Create a week schedule by defining the day schedules for each day of the week and extra days.
+ - **Inputs**:
+    - **_name_** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the week schedule.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the week schedule.
+    - **_Sun** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Sunday.
+    - **_Mon** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Monday.
+    - **_Tue** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Tuesday.
+    - **_Wed** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Wednesday.
+    - **_Thu** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Thursday.
+    - **_Fri** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Friday.
+    - **_Sat** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for Saturday.
+    - **_8** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for day type 8.
+    - **_9** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for day type 9.
+    - **_10** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for day type 10.
+    - **_11** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for day type 11.
+    - **_12** [required]:
+        - Type: Day schedule [Item]
+        - Default: None
+        - Description: A day schedule element for day type 12.
+- **Outputs**:
+    - **sched**:
+        - Type: Week schedule [Item]
+        - Description: A week schedule element with updated settings.
+
 ## 05-Species
 ![Species components](./img/icons-species.png)
 ## 06-Source/Sink
