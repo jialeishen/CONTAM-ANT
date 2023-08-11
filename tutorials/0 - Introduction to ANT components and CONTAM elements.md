@@ -2,39 +2,39 @@
 
 ANT conponents are organized into 12 categories, each of which is represented by a tab in the ANT toolbar. The 12 categories are:
 <!--ts-->
- - [01-Geometry](#01-Geometry)
+ - [01-Geometry](#01-geometry)
     - [Zone](#zone)
     - [Door](#door)
     - [Window](#window)
     - [Orifice](#orifice)
     - [Generic opening](#generic-opening)
- - [02-HVAC](#02-HVAC)
+ - [02-HVAC](#02-hvac)
     - [Air handling system (AHS)](#air-handing-system-ahs)
-    - [AHS Supply](#AHS-Supply)
-    - [AHS Return](#AHS-Return)
- - [03-Filter](#03-Filter)
+    - [AHS Supply](#ahs-supply)
+    - [AHS Return](#ahs-return)
+ - [03-Filter](#03-filter)
     - [Filter element](#filter-element)
     - [Filter efficiency data - Constant efficiency](#filter-efficiency-data---constant-efficiency)
     - [Filter efficiency data - Simple gaseous](#filter-efficiency-data---simple-gaseous)
     - [Filter efficiency data - Simple particle](#filter-efficiency-data---simple-particle)
-    - [Filter efficiency data - UVGI](#filter-efficiency-data---UVGI)
- - [04-Schedule](#04-Schedule)
+    - [Filter efficiency data - UVGI](#filter-efficiency-data---uvgi)
+ - [04-Schedule](#04-schedule)
     - [Day schedule](#day-schedule)
     - [Week schedule (weekdays & weekends)](#week-schedule-weekdays--weekends)
     - [Week schedule (detailed days)](#week-schedule-detailed-days)
- - [05-Species](#05-Species)
+ - [05-Species](#05-species)
     - [Contaminant/Species](#contaminantspecies)
     - [Edit contaminant/species](#edit-contaminantspecies)
     - [Reactant-Product (R-P) pair](#reactant-product-r-p-pair)
     - [Reaction](#reaction)
     - [Particle distribution calculator](#particle-distribution-calculator)
- - [06-Source/Sink](#06-SourceSink)
- - [07-Occupancy](#07-Occupancy)
- - [08-Airflow](#08-Airflow)
- - [09-Library](#09-Library)
- - [10-Ambient](#10-Ambient)
- - [11-Simulation](#11-Simulation)
- - [12-Results](#12-Results)
+ - [06-Source/Sink](#06-sourcesink)
+ - [07-Occupancy](#07-occupancy)
+ - [08-Airflow](#08-airflow)
+ - [09-Library](#09-library)
+ - [10-Ambient](#10-ambient)
+ - [11-Simulation](#11-simulation)
+ - [12-Results](#12-results)
 <!--te-->
 CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. Detailed introductions of CONTAM elements can be found in [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34). Some elements are introduced here for better understanding of ANT components.
 
@@ -52,8 +52,8 @@ Zones with default names of `_zone_?` are created, where `?` is the number of zo
         - Type: Number / Week Schedule (temperature) [Item]
         - Default: 20 °C (constant)
         - Description: Zone temperature. Same input for all specified zones (in **_zone**). Unit can be changed by right-clicking the component and selecting the desired one.
-            - Number input → Constant temperature over time.
-            - Schedule input → Variable temperatures over time.
+            - Number input: Constant temperature over time.
+            - Schedule input: Variable temperatures over time.
     - **init ctm conc**: 
         - Type: Number [List]
         - Default: 0 for all contaminants
@@ -701,8 +701,236 @@ The original calculator is a web application on CONTAM website: [Particle Distri
     - **pm ctm**:
         - Type: Text [Item]
         - Description: A relative file path of the generated CTM file of particles.
+
 ## 06-Source/Sink
-![Source/Sink components](./img/icons-src-sink.png)
+![Source components](./img/icons-src.png)
+### Source - Constant coefficiency
+Create a contaminant/species source with a constant generation/removal rate.\
+A constant coefficiency source with a default name of `_SrcCsCcf_?` is created, where `?` is the number of constant coefficiency source created.
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **gener rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is introduced into the zone. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **remov rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is removed from the zone. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+        
+### Source - Burst mass
+Create a contaminant/species source, which releases instantaneous mass of contaminant into the zone.\
+A burst mass source with a default name of `_SrcCsBrs_?` is created, where `?` is the number of burst mass source created.
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **mass added**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: A value for the instantaneous mass release into the zone. The addition of mass is controlled by a schedule; when the schedule changes from zero to a non-zero value, mass is added to the zone in one simulation time setp. The amount of mass added is equal to the mass added to zone value times the schedule value. A single schedule can initiate several events at different times. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+
+### Source - Cutoff concentration
+Create a contaminant/species source with a reducing emission as the concentration within the zone approaching a specified cutoff concentration.\
+A cutoff concentration source with a default name of `_SrcCsCut_?` is created, where `?` is the number of cutoff concentration source created.\
+This model may be appropriate for some sources of volatile organic compounds (VOCs).
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **gener rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is introduced into the zone as a function of concentration. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **cutoff conc**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The concentration at which the source emission is reduced to zero. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+
+### Source - Decaying source
+Create a contaminant/species source with exponentially decaying with time according to a user-defined time constant.\
+A decaying source with a default name of `_SrcCsEds_?` is created, where `?` is the number of decaying source created.\
+This model may be appropriate for some sources of volatile organic compounds (VOCs).
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **gener rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Contaminant generation is controlled by a schedule. Contaminant generation begins when the schedule changes from a zero to a non-zero value (between 0 and 1). The initial generation is equal to the schedule value times the initial generation rate. A single scheudle may be used to initiate several emissions at different times. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **decay const**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The time at which the generation rate decays by 0.368 of the original rate. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+
+### Source - Pressure driven
+Create a contaminant/species source that is governed by the pressure differences between interior and exterior zones, e.g., radon or soil gas entry.\
+A pressure driven source with a default name of `_SrcCsPrs_?` is created, where `?` is the number of pressure driven source created.\
+The generation rate is calculated by:
+$$S_\alpha(t) = mult \cdot ctrl \cdot G (\Delta P)^n$$
+$S$ = contaminant source strength at time $t$ \
+$G$ = generation rate coefficient [$kg_\alpha /Pa^n \cdot s$]\
+$\Delta P$ = pressure difference (ambient pressure - zone pressure) [$Pa$]\
+$n$ = pressure exponent [no units]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **gener rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is introduced into the zone as a function of pressure difference. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **prs expon**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Pressure exponent. It describe the dependence on pressure of the contaminant entry.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+
+### Source - Peak model (NRCC)
+Create a contaminant/species source with a constant emission rate until specified time at which the peak emission rate is obtained after which time the emission rate decays according to the peak model relationship.\
+A peak model source with a default name of `_SrcCsPkm_?` is created, where `?` is the number of peak model source created.\
+This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.
+
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **peak gener**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Peak emission rate. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **fit param**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The fitting parameter.
+    - **time**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The time at which the peak emission rate is obtained. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+
+### Source - Power-law model (NRCC)
+Create a contaminant/species source with a constant emission rate until specified time after which time the emission rate decays according to the power law relationship.\
+A power-law model source with a default name of `_SrcCsPlm_?` is created, where `?` is the number of power-law model source created.\
+This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the source.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the source.
+    - **init gener**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Initial emission rate. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **expon**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The power law exponent.
+    - **time**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Power-law model time. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the source strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **src**:
+        - Type: Source [Item]
+        - Description: A source element with updated settings.
+
+![Sink components](./img/icons-sink.png)
+### Sink - Constant coefficiency
+
+### Sink - Deposition rate
+
+### Sink - Deposition velocity
+
+### Sink - Deposition with resuspension emission
+
+### Sink - Boundary layer diffusion model
+
 ## 07-Occupancy
 ![Occupancy components](./img/icons-occupancy.png)
 ## 08-Airflow
