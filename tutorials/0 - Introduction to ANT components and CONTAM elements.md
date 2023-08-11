@@ -29,6 +29,18 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Reaction](#reaction)
     - [Particle distribution calculator](#particle-distribution-calculator)
  - [06-Source/Sink](#06-sourcesink)
+    - [Source - Constant coefficiency](#source---constant-coefficiency)
+    - [Source - Burst mass](#source---burst-mass)
+    - [Source - Cutoff concentration](#source---cutoff-concentration)
+    - [Source - Decaying source](#source---decaying-source)
+    - [Source - Pressure driven](#source---pressure-driven)
+    - [Source - Peak model (NRCC)](#source---peak-model-nrcc)
+    - [Source - Power-law model (NRCC)](#source---power-law-model-nrcc)
+    - [Sink - Constant coefficiency](#sink---constant-coefficiency)
+    - [Sink - Deposition rate](#sink---deposition-rate)
+    - [Sink - Deposition velocity](#sink---deposition-velocity)
+    - [Sink - Deposition with resuspension emission](#sink---deposition-with-resuspension-emission)
+    - [Sink - Boundary layer diffusion model](#sink---boundary-layer-diffusion-model)
  - [07-Occupancy](#07-occupancy)
  - [08-Airflow](#08-airflow)
  - [09-Library](#09-library)
@@ -968,7 +980,7 @@ $mult$ = Source/sink multiplier [no units]
 ### Sink - Constant coefficiency
 Create a contaminant/species sink with a constant generation/removal rate.\
 A constant coefficiency sink with a default name of `_SinkCsCcf_?` is created, where `?` is the number of constant coefficiency sink created.\
-The generation rate is calculated by:
+The removal rate is calculated by:
 $$R_\alpha(t) = mult \cdot ctrl \cdot G - mult \cdot ctrl \cdot R \cdot C_\alpha(t)$$
 $R_\alpha(t)$ = Sink strength at time $t$ [$kg_\alpha /s$]\
 $G$ = Generation rate [$kg_\alpha /s$]\
@@ -1005,12 +1017,185 @@ $ctrl$ = Schedule or control value [no units]
         - Description: A sink element with updated settings.
         
 ### Sink - Deposition rate
+Create a contaminant/species sink with a deposition rate.\
+This model is dependent on the mass of air in the zone in which the source/sink is located and will behave similar to that of a kinetic reaction having the same reaction rate.\
+A deposition rate sink with a default name of `_SinkCsDrs_?` is created, where `?` is the number of deposition rate sink created.\
+The removal rate is calculated by:
+$$R_\alpha(t) = mult \cdot ctrl \cdot k_d \cdot V_z \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [$kg_\alpha /s$]\
+$V_z$ = Zone volume [$m^3$]\
+$k_d$ = Deposition rate [$1/s$]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the sink.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the sink.
+    - **dep rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The deposition rate of the contaminant/species ($k_d$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **sink**:
+        - Type: Sink [Item]
+        - Description: A sink element with updated settings.
 
 ### Sink - Deposition velocity
+Create a contaminant/species sink with a deposition velocity.\
+This model differs from the [Deposition Rate Sink Model](#sink---deposition-rate) in that it is not dependent on the mass of air in the zone in which it is located.\
+A deposition velocity sink with a default name of `_SinkCsDvs_?` is created, where `?` is the number of deposition velocity sink created.\
+The removal rate is calculated by:
+$$R_\alpha(t) = mult \cdot ctrl \cdot v_d \cdot A_s \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [$kg_\alpha /s$]\
+$v_d$ = Deposition velocity [$m/s$]\
+$A_s$ = Deposition surface area [$m^2$]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the sink.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the sink.
+    - **dep vel**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The deposition velocity of the contaminant/species ($v_d$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **dep area**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The deposition surface area of the contaminant/species ($A_s$).
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **sink**:
+        - Type: Sink [Item]
+        - Description: A sink element with updated settings.
 
 ### Sink - Deposition with resuspension emission
+Create a contaminant/species that provides contaminant removal from the zone air by deposition to a surface with source emission via resuspension from the surface.\
+The total deposition surface area remains constant, but the resuspension rate and area can be modified by a schedule or control value.\
+A deposition with resuspension emission sink with a default name of `_SinkCsDvr_?` is created, where `?` is the number of deposition with resuspension emission sink created.\
+The removal rate is calculated by:
+$$R_\alpha(t) = v_d \cdot (mult \cdot A_s) \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
+The resuspension rate is calculated by:
+$$S_\alpha(t) = (ctrl \cdot r \cdot A_r) \cdot L_\alpha(t)$$
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) of contaminant $\alpha$ from zone air to surface at time $t$ [$kg_\alpha /s$]\
+$v_d$ = Deposition velocity [$m/s$]\
+$A_s$ = Deposition surface area [$m^2$]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$S_\alpha(t)$ = Source strength (resuspension) of contaminant $\alpha$ from surface to zone air at time $t$ [$kg_\alpha /s$]\
+$r$ = Resuspension rate [$1/s$]\
+$A_r$ = Resuspension surface area [$m^2$]\
+$L_\alpha(t)$ = Concentration of contaminant $\alpha$ on the deposition surface at time $t$ [$kg_\alpha / m^2$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the sink.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the sink.
+    - **dep vel**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The deposition velocity of the contaminant/species ($v_d$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **dep area**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The deposition surface area of the contaminant/species ($A_s$).
+    - **resusp rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The resuspension rate of the contaminant/species ($r$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **resusp area**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The resuspension surface area of the contaminant/species ($A_r$). The resuspension surface area may be different from that of the deposition surface area, e.g., a shoe impacting the deposition surface. Once associated with a source/sink, the resuspension rate can be varied using a schedule or control also associated with the source/sink.  
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **sink**:
+        - Type: Sink [Item]
+        - Description: A sink element with updated settings.
 
 ### Sink - Boundary layer diffusion model
+Create a contaminant/species sink with a boundary layer diffusion model.\
+The boundary layer diffusion controlled reversible sink/source model with a linear sorption isotherm. The boundary layer refers to the region above the surface of a material through which a concentration gradient exists between the near-surface concentration and the air-phase concentration.\
+A boundary layer diffusion sink with a default name of `_SinkCsBls_?` is created, where `?` is the number of boundary layer diffusion sink created.\
+The removal rate is calculated by:
+$$R_\alpha(t) = ctrl \cdot h \cdot d \cdot A_s \cdot [C_\alpha(t) - C_s(t) / k]$$
+$R_\alpha(t)$ = Sink strength of contaminant $\alpha$ from zone air transferred onto a surface at time $t$ [$kg_\alpha /s$]\
+$ctrl$ = Schedule or control value [no units]\
+$h$ = Film mass transfer coefficient over the sink [$m/s$]\
+$d$ = Film density of air [$kg_{air}/m^3$]\
+$A_s$ = Surface area of the adsorbent [$m^2$]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone air at time $t$ [$kg_\alpha / kg_{air}$]\
+$C_s(t)$ = Concentration of contaminant $\alpha$ in the adsorbent at time $t$\
+$k$ = Henry adsorption constant or the partition coefficient [$kg_{air}/kg_{surface}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units]
+
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the sink.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the sink.
+    - **film trf coef**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The film mass transfer coefficient over the sink ($h$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **film dens**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The film density of air ($d$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **srf mass**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Surface mass of absorbed contaminant/species. unit can be changed by right-clicking the component and selecting the desired one.
+    - **prtn coef**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The Henry adsorption constant or the partition coefficient ($k$).
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+        - **sink**:
+            - Type: Sink [Item]
+            - Description: A sink element with updated settings.
 
 ## 07-Occupancy
 ![Occupancy components](./img/icons-occupancy.png)
