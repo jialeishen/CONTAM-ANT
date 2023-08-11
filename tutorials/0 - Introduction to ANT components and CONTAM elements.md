@@ -23,6 +23,11 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Week schedule (weekdays & weekends)](#week-schedule-(weekdays-&-weekends))
     - [Week schedule (detailed days)](#week-schedule-(detailed-days))
  - [05-Species](#05-Species)
+    - [Contaminant/Species](#contaminant/species)
+    - [Edit contaminant/species](#edit-contaminant/species)
+    - [Reactant-Product (R-P) pair](#reactant-product-(r-p)-pair)
+    - [Reaction](#reaction)
+    - [Particle distribution calculator](#particle-distribution-calculator)
  - [06-Source/Sink](#06-Source/Sink)
  - [07-Occupancy](#07-Occupancy)
  - [08-Airflow](#08-Airflow)
@@ -415,7 +420,7 @@ Three types of day schedules are available: dimensionless, temperature, and occu
     - **_data** [required]:
         - Type: Text [List]
         - Default: None
-        - Description: A list of texts that represents the day schedule data. Each text must be presented as a text in the format of `time value`. Time and value can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0 0.1`, `0,0.1`, and `0:0.1` are all valid time-value pairs.
+        - Description: A list of texts that represents the day schedule data. Each text must be presented as a text in the format of `time value`. Time and value can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0 0.1`, `0,0.1`, and `0-0.1` are all valid time-value pairs.
             - `time`: needs to be in the format of `H:mm:ss`, `H:mm`, or simply `H`. For example, `6`, `6:00`, and `6:00:00` are all valid time formats for 6AM. A valid day schedule must be started with time 0 (`0`, `0:00`, or `0:00:00`) and ended with time 24 (`24`, `24:00`, or `24:00:00`). 
             - `value`: 
                 - Dimensionless day schedule: `value` needs to be a number between 0 and 1.
@@ -620,10 +625,82 @@ Create a kinetic reaction between contaminants/species.
         - Description: A kinetic reaction element with updated settings.
 
 ### Particle distribution calculator
-Calculate particle distribution and generate a species library of particles with desired distributions and a CTM file of particles.\
-The original calculator is a web application on CONTAM website: [Particle Distribution Calculator](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software/contam-particle).
+Calculate particle distribution and generate a species library (LB0) of particles with desired distributions and a CTM file of particles.\
+The original calculator is a web application on CONTAM website: [Particle Distribution Calculator](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software/contam-particle). Number of modes can be selected by clicking the *number of modes* button on the component. Distribution type can be selected by clicking the *distribution type* button on the component. Click *Calculate* button on the component to generate desired files (LB0 and CTM). 
  - **Inputs**:
+    - **bins**: 
+        - Type: Integer [Item]
+        - Default: 20
+        - Description: Number of bins to divide the particle size range into.
+    - **min diam**:
+        - Type: Number [Item]
+        - Default: 0.001 µm
+        - Description: Smallest particle diameter. Unit is in micrometer (µm).
+    - **max diam**:
+        - Type: Number [Item]
+        - Default: 10 µm
+        - Description: Largest particle diameter. Unit is in micrometer (µm).
+    - **air dens**:
+        - Type: Number [Item]
+        - Default: 1.2041 kg/m³
+        - Description: Air density. Unit is in kg/m³.
+    - **pm dens**:
+        - Type: Number [Item]
+        - Default: 1200 kg/m³
+        - Description: Particle density. Unit is in kg/m³.
+    - **user-defined bins**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the user-defined bins. If this input is not empty, the inputs of **bins**, **min diam**, **max diam**, and *mode settings* will be ignored. The size of list represents the number of bins. Each text must be presented as a text in the format of `diameter[µm]  concentration[#/cm³] (concentration[#/cm³] concentration[#/cm³])` (mode 1: `concentration[#/cm³]` × 1; mode 2: `concentration[#/cm³]` × 2; mode 3: `concentration[#/cm³]` × 3). Variables can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0.1 100`, `0.1,100`, and `0.1-100` are all valid user-defined bins. The selection of *number of modes* needs to match the size of each text of user-defined bin (e.g., if mode = 3, the bin text should be `diameter, conc 1, conc 2, conc 3`). For example, `0.1, 100, 200, 300` represents the particle distribution has 3 modes, the concentration of particles in 0.1 µm diameter is 100 #/cm³, 200 #/cm³, and 300 #/cm³ for mode 1, 2, and 3, respectively. 
+        
+    ── mode 1 ──
+    - **µ_log** (or **µ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 0.014 µm
+        - Description: Mean (µ) of particle diameters. Unit is in micrometer (µm).
+    - **σ_log** (or **σ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 1.8 µm
+        - Description: Standard deviation (σ) of particle diameters. Unit is in micrometer (µm).
+    - **total N**:
+        - Type: Number [Item]
+        - Default: 10600 #/cm³
+        - Description: Total particle number concentration. Unit is in #/cm³.
 
+    ── mode 2 ──
+    - **µ_log** (or **µ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 0.054 µm
+        - Description: Mean (µ) of particle diameters. Unit is in micrometer (µm).
+    - **σ_log** (or **σ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 2.16 µm
+        - Description: Standard deviation (σ) of particle diameters. Unit is in micrometer (µm).
+    - **total N**:
+        - Type: Number [Item]
+        - Default: 32000 #/cm³
+        - Description: Total particle number concentration. Unit is in #/cm³.
+
+    ── mode 3 ──
+    - **µ_log** (or **µ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 0.86 µm
+        - Description: Mean (µ) of particle diameters. Unit is in micrometer (µm).
+    - **σ_log** (or **σ** for normal distribution):
+        - Type: Number [Item]
+        - Default: 2.21 µm
+        - Description: Standard deviation (σ) of particle diameters. Unit is in micrometer (µm).
+    - **total N**:
+        - Type: Number [Item]
+        - Default: 5.4 #/cm³
+        - Description: Total particle number concentration. Unit is in #/cm³.
+ - **Outputs**:
+    - **pm lib**:
+        - Type: Text [Item]
+        - Description: A relative file path of the generated species library file (LB0).
+    - **pm ctm**:
+        - Type: Text [Item]
+        - Description: A relative file path of the generated CTM file of particles.
 ## 06-Source/Sink
 ![Source/Sink components](./img/icons-src-sink.png)
 ## 07-Occupancy
