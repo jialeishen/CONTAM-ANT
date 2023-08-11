@@ -706,7 +706,17 @@ The original calculator is a web application on CONTAM website: [Particle Distri
 ![Source components](./img/icons-src.png)
 ### Source - Constant coefficiency
 Create a contaminant/species source with a constant generation/removal rate.\
-A constant coefficiency source with a default name of `_SrcCsCcf_?` is created, where `?` is the number of constant coefficiency source created.
+A constant coefficiency source with a default name of `_SrcCsCcf_?` is created, where `?` is the number of constant coefficiency source created.\
+The generation rate is calculated by:
+$$S_\alpha(t) = mult \cdot ctrl \cdot G - mult \cdot ctrl \cdot R \cdot C_\alpha(t)$$
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
+$G$ = Generation rate [$kg_\alpha /s$]\
+$R$ = Effective removal rate [$kg_{air} /s$]\
+Determine by multiplying the first-order removal rate of the contaminant [$1/s$] by air density [$kg_{air}/m^3$] and volume [$m^3$] of the zone in which the source is to be located.\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
  - **Inputs**:
     - **_species** [required]:
         - Type: Species [Item]
@@ -719,11 +729,11 @@ A constant coefficiency source with a default name of `_SrcCsCcf_?` is created, 
     - **gener rate**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The rate at which the contaminant/species is introduced into the zone. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The rate at which the contaminant/species is introduced into the zone ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **remov rate**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The rate at which the contaminant/species is removed from the zone. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The rate at which the contaminant/species is removed from the zone ($R$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -761,7 +771,16 @@ A burst mass source with a default name of `_SrcCsBrs_?` is created, where `?` i
 ### Source - Cutoff concentration
 Create a contaminant/species source with a reducing emission as the concentration within the zone approaching a specified cutoff concentration.\
 A cutoff concentration source with a default name of `_SrcCsCut_?` is created, where `?` is the number of cutoff concentration source created.\
-This model may be appropriate for some sources of volatile organic compounds (VOCs).
+This model may be appropriate for some sources of volatile organic compounds (VOCs).\
+The generation rate is calculated by:
+$$S_\alpha(t) = mult \cdot ctrl \cdot G \cdot (1 - C_\alpha(t)/C_{cut})$$
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
+$G$ = Generation rate [$kg_\alpha /s$]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$C_{cut}$ = Cutoff concentration at which emission ceases [$kg_\alpha / kg_{air}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
  - **Inputs**:
     - **_species** [required]:
         - Type: Species [Item]
@@ -774,11 +793,11 @@ This model may be appropriate for some sources of volatile organic compounds (VO
     - **gener rate**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The rate at which the contaminant/species is introduced into the zone as a function of concentration. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The rate at which the contaminant/species is introduced into the zone as a function of concentration ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **cutoff conc**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The concentration at which the source emission is reduced to zero. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The concentration at which the source emission is reduced to zero ($C_{cut}$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -787,7 +806,16 @@ This model may be appropriate for some sources of volatile organic compounds (VO
 ### Source - Decaying source
 Create a contaminant/species source with exponentially decaying with time according to a user-defined time constant.\
 A decaying source with a default name of `_SrcCsEds_?` is created, where `?` is the number of decaying source created.\
-This model may be appropriate for some sources of volatile organic compounds (VOCs).
+This model may be appropriate for some sources of volatile organic compounds (VOCs).\
+The generation rate is calculated by:
+$$S_\alpha(t) = mult \cdot ctrl \cdot G_0 \cdot e^{-\Delta t/\tau _c}$$
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
+$G_0$ = Initial generation rate [$kg_\alpha /s$]\
+$\Delta t$ = Elapsed time since the start of emission [$s$]\
+$\tau _c$ = Time constant [$s$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
+
  - **Inputs**:
     - **_species** [required]:
         - Type: Species [Item]
@@ -800,11 +828,11 @@ This model may be appropriate for some sources of volatile organic compounds (VO
     - **gener rate**:
         - Type: Number [Item]
         - Default: 0
-        - Description: Contaminant generation is controlled by a schedule. Contaminant generation begins when the schedule changes from a zero to a non-zero value (between 0 and 1). The initial generation is equal to the schedule value times the initial generation rate. A single scheudle may be used to initiate several emissions at different times. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: Initial generation rate ($G_0$). Contaminant generation is controlled by a schedule. Contaminant generation begins when the schedule changes from a zero to a non-zero value (between 0 and 1). The initial generation is equal to the schedule value times the initial generation rate. A single scheudle may be used to initiate several emissions at different times. Unit can be changed by right-clicking the component and selecting the desired one.
     - **decay const**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The time at which the generation rate decays by 0.368 of the original rate. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The time at which the generation rate decays by 0.368 of the original rate ($\tau_c$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -819,10 +847,10 @@ Create a contaminant/species source that is governed by the pressure differences
 A pressure driven source with a default name of `_SrcCsPrs_?` is created, where `?` is the number of pressure driven source created.\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot ctrl \cdot G (\Delta P)^n$$
-$S$ = contaminant source strength at time $t$ \
-$G$ = generation rate coefficient [$kg_\alpha /Pa^n \cdot s$]\
-$\Delta P$ = pressure difference (ambient pressure - zone pressure) [$Pa$]\
-$n$ = pressure exponent [no units]\
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
+$G$ = Generation rate coefficient [$kg_\alpha /Pa^n \cdot s$]\
+$\Delta P$ = Pressure difference (ambient pressure - zone pressure) [$Pa$]\
+$n$ = Pressure exponent [no units]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
  - **Inputs**:
@@ -837,11 +865,11 @@ $ctrl$ = Schedule or control value [no units]
     - **gener rate**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The rate at which the contaminant/species is introduced into the zone as a function of pressure difference. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The rate at which the contaminant/species is introduced into the zone as a function of pressure difference ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **prs expon**:
         - Type: Number [Item]
         - Default: 0
-        - Description: Pressure exponent. It describe the dependence on pressure of the contaminant entry.
+        - Description: Pressure exponent ($n$). It describe the dependence on pressure of the contaminant entry.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -854,7 +882,12 @@ $ctrl$ = Schedule or control value [no units]
 ### Source - Peak model (NRCC)
 Create a contaminant/species source with a constant emission rate until specified time at which the peak emission rate is obtained after which time the emission rate decays according to the peak model relationship.\
 A peak model source with a default name of `_SrcCsPkm_?` is created, where `?` is the number of peak model source created.\
-This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.
+This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.\
+The generation rate is calculated by:
+$$S_\alpha(t) = mult \cdot a \cdot e ^ {-0.5[(1/b) \cdot ln(t/t_p)]^2}$$
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]. It will increase up until time $t_p$ at which point it will begin to decay.\
+$a$, $b$, and $t_p$ = Empirical coefficients typically determined from emission chamber measurements.\
+$mult$ = Source/sink multiplier [no units]
 
  - **Inputs**:
     - **_species** [required]:
@@ -868,15 +901,15 @@ This source is provided for compatibility with the Material Emissions Database d
     - **peak gener**:
         - Type: Number [Item]
         - Default: 0
-        - Description: Peak emission rate. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: Peak emission rate ($a$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **fit param**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The fitting parameter.
+        - Description: The fitting parameter ($b$).
     - **time**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The time at which the peak emission rate is obtained. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The time at which the peak emission rate is obtained ($t_p$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -889,7 +922,18 @@ This source is provided for compatibility with the Material Emissions Database d
 ### Source - Power-law model (NRCC)
 Create a contaminant/species source with a constant emission rate until specified time after which time the emission rate decays according to the power law relationship.\
 A power-law model source with a default name of `_SrcCsPlm_?` is created, where `?` is the number of power-law model source created.\
-This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.
+This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.\
+The generation rate is calculated by:\
+For $t	\leqslant t_p$ the initial emission rate is:
+$$S_{\alpha,o}(t) = mult \cdot a \cdot t_p^{-b}$$
+and for $t > t_p$:
+$$S_\alpha(t) = mult \cdot a \cdot t^{-b}$$
+$S_{\alpha,o}(t)$ = Intitial source strength before time $t_p$ [$kg_\alpha /s$].\
+$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$].\
+$a$ and $b$ = Empirical coefficients typically determined from emission chamber measurements.\
+$t_p$ = Power-law model time [$s$].\
+$mult$ = Source/sink multiplier [no units]
+
  - **Inputs**:
     - **_species** [required]:
         - Type: Species [Item]
@@ -902,15 +946,15 @@ This source is provided for compatibility with the Material Emissions Database d
     - **init gener**:
         - Type: Number [Item]
         - Default: 0
-        - Description: Initial emission rate. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: Initial emission rate ($a$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **expon**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The power law exponent.
+        - Description: The power law exponent ($b$).
     - **time**:
         - Type: Number [Item]
         - Default: 0
-        - Description: Power-law model time. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: Power-law model time ($t_p$). Unit can be changed by right-clicking the component and selecting the desired one.
     - **mult**:
         - Type: Number [Item]
         - Default: 1
@@ -922,7 +966,44 @@ This source is provided for compatibility with the Material Emissions Database d
 
 ![Sink components](./img/icons-sink.png)
 ### Sink - Constant coefficiency
+Create a contaminant/species sink with a constant generation/removal rate.\
+A constant coefficiency sink with a default name of `_SinkCsCcf_?` is created, where `?` is the number of constant coefficiency sink created.\
+The generation rate is calculated by:
+$$R_\alpha(t) = mult \cdot ctrl \cdot G - mult \cdot ctrl \cdot R \cdot C_\alpha(t)$$
+$R_\alpha(t)$ = Sink strength at time $t$ [$kg_\alpha /s$]\
+$G$ = Generation rate [$kg_\alpha /s$]\
+$R$ = Effective removal rate [$kg_{air} /s$]\
+Determine by multiplying the first-order removal rate of the contaminant [$1/s$] by air density [$kg_{air}/m^3$] and volume [$m^3$] of the zone in which the source is to be located.\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$mult$ = Source/sink multiplier [no units]\
+$ctrl$ = Schedule or control value [no units] 
 
+ - **Inputs**:
+    - **_species** [required]:
+        - Type: Species [Item]
+        - Default: None
+        - Description: A species element that is associated with the sink.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the sink.
+    - **gener rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is introduced into the zone ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **remov rate**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The rate at which the contaminant/species is removed from the zone ($R$). Unit can be changed by right-clicking the component and selecting the desired one.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+ - **Outputs**:
+    - **sink**:
+        - Type: Sink [Item]
+        - Description: A sink element with updated settings.
+        
 ### Sink - Deposition rate
 
 ### Sink - Deposition velocity
