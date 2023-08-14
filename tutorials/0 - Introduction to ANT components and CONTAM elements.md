@@ -1243,7 +1243,7 @@ Create an occupant contaminant generation element.
 Select disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) factors (∂DALY/∂intake for cancer and non-cancer effects) from a library of DALYs factors for different species. The library is established using the data in [this paper](https://doi.org/10.1897/2004-007R.1).\
 Factors can be selected by clicking the *DALY Factor* button on the component and selecting the desired species. ∂DALY/∂intake for cancer effects and ∂DALY/∂intake for non-cancer effects are exported as outputs. 
 
-![DALY factor library](/tutorials/img/daly-factor.png)
+![DALY factor library](/tutorials/img/daly-factor-2.png)
 Factors can be searched by species name or CAS number in the *Search* bar. After selecting the desired species, click *Update Selection* to close the window and export the factors as outputs.
 
  - **Outputs**:
@@ -1310,6 +1310,7 @@ $ctrl_{intake}$ = Schedule or control breathing/inhalation rate [no units].\
 $dt$ = Time step.\
 $t1$ and $t2$ = Start and end time of the exposure period. For infection risk calculation, there are three modes of exposure duration can be selected, i.e., 1) daily, 2) receding, and 3) accumulation. ***Daily*** exposure duration means the inhalation exposure and infection risk are calculated seperately for each single day (i.e., $t1$ = the start of a day, `00:00:00`; $t2$ = the end of the day, `24:00:00`). The exposure inhaled by the occupant during the previous day is not considered by the exposure of the next day. ***Receding*** exposure duration means the inhalation exposure and infection risk are only calculated for the moments within the current receding period (i.e., $t1$ = the start moment of the receding period, $t-\Delta t$ ($t$ is the current moment at time $t$, $\Delta t$ is the length of the receding period); $t2$ = the current moment at time $t$). Any exposure during the moments before the receding period is not considered. ***Accumulation*** exposure duration means the inhalation exposure and infection risk are calculated for the whole exposure period (i.e., $t1$ = the start moment of the exposure period; $t2$ = the end moment of the exposure period).
 
+![occupant exposure modes](./img/occ_exposure_results.png)
 
  - **Inputs**:
     - **_results** [required]:
@@ -1370,6 +1371,70 @@ $t1$ and $t2$ = Start and end time of the exposure period. For infection risk ca
 
 ## 08-Airflow
 ![Airflow path components](./img/icons-airflow-path.png)
+### Airflow path
+Create an airflow path element.
+ - **Inputs**:
+    - **_afe** [required]:
+        - Type: Airflow element [Item]
+        - Default: None
+        - Description: An airflow element that is associated with the airflow path.
+    - **elev**:
+        - Type: Number [Item]
+        - Default: None
+        - Description: The elevation of the airflow path. If not specified, the opening elevation will be used if this airflow path is associated with an opening airflow element, or a default elevation will be applied based on the wall geometry information if this airflow path is associated with a wall airflow path setting.
+    - **mult**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: Multiplier. A constant value by which the airflow path will be multiplied during simulation. The multiplier is a constant value allowing you, for example, to use a flow element description of one window and a multiplier of 5 to describe 5 windows in a particular wall. If you have specified a "leakage area" flow element, complete the description here by giving the reference area, length, or number of units. 
+    - **wpp**:
+        - Type: Number / Wind pressure profile [Item]
+        - Default: None
+        - Description: The wind pressure profile (WPP) that applies to the path. It is only valid for exterior surfaces (invalid for interior surfaces). If not specified, no WPP will be applied to the path. The WPP can be defined by a number or a wind pressure profile element. If a number is given, a constant pressure [Pa] will be applied to the airflow paths. If a wind pressure profile element is given, the wind pressure profile will be applied to the airflow paths. The wind pressure profile element can be created by the [wind pressure profile](#wind-pressure-profile) component.
+    - **modifier**:
+        - Type: Number [Item]
+        - Default: 0.36
+        - Description: The modifier for differences between wind velocity profiles at the building site and that at a measurement location, e.g., an airport weather station.
+    - **sched**:
+        - Type: Week schedule (dimensionless) [Item]
+        - Default: None
+        - Description: Week schedule that controls the airflow path.
+    - **filter**:
+        - Type: Filter element [Item]
+        - Default: None
+        - Description: A filter element used for the airflow path.
+ - **Outputs**:
+    - **path**:
+        - Type: Airflow path [Item]
+        - Description: An airflow path element with updated settings.
+
+### Airflow path settings
+Create airflow paths for different types of building surfaces. 
+ - **Inputs**:
+    - **ext wall**:
+        - Type: Airflow path [List]
+        - Default: None
+        - Description: A list of airflow path elements for all exterior walls.
+    - **int wall**:
+        - Type: Airflow path [List]
+        - Default: None
+        - Description: A list of airflow path elements for all interior walls.
+    - **int ceil/floor**:
+        - Type: Airflow path [List]
+        - Default: None
+        - Description: A list of airflow path elements for all interior ceilings and floors.
+    - **ext floor**:
+        - Type: Airflow path [List]
+        - Default: None
+        - Description: A list of airflow path elements for all exterior floors.
+    - **roof**:
+        - Type: Airflow path [List]
+        - Default: None
+        - Description: A list of airflow path elements for all (exterior) roofs.
+ - **Outputs**:
+    - **path settings**:
+        - Type: Airflow path settings (a JSON file) [Item]
+        - Description: An airflow path settings element with updated settings.
+
 ![Airflow element components](./img/icons-airflow-one-way-powerlaw.png)
 ![Airflow element components](./img/icons-airflow-one-way-quadratic.png)
 ![Airflow element components](./img/icons-airflow-two-way-flow.png)
