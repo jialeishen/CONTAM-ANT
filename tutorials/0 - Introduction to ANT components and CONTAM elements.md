@@ -707,10 +707,10 @@ The original calculator is a web application on CONTAM website: [Particle Distri
         - Default: 5.4 #/cm³
         - Description: Total particle number concentration. Unit is in #/cm³.
  - **Outputs**:
-    - **pm lib**:
+    - **pm LB0**:
         - Type: Text [Item]
         - Description: A relative file path of the generated species library file (LB0).
-    - **pm ctm**:
+    - **pm CTM**:
         - Type: Text [Item]
         - Description: A relative file path of the generated CTM file of particles.
 
@@ -738,7 +738,7 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **gener rate**:
+    - **gen rate**:
         - Type: Number [Item]
         - Default: 0
         - Description: The rate at which the contaminant/species is introduced into the zone ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
@@ -802,7 +802,7 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **gener rate**:
+    - **gen rate**:
         - Type: Number [Item]
         - Default: 0
         - Description: The rate at which the contaminant/species is introduced into the zone as a function of concentration ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
@@ -837,7 +837,7 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **gener rate**:
+    - **gen rate**:
         - Type: Number [Item]
         - Default: 0
         - Description: Initial generation rate ($G_0$). Contaminant generation is controlled by a schedule. Contaminant generation begins when the schedule changes from a zero to a non-zero value (between 0 and 1). The initial generation is equal to the schedule value times the initial generation rate. A single scheudle may be used to initiate several emissions at different times. Unit can be changed by right-clicking the component and selecting the desired one.
@@ -874,11 +874,11 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **gener rate**:
+    - **gen rate**:
         - Type: Number [Item]
         - Default: 0
         - Description: The rate at which the contaminant/species is introduced into the zone as a function of pressure difference ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
-    - **prs expon**:
+    - **press expon**:
         - Type: Number [Item]
         - Default: 0
         - Description: Pressure exponent ($n$). It describe the dependence on pressure of the contaminant entry.
@@ -910,7 +910,7 @@ $mult$ = Source/sink multiplier [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **peak gener**:
+    - **peak gen**:
         - Type: Number [Item]
         - Default: 0
         - Description: Peak emission rate ($a$). Unit can be changed by right-clicking the component and selecting the desired one.
@@ -955,7 +955,7 @@ $mult$ = Source/sink multiplier [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the source.
-    - **init gener**:
+    - **init gen**:
         - Type: Number [Item]
         - Default: 0
         - Description: Initial emission rate ($a$). Unit can be changed by right-clicking the component and selecting the desired one.
@@ -999,7 +999,7 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
         - Description: Week schedule that controls the sink.
-    - **gener rate**:
+    - **gen rate**:
         - Type: Number [Item]
         - Default: 0
         - Description: The rate at which the contaminant/species is introduced into the zone ($G$). Unit can be changed by right-clicking the component and selecting the desired one.
@@ -1184,7 +1184,7 @@ $ctrl$ = Schedule or control value [no units]
         - Type: Number [Item]
         - Default: 0
         - Description: Surface mass of absorbed contaminant/species. unit can be changed by right-clicking the component and selecting the desired one.
-    - **prtn coef**:
+    - **partition coef**:
         - Type: Number [Item]
         - Default: 0
         - Description: The Henry adsorption constant or the partition coefficient ($k$).
@@ -1202,11 +1202,11 @@ $ctrl$ = Schedule or control value [no units]
 ### Occupant
 Create an occupant element.
  - **Inputs**:
-    - **multiplier**:
+    - **mult**:
         - Type: Number [Item]
         - Default: 1
         - Description: The multiplier to simulate multiple occupants with the same characteristics. 
-    - **occ week sched**: 
+    - **occ sched**: 
         - Type: Week schedule (occupancy) [Item]
         - Default: None
         - Description: Week schedule that controls the location of this occupant.
@@ -1255,16 +1255,16 @@ Factors can be searched by species name or CAS number in the *Search* bar. After
         - Description: ∂DALY/∂intake factor for non-cancer effects of the selected species.
 
 ### Occupancy DALY factors
-Create an occupant disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) factors element.
+Create an occupant disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) factors element. 
  - **Inputs**:
     - **_f_cancer** [required]:
         - Type: Number [Item]
         - Default: 0
-        - Description: ∂DALY/∂intake factor for cancer effects of the selected species.
+        - Description: ∂DALY/∂intake factor for cancer effects of the selected species. The factor can be acquired from the [Occupancy DALY factor library](#occupancy-daly-factor-library) component.
     - **_f_non-cancer** [required]:
         - Type: Number [Item]
         - Default: 0
-        - Description: ∂DALY/∂intake factor for non-cancer effects of the selected species.
+        - Description: ∂DALY/∂intake factor for non-cancer effects of the selected species. The factor can be acquired from the [Occupancy DALY factor library](#occupancy-daly-factor-library) component.
     - **ADAF**:
         - Type: Number [Item]
         - Default: 1.6
@@ -1276,25 +1276,58 @@ Create an occupant disability-adjusted life years ([DALYs](https://www.who.int/d
 
 ### Occupancy exposure
 Read simulation results and calculate occupancy exposure and health impacts to specified contaminants over a certain period of time.\
-The exposure is calculated based on contaminant concentrations in zones and occupant schedule, breathing rate, and filtration by personal protective equipment (PPE) such as masks. The health impacts include disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) for general contaminants and infection risk for infectious respiratory diseases. DALYs are calculated based on the exposure and DALYs factors (estimated through Intake-DALY (ID) approach). Infection risk is calculated based on the exposure through the [Wells-Riley model](https://doi.org/10.1111/j.1600-0668.2009.00621.x), which depends on the inhaled dose of infectious pathogen. 
+The exposure is calculated based on contaminant concentrations in zones and occupant schedule, breathing rate, and filtration by personal protective equipment (PPE) such as masks. The health impacts include 1) disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) for general contaminants and 2) infection risk for infectious respiratory diseases. The calculated metrics can be switched by clicking the metrics option button on the component.\
+Mortality does not give a complete picture of the burden of disease borne by individuals in different populations. The overall burden of disease is assessed using the disability-adjusted life year (DALY), a time-based measure that combines years of life lost due to premature mortality (YLLs) and years of life lost due to time lived in states of less than full health, or years of healthy life lost due to disability (YLDs). One DALY represents the loss of the equivalent of one year of full health. For health issues related to the air contaminants, DALYs can be calculated based on the inhalation exposure and DALYs factors through the Intake-DALY (ID) approach. DALYs are usually expressed per 100,000 population per year. Thus, it is suggested to evaluate DALYs for full-year simulations in ANT. For those air contaminants with sufficient epidemiological data (e.g., PM2.5, CO, NO2, Ozone, and SO2), the Intake-Incidence-DALY (IND) approach can be applied. However, it is not yet ready in the current version of ANT. The calculation of DALYs through the ID approach can be represented as:
+$$DALYs = \frac {\partial DALY}{\partial intake} \times intake$$
+$$\frac {\partial DALY}{\partial intake} = (\frac {\partial DALY}{\partial intake})_{cancer} \times ADAF + (\frac {\partial DALY}{\partial intake})_{non-cancer}$$
+$$intake = \int_{t1}^{t2} (1 - \eta _{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
+$\frac {\partial DALY}{\partial intake}$ = DALY factor per intake.\
+$(\frac {\partial DALY}{\partial intake})_{cancer}$ and $(\frac {\partial DALY}{\partial intake})_{non-cancer}$ = DALY factors for cancer and non-cancer effects, respectively.\
+$ADAF$ = Cancer age-dependent adjustment factor (ADAF).\
+$intake$ = Intake of the target contaminant.\
+$\eta _{PPE}$ = Filtration efficiency of PPE [dimensionless].\
+$ctrl_{PPE}$ = Schedule or control PPE filtration efficiency [no units].\
+$C_{\alpha}(t)$ = Contaminant concentration of contaminant $\alpha$ in the zone where the susceptible occupant is located at time $t$.\
+$Q_{intake}$ = Breathing/inhalation rate.\
+$ctrl_{intake}$ = Schedule or control breathing/inhalation rate [no units].\
+$dt$ = Time step.\
+$t1$ and $t2$ = Start and end time of the exposure period. For DALYs calculation, $t1$ is the input start time and $t2$ is the input end time. It means that accumulated exposure during the whole exposure period is calculated.
+
+Infection risk for infectious respiratory diseases is calculated based on the exposure through the [Wells-Riley model](https://doi.org/10.1111/j.1600-0668.2009.00621.x), which depends on the inhaled dose of infectious pathogen. In ANT, contaminants with number concentrations are required for infection risk estimation, i.e., #/m³, #/cm³, #/ft³, or #/lb. It requires particulate types of contaminants to be defined as the infetious pathogen. The infection risk is calculated based on the "quanta" of the infectious pathogen inhaled, which is the number of infectious pathogen required to cause infection in 63% of susceptible occupants. Unit "quanta" cannot be directly defined in CONTAM or ANT. Therefore, the number concentrations (#/m³, #/cm³, #/ft³, or #/lb) are used as the alternatives for "quanta" units of the infectious pathegon in ANT. In this case, #/m³ equals quanta/m³, for example. Other units related to the number concentrations (#) are changed accordingly. For example, the contaminant generation rate #/h is equivalent to quanta/h. Quanta generation rates of some typical respiratory diseases (including COVID-19) can be found in a [research paper](https://doi.org/10.1016/j.buildenv.2021.107926) and a [review paper](https://doi.org/10.1080/23744731.2021.1977693). Typically, a generation rate of 100 quanta/h is very commonly applied for SARS-CoV-2 (particularly the Omicron variant). The calculation of infection risk (the Wells-Riley model) can be represented as:
+
+$$P = \frac{N_C}{N_S} = 1 - e^{-intake}$$
+$$intake = \int_{t1}^{t2} (1 - \eta _{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
+
+$P$ = Infection probability [dimensionless].\
+$N_C$ = Number of occupants infected [person(s)].\
+$N_S$ = Number of susceptible occupants [person(s)].\
+$intake$ = Inhaled dose of infectious pathogen [quanta].\
+$\eta _{PPE}$ = Filtration efficiency of PPE [dimensionless].\
+$ctrl_{PPE}$ = Schedule or control PPE filtration efficiency [no units].\
+$C_{\alpha}(t)$ = Contaminant concentration of contaminant $\alpha$ in the zone where the susceptible occupant is located at time $t$ [quanta/m³, quanta/cm³, quanta/ft³, or quanta/lb].\
+$Q_{intake}$ = Breathing/inhalation rate.\
+$ctrl_{intake}$ = Schedule or control breathing/inhalation rate [no units].\
+$dt$ = Time step.\
+$t1$ and $t2$ = Start and end time of the exposure period. For infection risk calculation, there are three modes of exposure duration can be selected, i.e., 1) daily, 2) receding, and 3) accumulation. ***Daily*** exposure duration means the inhalation exposure and infection risk are calculated seperately for each single day (i.e., $t1$ = the start of a day, `00:00:00`; $t2$ = the end of the day, `24:00:00`). The exposure inhaled by the occupant during the previous day is not considered by the exposure of the next day. ***Receding*** exposure duration means the inhalation exposure and infection risk are only calculated for the moments within the current receding period (i.e., $t1$ = the start moment of the receding period, $t-\Delta t$ ($t$ is the current moment at time $t$, $\Delta t$ is the length of the receding period); $t2$ = the current moment at time $t$). Any exposure during the moments before the receding period is not considered. ***Accumulation*** exposure duration means the inhalation exposure and infection risk are calculated for the whole exposure period (i.e., $t1$ = the start moment of the exposure period; $t2$ = the end moment of the exposure period).
+
 
  - **Inputs**:
     - **_results** [required]:
         - Type: Text [Item]
         - Default: None
-        - Description: A text contains the relative file path of the simulation result.
+        - Description: A text contains the relative file path of the simulation result (.sim and .sqlite3 files are required).
     - **date & time**:
-        - Type: Text [Item]
+        - Type: Text [List]
         - Default: None
-        - Description: The text contains date and time of the simulation result.
-    - **_ctm** [required]:
+        - Description: A list of texts that represents the start and end date/time of the desired period. Each text must be presented as a text in the format of `date time`. Date and time can be separated by a space` `, a comma`,`, or a tab`    `. For example, `1/1 12` and `1/1,12` are both valid date-time pairs. `date time` needs to be in the format of `M/d H:mm:ss`, `M/d H:mm`, or simply `M/d H`. For example, `1/1 12`, `1/1 12:00`, and `1/1 12:00:00` are all valid formats for January 1st 12PM. If no input is provided, the full period in the result will be used.
+    - **_species** [required]:
         - Type: Text / Species [Item]
         - Default: None
-        - Description: A contaminant transport model element that is used to calculate the exposure.
+        - Description: A species element or a text of the species name that will be calculated for the exposure. The species needs to be defined and calculated in the simulation.
     - **_occ sched** [required]:
         - Type: Week schedule (occupancy) [Item]
         - Default: None
-        - Description: A week schedule element that is used to calculate the exposure.
+        - Description: A week schedule element that is used to describe the schedule of the susceptible occupant (the occupant being exposed to the contaminant).
     - **breath rate**: 
         - Type: Number [Item]
         - Default: 0.5
@@ -1302,38 +1335,38 @@ The exposure is calculated based on contaminant concentrations in zones and occu
     - **breath sched**:
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
-        - Description: A week schedule element that is used to calculate the exposure.
+        - Description: A week schedule element that controls the breathing rate.
     - **PPE eff**:
         - Type: Number [Item]
         - Default: 0
-        - Description: The filtration efficiency of the personal protective equipment (PPE) such as masks. Unit can be changed by right-clicking the component and selecting the desired one.
+        - Description: The filtration efficiency of the personal protective equipment (PPE) such as masks. 
     - **PPE sched**:
         - Type: Week schedule (dimensionless) [Item]
         - Default: None
-        - Description: A week schedule element that is used to calculate the exposure.
+        - Description: A week schedule element that controls the use of PPE (the filtration efficiency of PPE).
     - **DALY factors**:
         - Type: DALY factors [Item]
         - Default: None
-        - Description: An occupant DALY factors element that is used to calculate the health impacts.
+        - Description: DALY factors that are used to calculate DALYs.
  - **Outputs**:
     - **exposure** / **DALYs** / **infect risk**:
         - Type: Number [Tree]
-        - Description: An element of occupant exposure with updated settings.
+        - Description: A tree (list or item) of numbers that represents the exposure to a specific contaminant ($intake$), the DALYs for this contaminant ($DALYs$), or the infection risk of an infectious pathogen ($P$) of the susceptible occupant (the occupant being exposed to the contaminant). For exposure metrics mode, when the input *DALY factors* has a valid input, DALYs are calculated. Otherwise, exposure ($intake$ without calculating DALYs) is calculated and exported. The exposure and DALYs metrics are expressed by an item of a final number. The infection risk is expressed by a list of numbers representing the infection probability over time (for daily or receding durations), or an item of accumulated infection risk. The unit of the exposure is expressed in $kg_{\alpha}$. The unit of DALYs is DALYs per 100,000 population per exposure duration. The unit of infection risk is dimensionless.
     - **conc seq**:
         - Type: Number [Tree]
-        - Description: An element of contaminant concentration sequence with updated settings.
+        - Description: A tree (list) element of contaminant concentration sequence that represents the time-sequence concentration level the occupant is exposed to (depending on the occupant's schedule of locations).
     - **breath seq**:
         - Type: Number [Tree]
-        - Description: An element of breathing rate sequence with updated settings.
+        - Description: A tree (list) element of breathing rate sequence, which depends on the occupant's breathing rate schedule.
     - **PPE eff seq**:
         - Type: Number [Tree]
-        - Description: An element of PPE efficiency sequence with updated settings.
+        - Description: A tree (list) element of personal protective equipment (PPE) filtration efficiency sequence.
     - **loc seq**:
         - Type: Text [Tree]
-        - Description: An element of location sequence with updated settings.
+        - Description: A tree (list) element of occupant location sequence (zone names), which depends on the occupant's schedule of locations.
     - **time seq**:
         - Type: Text [Tree]
-        - Description: An element of time sequence with updated settings.
+        - Description: A tree (list) element of time sequence (text). The text of each item is in the format of `date time type`, more specifically `M/d HH:mm:ss ddd`, e.g., `1/1 12:00:00 Fri`. The time sequence depends on the input start and end *data & time* and the time sequence in the result files.
 
 ## 08-Airflow
 ![Airflow path components](./img/icons-airflow-path.png)
