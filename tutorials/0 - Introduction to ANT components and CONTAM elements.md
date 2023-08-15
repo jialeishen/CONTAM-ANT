@@ -42,7 +42,40 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Sink - Deposition with resuspension emission](#sink---deposition-with-resuspension-emission)
     - [Sink - Boundary layer diffusion model](#sink---boundary-layer-diffusion-model)
  - [07-Occupancy](#07-occupancy)
+    - [Occupant](#occupant)
+    - [Occupant contaminant generation](#occupant-contaminant-generation)
+    - [Occupancy DALY factor library](#occupancy-daly-factor-library)
+    - [Occupancy DALY factors](#occupancy-daly-factors)
+    - [Occupancy exposure](#occupancy-exposure)
  - [08-Airflow](#08-airflow)
+    - [Airflow path](#airflow-path)
+    - [Airflow path settings](#airflow-path-settings)
+    - [Airflow element - Q = C(dP)^n (One-way flow using power-law models)](#airflow-element---q--cdpn-one-way-flow-using-power-law-models)
+    - [Airflow element - F = C(dP)^n (One-way flow using power-law models)](#airflow-element---f--cdpn-one-way-flow-using-power-law-models)
+    - [Airflow element - Leakage area data (One-way flow using power-law models)](#airflow-element---leakage-area-data-one-way-flow-using-power-law-models)
+    - [Airflow element - Connection (ASCOS) data (One-way flow using power-law models)](#airflow-element---connection-ascos-data-one-way-flow-using-power-law-models)
+    - [Airflow element - Orifice area data (One-way flow using power-law models)](#airflow-element---orifice-area-data-one-way-flow-using-power-law-models)
+    - [Airflow element - Crack description (One-way flow using power-law models)](#airflow-element---crack-description-one-way-flow-using-power-law-models)
+    - [Airflow element - 1-point test data (One-way flow using power-law models)](#airflow-element---1-point-test-data-one-way-flow-using-power-law-models)
+    - [Airflow element - 2-point test data (One-way flow using power-law models)](#airflow-element---2-point-test-data-one-way-flow-using-power-law-models)
+    - [Airflow element - Stairwell (One-way flow using power-law models)](#airflow-element---stairwell-one-way-flow-using-power-law-models)
+    - [Airflow element - Shaft (One-way flow using power-law models)](#airflow-element---shaft-one-way-flow-using-power-law-models)
+    - [Airflow element - dP = aQ + bQ² (One-way flow using quadratic models)](#airflow-element---dp--aq--bq²-one-way-flow-using-quadratic-models)
+    - [Airflow element - dP = aF + bF² (One-way flow using quadratic models)](#airflow-element---dp--af--bf²-one-way-flow-using-quadratic-models)
+    - [Airflow element - Crack description (One-way flow using quadratic models)](#airflow-element---crack-description-one-way-flow-using-quadratic-models)
+    - [Airflow element - 2-point test data (One-way flow using quadratic models)](#airflow-element---2-point-test-data-one-way-flow-using-quadratic-models)
+    - [Airflow element - One-opening (Two-way flow models)](#airflow-element---one-opening-two-way-flow-models)
+    - [Airflow element - Two-opening (Two-way flow models)](#airflow-element---two-opening-two-way-flow-models)
+    - [Airflow element - Q = C(dP)^n (Backdraft damper flow models)](#airflow-element---q--cdpn-backdraft-damper-flow-models)
+    - [Airflow element - F = C(dP)^n (Backdraft damper flow models)](#airflow-element---f--cdpn-backdraft-damper-flow-models)
+    - [Airflow element - Self-regulating vent (Backdraft damper flow models)](#airflow-element---self-regulating-vent-backdraft-damper-flow-models)
+    - [Airflow element - Constant mass flow (Fan and forced-flow models)](#airflow-element---constant-mass-flow-fan-and-forced-flow-models)
+    - [Airflow element - Constant volume flow (Fan and forced-flow models)](#airflow-element---constant-volume-flow-fan-and-forced-flow-models)
+    - [Airflow element - Performance curve (Fan and forced-flow models)](#airflow-element---performance-curve-fan-and-forced-flow-models)
+    - [Airflow element - F vs P (Cubic spline flow models)](#airflow-element---f-vs-p-cubic-spline-flow-models)
+    - [Airflow element - Q vs P (Cubic spline flow models)](#airflow-element---q-vs-p-cubic-spline-flow-models)
+    - [Airflow element - P vs F (Cubic spline flow models)](#airflow-element---p-vs-f-cubic-spline-flow-models)
+    - [Airflow element - P vs Q (Cubic spline flow models)](#airflow-element---p-vs-q-cubic-spline-flow-models)
  - [09-Library](#09-library)
  - [10-Ambient](#10-ambient)
  - [11-Simulation](#11-simulation)
@@ -1435,12 +1468,767 @@ Create airflow paths for different types of building surfaces.
         - Type: Airflow path settings (a JSON file) [Item]
         - Description: An airflow path settings element with updated settings.
 
-![Airflow element components](./img/icons-airflow-one-way-powerlaw.png)
-![Airflow element components](./img/icons-airflow-one-way-quadratic.png)
-![Airflow element components](./img/icons-airflow-two-way-flow.png)
-![Airflow element components](./img/icons-airflow-backdraft.png)
-![Airflow element components](./img/icons-airflow-fan.png)
-![Airflow element components](./img/icons-airflow-cubic-spline.png)
+![Airflow element components - one-way flow using power-law models](./img/icons-airflow-one-way-powerlaw.png)
+### Airflow element - Q = C(dP)^n (One-way flow using power-law models)
+Create an airflow element of Q = C(dP)^n with one-way flow using power-law models.
+The volume flow of the airflow is calculated as:
+$$Q = C(dP)^n$$
+$Q$ = Volume flow rate of the airflow.\
+$C$ = Flow coefficient [$m^3/s/Pa^n$].\
+$dP$ = Pressure difference across the airflow element (between zones).\
+$n$ = Flow exponent [dimensionless].
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**: 
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.01 m³/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$).
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - F = C(dP)^n (One-way flow using power-law models)
+Create an airflow element of F = C(dP)^n with one-way flow using power-law models.
+The mass flow of the airflow is calculated as:
+$$F = C(dP)^n$$
+$F$ = Mass flow rate of the airflow.\
+$C$ = Flow coefficient [$kg/s/Pa^n$].\
+$dP$ = Pressure difference across the airflow element (between zones).\
+$n$ = Flow exponent [dimensionless].
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**: 
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.01 kg/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$).
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Leakage area data (One-way flow using power-law models)
+Create an airflow element of leakage area data with one-way flow using power-law models.\
+Leakage area refers to a description of airflow features given in Chapter 26 of the 2001 ASHRAE Handbook of Fundamentals. The leakage area can be defined as per item, per unit length, or per unit area. It can be changed by clicking the option buttons on the component. ***Per Item***: Enter a total leakage value for an item, this is usually used for a doorway or window - something that can be classified as an item. ***Per Unit Length***: Commonly used to describe an interface such as a wall/ceiling junction. ***Per Unit Area***: Used to describe an area such as a wall or floor. 
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**: 
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **Cd**:
+        - Type: Number [Item]
+        - Default: 0.6
+        - Description: The discharge coefficient ($C_d$) for the leakage area at the reference pressure difference (defined in **pressure diff**).
+    - **flow expon**:
+        - Type: Number [Item]
+        - Default: 0.65
+        - Description: The flow exponent of the airflow element.
+    - **pressure diff**:
+        - Type: Number [Item]
+        - Default: 10 Pa
+        - Description: The reference pressure difference for the associated leakage rating, typically 10 Pa or 4 Pa.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Three possible ways to enter the leakage area: per item, per unit length, and per area. Select the option buttons on the component and define the leakage area accordingly, i.e., leakage area per item, leakage area per length, or leakage area per area.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Connection (ASCOS) data (One-way flow using power-law models)
+Create an airflow element of connection (ASCOS) data with one-way flow using power-law models.\
+The ASCOS connection element is provided for compatibility with the ASCOS program. It is an implementation of the more general orifice flow element based upon the orifice equation. Data describing a connection are reduced to the powerlaw model with an exponent of 0.5. The airflow rate is calculated as:
+$$Q = K \cdot A_o \cdot \sqrt{2 \cdot \Delta P / \rho_{air}}$$
+$Q$ = Volume flow rate of the airflow.\
+$K$ = Flow coefficient [dimensionless].\
+$A_o$ = Area of the opening.\
+$\Delta P$ = Pressure difference across the airflow element (between zones).\
+$\rho_{air}$ = Density of air.
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**: 
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **flow coef**:
+        - Type: Number [Item]
+        - Default: 0.6
+        - Description: The flow coefficient of the airflow element ($K$). It is typically close to 0.6 for an orifice and slightly higher for other openings in buildings.
+    - **flow area**:
+        - Type: Number [Item]
+        - Default: 0.01 m²
+        - Description: The observable area of the opening ($A_o$).
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Orifice area data (One-way flow using power-law models)
+Create an airflow element of orifice area data with one-way flow using power-law models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**: 
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the filter element.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 0.01 m²
+        - Description: The observable cross-sectional area of the orifice.
+    - **flow expon**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element. Flow exponents vary from 0.5 for large openings where the flow is dominated by dynamic effects, and 1.0 for narrow openings dominated by viscous effects. Measurements usually indicate a flow exponent of 0.6 to 0.7 for typical infiltration openings. 
+    - **Cd**:
+        - Type: Number [Item]
+        - Default: 0.6
+        - Description: The discharge coefficient (Cd) for the orifice. It is related to the dynamic effects and is typically close to 0.6 for a sharp-edged orifice and slightly higher for other openings in buildings.
+    - **diam**:
+        - Type: Number [Item]
+        - Default: 0.11284 m
+        - Description: The hydraulic diameter of the orifice. It is equal to (4 × Area / Perimeter) for rectangular/square orifices. For square openings this equals the square root of the area, and for long thin openings it is two times the width. *The hydraulic diameter and Reynolds number have little impact on the calculations. Generally you should use the default values except for special circumstances where you need them to be modified.*
+    - **Re**:
+        - Type: Number [Item]
+        - Default: 30
+        - Description: The transition from laminar flow to turbulent flow occurs over a broad range of Reynolds numbers with the flow being fully laminar approximately below 100. *The hydraulic diameter and Reynolds number have little impact on the calculations. Generally you should use the default values except for special circumstances where you need them to be modified.*
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Crack description (One-way flow using power-law models)
+Create an airflow element of crack description with one-way flow using power-law models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **length**:
+        - Type: Number [Item]
+        - Default: 2 m
+        - Description: The length of the crack.
+    - **width**:
+        - Type: Number [Item]
+        - Default: 0.002 m
+        - Description: The width of the crack.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - 1-point test data (One-way flow using power-law models)
+Create an airflow element of 1-point test data with one-way flow using power-law models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **dP**:
+        - Type: Number [Item]
+        - Default: 4 Pa
+        - Description: The pressure difference for the test data point.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 0.019 kg/s
+        - Description: The mass flow rate for the test data point. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **flow expon**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element.  The flow exponent is a guess used to fit the single point to the powerlaw model. A value of 0.6 to 0.7 is typical for an infiltration element. A value of 0.5 is more appropriate for large openings.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - 2-point test data (One-way flow using power-law models)
+ - **Inputs** [required]:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+
+    ── Point 1 ──
+    - **dP**:
+        - Type: Number [Item]
+        - Default: 4 Pa
+        - Description: The pressure difference for the first test data point.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 0.019 kg/s
+        - Description: The mass flow rate for the first test data point. Unit can be changed by right-clicking the component and selecting the desired one.
+
+    ── Point 2 ──
+    - **dP**:
+        - Type: Number [Item]
+        - Default: 10 Pa
+        - Description: The pressure difference for the second test data point.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 0.029 kg/s
+        - Description: The mass flow rate for the second test data point. Unit can be changed by right-clicking the component and selecting the desired one.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Stairwell (One-way flow using power-law models)
+Create an airflow element of stairwell with one-way flow using power-law models.\
+There are two options for stair treads: open tread and closed tread. This refers to the front of the tread whether or not the tread is open effects flow. It can be selected by clicking the *stair treads* option buttons on the component.
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **level dist**:
+        - Type: Number [Item]
+        - Default: 3 m
+        - Description:  The vertical distance between doorways of the stairwell. This is typically equal to the "Distance to level above" of the level below the path with which this element is to be associated.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 6 m²
+        - Description: The horizontal, cross-sectional, area of the shaft.
+    - **occ dens**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The density of people. A large number of people in the stairwell influences the flow resistance of the stairwell.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Shaft (One-way flow using power-law models)
+Create an airflow element of shaft with one-way flow using power-law models.\
+This airflow element allows you to enter a description of a shaft, and CONTAM/ANT converts the information to a powerlaw relationship assuming a pressure exponent of 0.5. A shaft will normally be modeled as a vertical series of zones connected by low resistance openings (this shaft airflow element) through the floors. The resistance is based on a conduit friction model using the Darcy-Weisbach relation and Colebrook’s equation for the friction factor.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **level dist**:
+        - Type: Number [Item]
+        - Default: 3 m
+        - Description: Distant between levels.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 6 m²
+        - Description: The horizontal, cross-sectional, area of the shaft (not the opening).
+    - **perimeter**:
+        - Type: Number [Item]
+        - Default: 10 m
+        - Description: Perimeter. The perimeter of the horizontal cross-section of the shaft. This number is used in conjuction with the area to create the hydraulic diameter.
+    - **rough**:
+        - Type: Number [Item]
+        - Default: 0.1 m
+        - Description: The average size of the protrusions from the shaft wall into the airflow.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+![Airflow element components - one-way flow using quadratic models](./img/icons-airflow-one-way-quadratic.png)
+### Airflow element - dP = aQ + bQ² (One-way flow using quadratic models)
+Create an airflow element of dP = aQ + bQ² with one-way flow using quadratic models.\
+The relationship between the pressure drop and the volume flow rate is calculated as:
+$$dP = aQ + bQ^2$$
+$dP$ = The pressure drop.\
+$Q$ = The volume flow rate.\
+$a$ = The flow coefficients [$Pa \cdot s/sm^3$].\
+$b$ = The flow coefficients [$Pa \cdot (s/sm^3)^2$].
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **coef (a)**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The flow coefficient of the airflow element ($a$).
+    - **coef (b)**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The flow coefficient of the airflow element ($b$).
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+### Airflow element - dP = aF + bF² (One-way flow using quadratic models)
+Create an airflow element of dP = aF + bF² with one-way flow using quadratic models.\
+The relationship between the pressure drop and the mass flow rate is calculated as:
+$$dP = aF + bF^2$$
+$dP$ = The pressure drop.\
+$F$ = The volume flow rate.\
+$a$ = The flow coefficients [$Pa \cdot s/kg$].\
+$b$ = The flow coefficients [$Pa \cdot (s/kg)^2$].
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **coef (a)**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The flow coefficient of the airflow element ($a$).
+    - **coef (b)**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The flow coefficient of the airflow element ($b$).
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+### Airflow element - Crack description (One-way flow using quadratic models)
+Create an airflow element of crack description with one-way flow using quadratic models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **length**:
+        - Type: Number [Item]
+        - Default: 2 m
+        - Description: The overall length of the crack.
+    - **width**:
+        - Type: Number [Item]
+        - Default: 0.002 m
+        - Description: The width of the crack.
+    - **depth**:
+        - Type: Number [Item]
+        - Default: 0.05 m
+        - Description: The depth of the crack. The distance along the direction of airflow.
+    - **bends**:
+        - Type: Integer [Item]
+        - Default: 2
+        - Description: The number of bends in the flow path.
+
+### Airflow element - 2-point test data (One-way flow using quadratic models)
+Create an airflow element of 2-point test data with one-way flow using quadratic models.
+ - **Inputs** [required]:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+
+    ── Point 1 ──
+    - **dP**:
+        - Type: Number [Item]
+        - Default: 4 Pa
+        - Description: The pressure difference for the first test data point.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 0.019 kg/s
+        - Description: The mass flow rate for the first test data point. Unit can be changed by right-clicking the component and selecting the desired one.
+
+    ── Point 2 ──
+    - **dP**:
+        - Type: Number [Item]
+        - Default: 10 Pa
+        - Description: The pressure difference for the second test data point.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 0.029 kg/s
+        - Description: The mass flow rate for the second test data point. Unit can be changed by right-clicking the component and selecting the desired one.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+![Airflow element components - two-way flow models](./img/icons-airflow-two-way-flow.png)
+### Airflow element - One-opening (Two-way flow models)
+Create an airflow element of one-opening with two-way flow models.\
+This is a model for flow through large openings such as doorways through which air can flow in two directions simultaneously throughout the opening. 
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **height**:
+        - Type: Number [Item]
+        - Default: 2 m
+        - Description: The overall height of the opening, not to be confused with the *Relative Elevation* of flow paths with which the element is associated.
+    - **width**:
+        - Type: Number [Item]
+        - Default: 0.8 m
+        - Description: The width of the opening.
+    - **Cd**:
+        - Type: Number [Item]
+        - Default: 0.78
+        - Description: Flow coefficient. An experimentally determined value. Experiments by [Weber and Kearney](https://www.aivc.org/resource/natural-convection-heat-transfer-through-aperture-passive-solar-heated-buildings) have shown the default value of 0.78 to work well for most applications.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+### Airflow element - Two-opening (Two-way flow models)
+Create an airflow element of two-opening with two-way flow models.\
+This model accounts for two-way flow due to the stack effect acting over the height of a tall opening. It uses two power-law flow models at different heights to approximate a single tall opening.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **height**:
+        - Type: Number [Item]
+        - Default: 2 m
+        - Description: The overall height of the opening, not to be confused with the *Relative Elevation* of flow paths with which the element is associated.
+    - **width**:
+        - Type: Number [Item]
+        - Default: 0.8 m
+        - Description: The width of the opening.
+    - **Cd**:
+        - Type: Number [Item]
+        - Default: 0.78
+        - Description: Flow coefficient. An experimentally determined value. Experiments by [Weber and Kearney](https://www.aivc.org/resource/natural-convection-heat-transfer-through-aperture-passive-solar-heated-buildings) have shown the default value of 0.78 to work well for most applications.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+![Airflow element components - backdraft damper flow models](./img/icons-airflow-backdraft.png)
+### Airflow element - Q = C(dP)^n (Backdraft damper flow models)
+Create an airflow element of Q = C(dP)^n with backdraft damper flow models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    
+    ── dP > 0 ──
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.01 m³/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$) for the positive flow direction (dP > 0).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$) for the positive flow direction (dP > 0). Flow exponents vary from 0.5 for large openings where the flow is dominated by dynamic effects, and 1.0 for narrow openings dominated by viscous effects. Measurements usually indicate a flow exponent of 0.6 to 0.7 for typical infiltration openings.
+
+    ── dP < 0 ──
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.0001 m³/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$) for the negative flow direction (dP < 0).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$) for the negative flow direction (dP < 0). Flow exponents vary from 0.5 for large openings where the flow is dominated by dynamic effects, and 1.0 for narrow openings dominated by viscous effects. Measurements usually indicate a flow exponent of 0.6 to 0.7 for typical infiltration openings.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+### Airflow element - F = C(dP)^n (Backdraft damper flow models)
+Create an airflow element of F = C(dP)^n with backdraft damper flow models.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    
+    ── dP > 0 ──
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.01 kg/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$) for the positive flow direction (dP > 0).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$) for the positive flow direction (dP > 0). Flow exponents vary from 0.5 for large openings where the flow is dominated by dynamic effects, and 1.0 for narrow openings dominated by viscous effects. Measurements usually indicate a flow exponent of 0.6 to 0.7 for typical infiltration openings.
+
+    ── dP < 0 ──
+    - **flow coef (C)**:
+        - Type: Number [Item]
+        - Default: 0.0001 kg/s/Paⁿ
+        - Description: The flow coefficient of the airflow element ($C$) for the negative flow direction (dP < 0).
+    - **flow expon (n)**:
+        - Type: Number [Item]
+        - Default: 0.5
+        - Description: The flow exponent of the airflow element ($n$) for the negative flow direction (dP < 0). Flow exponents vary from 0.5 for large openings where the flow is dominated by dynamic effects, and 1.0 for narrow openings dominated by viscous effects. Measurements usually indicate a flow exponent of 0.6 to 0.7 for typical infiltration openings.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+### Airflow element - Self-regulating vent (Backdraft damper flow models)
+Create an airflow element of self-regulating vent with backdraft damper flow models.\
+It limits the airflow rate in both directions through a flow path with user-defined limiting air pressure differences.\
+Flow is calculated based on the following equations for positive and negative pressure differences across the element. The positive flow direction is set for each airflow path.
+$$Q^{+} = Q_0 \cdot (1.0 - e^{\frac{-\Delta P}{\Delta P_0}})$$
+$$Q^{-} = -f \cdot Q_0 \cdot (1.0 - e^{\frac{\Delta P}{f \cdot \Delta P_0}})$$
+$Q^{+}$ = The positive flow rate.\
+$Q^{-}$ = The negative flow rate.\
+$Q_0$ = The maximum flow rate that is allowed to pass through the airflow path.\
+$\Delta P$ = The pressure difference across the airflow path.\
+$\Delta P_0$ = The regulating pressure. It is an empirical value that represents the approximate pressure difference above which the airflow will be limited to the maximum flow rate $Q_0$.\
+$f$ = The reverse flow ratio. The fraction of the maximum flow rate $Q_0$ to which the airflow through this element will be limited when the pressure difference is negative across the airflow path.
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **max flow rate**:
+        - Type: Number [Item]
+        - Default: 0.02 m³/s
+        - Description: The maximum flow rate ($Q_0$) that is allowed to pass through the airflow path. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **reg press**:
+        - Type: Number [Item]
+        - Default: 0.5 Pa
+        - Description: The regulating pressure ($\Delta P_0$). It is an empirical value that represents the approximate pressure difference above which the airflow will be limited to the maximum flow rate $Q_0$.
+    - **reverse ratio**: 
+        - Type: Number [Item]
+        - Default: 0.0001
+        - Description: The reverse flow ratio ($f$). The fraction of the maximum flow rate $Q_0$ to which the airflow through this element will be limited when the pressure difference is negative across the airflow path.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description:  An airflow element with updated settings.
+
+![Airflow element components - fan and forced-flow models](./img/icons-airflow-fan.png)
+### Airflow element - Constant mass flow (Fan and forced-flow models)
+Create an airflow element of a fan with a constant mass flow.\
+This airflow element will provide the specified constant mass flow rate regardless of the density of the air being delivered by the fan.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 1 kg/s
+        - Description: The maximum mass flow rate of the airflow element. This value can be modified by the path schedule. Unit can be changed by right-clicking the component and selecting the desired one.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Constant volume flow (Fan and forced-flow models)
+Create an airflow element of a fan with a constant volume flow.\
+The design flow rate you specify is in terms of standard air. CONTAM/ANT uses a density of 1.204 kg/m³ based on conditions specified by ASHRAE for dry air: 101.325 kPa and 20 °C. Therefore, if actual conditions during simulation do not match these standard conditions, the results will differ from specified flow due to differences in air density.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **flow rate**:
+        - Type: Number [Item]
+        - Default: 1 m³/s
+        - Description: The maximum volume flow rate of the airflow element. This value can be modified by the path schedule. Unit can be changed by right-clicking the component and selecting the desired one.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Performance curve (Fan and forced-flow models)
+Create an airflow element of a fan based on a fan performance curve.\
+A set of pressure rise and airflow rate data points is required as inputs. CONTAM/ANT performs a polynomial curve fit to the data. Airflow rates are specified in mass flow units for standard air.
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **cutoff ratio**:
+        - Type: Number [Item]
+        - Default: 0.1
+        - Description: The cutoff ratio under the fan off condition (these values specify how the fan is modeled when the speed of the fan is insufficient to provide a flow). The fan speed ratio is the actual speed (RPM) of the fan divided by the rated speed of the fan (fan is defined for a speed ratio of 1.0). When this ratio is below the specified cut-off limit the fan is modeled as a simple orifice based on the "equivalent orifice" defined for this fan element. During a simulation, ContamX obtains the actual ratio from the control value being applied (in the form of a schedule or control signal) to the airflow path with which this fan element is associated and compares it to the cut-off ratio.
+    - **area**:
+        - Type: Number [Item]
+        - Default: 0.01 m²
+        - Description: The equivalent orifice area under the fan off condition (these values specify how the fan is modeled when the speed of the fan is insufficient to provide a flow). The size of the orifice used to model the fan opening when the control value drops below the specified limit.
+    - **curve data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the performance curve of the fan. Each text must be presented as a text in the format of `flow_rate pressure_rise revised_dP`. Variables can be separated by a space` `, a comma`,`, or a tab`  `. For example, `1 10 0.1` and `1,10,0.1` are both valid fan performance curve data points. The flow rate is in mass flow rate units. Unit can be changed by right-clicking the component and selecting the desired one. The pressure rise and revised dP are in Pa.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+![Airflow element components - cubic spline flow models](./img/icons-airflow-cubic-spline.png)
+### Airflow element - F vs P (Cubic spline flow models)
+Create an airflow element with a cubic spline flow model of F and P (mass flow as a function of pressure drop across the element).\
+Cubic spline models enable you to create airflow elements based on a curve fit to a user-defined set of data points. The cubic spline fit used to generate the curve guarantees a first-order differentiable relationship between flow and pressure. A minimum of four data points is required as the curve data. All models require that the slope be greater than zero for all segments of the curve fit.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Description: Detailed description of the airflow element.
+    - **curve data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the cubic spline curve of the airflow element. Each text must be presented as a text in the format of `pressure mass_flow_rate`. Variables can be separated by a space` `, a comma`,`, or a tab`  `. For example, `1 10` and `1,10` are both valid cubic spline curve data points. The flow rate is in mass flow rate units. Unit can be changed by right-clicking the component and selecting the desired one. The pressure is in Pa.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - Q vs P (Cubic spline flow models)
+Create an airflow element with a cubic spline flow model of Q and P (volume flow as a function of pressure drop across the element).\
+Cubic spline models enable you to create airflow elements based on a curve fit to a user-defined set of data points. The cubic spline fit used to generate the curve guarantees a first-order differentiable relationship between flow and pressure. A minimum of four data points is required as the curve data. All models require that the slope be greater than zero for all segments of the curve fit.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Description: Detailed description of the airflow element.
+    - **curve data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the cubic spline curve of the airflow element. Each text must be presented as a text in the format of `pressure volume_flow_rate`. Variables can be separated by a space` `, a comma`,`, or a tab`  `. For example, `1 10` and `1,10` are both valid cubic spline curve data points. The flow rate is in volume flow rate units. Unit can be changed by right-clicking the component and selecting the desired one. The pressure is in Pa.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - P vs F (Cubic spline flow models)
+Create an airflow element with a cubic spline flow model of P and F (pressure drop as a function of mass flow through the element).\
+Cubic spline models enable you to create airflow elements based on a curve fit to a user-defined set of data points. The cubic spline fit used to generate the curve guarantees a first-order differentiable relationship between flow and pressure. A minimum of four data points is required as the curve data. All models require that the slope be greater than zero for all segments of the curve fit.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **curve data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the cubic spline curve of the airflow element. Each text must be presented as a text in the format of `mass_flow_rate pressure`. Variables can be separated by a space` `, a comma`,`, or a tab`  `. For example, `1 10` and `1,10` are both valid cubic spline curve data points. The flow rate is in mass flow rate units. Unit can be changed by right-clicking the component and selecting the desired one. The pressure is in Pa.
+ - **Outputs**:
+    - **afe**:
+        - Type: Airflow element [Item]
+        - Description: An airflow element with updated settings.
+
+### Airflow element - P vs Q (Cubic spline flow models)
+Create an airflow element with a cubic spline flow model of P and Q (pressure drop as a function of volume flow through the element).\
+Cubic spline models enable you to create airflow elements based on a curve fit to a user-defined set of data points. The cubic spline fit used to generate the curve guarantees a first-order differentiable relationship between flow and pressure. A minimum of four data points is required as the curve data. All models require that the slope be greater than zero for all segments of the curve fit.
+ - **Inputs**:
+    - **_name**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the airflow element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the airflow element.
+    - **curve data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the cubic spline curve of the airflow element. Each text must be presented as a text in the format of `volume_flow_rate pressure`. Variables can be separated by a space` `, a comma`,`, or a tab`  `. For example, `1 10` and `1,10` are both valid cubic spline curve data points. The flow rate is in volume flow rate units. Unit can be changed by right-clicking the component and selecting the desired one. The pressure is in Pa.
 
 ## 09-Library
 ![Library components](./img/icons-library.png)
