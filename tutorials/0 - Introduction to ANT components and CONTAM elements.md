@@ -754,11 +754,11 @@ Create a contaminant/species source with a constant generation/removal rate.\
 A constant coefficiency source with a default name of `_SrcCsCcf_?` is created, where `?` is the number of constant coefficiency source created.\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot ctrl \cdot G - mult \cdot ctrl \cdot R \cdot C_\alpha(t)$$
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
-$G$ = Generation rate [$kg_\alpha /s$]\
-$R$ = Effective removal rate [$kg_{air} /s$]\
-Determine by multiplying the first-order removal rate of the contaminant [$1/s$] by air density [$kg_{air}/m^3$] and volume [$m^3$] of the zone in which the source is to be located.\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]\
+$G$ = Generation rate [ $kg_\alpha /s$ ]\
+$R$ = Effective removal rate [ $kg_{air} /s$ ]\
+Determine by multiplying the first-order removal rate of the contaminant [ $1/s$ ] by air density [ $kg_{air}/m^3$ ] and volume [ $m^3$ ] of the zone in which the source is to be located.\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -819,10 +819,10 @@ A cutoff concentration source with a default name of `_SrcCsCut_?` is created, w
 This model may be appropriate for some sources of volatile organic compounds (VOCs).\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot ctrl \cdot G \cdot (1 - C_\alpha(t)/C_{cut})$$
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
-$G$ = Generation rate [$kg_\alpha /s$]\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
-$C_{cut}$ = Cutoff concentration at which emission ceases [$kg_\alpha / kg_{air}$]\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]\
+$G$ = Generation rate [ $kg_\alpha /s$ ]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
+$C_{cut}$ = Cutoff concentration at which emission ceases [ $kg_\alpha / kg_{air}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -854,10 +854,10 @@ A decaying source with a default name of `_SrcCsEds_?` is created, where `?` is 
 This model may be appropriate for some sources of volatile organic compounds (VOCs).\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot ctrl \cdot G_0 \cdot e^{-\Delta t/\tau _c}$$
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
-$G_0$ = Initial generation rate [$kg_\alpha /s$]\
-$\Delta t$ = Elapsed time since the start of emission [$s$]\
-$\tau _c$ = Time constant [$s$]\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]\
+$G_0$ = Initial generation rate [ $kg_\alpha /s$ ]\
+$\Delta t$ = Elapsed time since the start of emission [ $s$ ]\
+$\tau _c$ = Time constant [ $s$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -892,9 +892,9 @@ Create a contaminant/species source that is governed by the pressure differences
 A pressure driven source with a default name of `_SrcCsPrs_?` is created, where `?` is the number of pressure driven source created.\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot ctrl \cdot G (\Delta P)^n$$
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]\
-$G$ = Generation rate coefficient [$kg_\alpha /Pa^n \cdot s$]\
-$\Delta P$ = Pressure difference (ambient pressure - zone pressure) [$Pa$]\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]\
+$G$ = Generation rate coefficient [ $kg_\alpha /Pa^n \cdot s$ ]\
+$\Delta P$ = Pressure difference (ambient pressure - zone pressure) [ $Pa$ ]\
 $n$ = Pressure exponent [no units]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
@@ -930,7 +930,7 @@ A peak model source with a default name of `_SrcCsPkm_?` is created, where `?` i
 This source is provided for compatibility with the Material Emissions Database developed by the National Research Council Canada (NRCC) that is largely based on material emission test chamber data.\
 The generation rate is calculated by:
 $$S_\alpha(t) = mult \cdot a \cdot e ^ {-0.5[(1/b) \cdot ln(t/t_p)]^2}$$
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$]. It will increase up until time $t_p$ at which point it will begin to decay.\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]. It will increase up until time $t_p$ at which point it will begin to decay.\
 $a$, $b$, and $t_p$ = Empirical coefficients typically determined from emission chamber measurements.\
 $mult$ = Source/sink multiplier [no units]
 
@@ -973,10 +973,10 @@ For $t	\leqslant t_p$ the initial emission rate is:
 $$S_{\alpha,o}(t) = mult \cdot a \cdot t_p^{-b}$$
 and for $t > t_p$:
 $$S_\alpha(t) = mult \cdot a \cdot t^{-b}$$
-$S_{\alpha,o}(t)$ = Intitial source strength before time $t_p$ [$kg_\alpha /s$].\
-$S_\alpha(t)$ = Source strength at time $t$ [$kg_\alpha /s$].\
+$S_{\alpha,o}(t)$ = Intitial source strength before time $t_p$ [ $kg_\alpha /s$ ].\
+$S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ].\
 $a$ and $b$ = Empirical coefficients typically determined from emission chamber measurements.\
-$t_p$ = Power-law model time [$s$].\
+$t_p$ = Power-law model time [ $s$ ].\
 $mult$ = Source/sink multiplier [no units]
 
  - **Inputs**:
@@ -1015,11 +1015,11 @@ Create a contaminant/species sink with a constant generation/removal rate.\
 A constant coefficiency sink with a default name of `_SinkCsCcf_?` is created, where `?` is the number of constant coefficiency sink created.\
 The removal rate is calculated by:
 $$R_\alpha(t) = mult \cdot ctrl \cdot G - mult \cdot ctrl \cdot R \cdot C_\alpha(t)$$
-$R_\alpha(t)$ = Sink strength at time $t$ [$kg_\alpha /s$]\
-$G$ = Generation rate [$kg_\alpha /s$]\
-$R$ = Effective removal rate [$kg_{air} /s$]\
-Determine by multiplying the first-order removal rate of the contaminant [$1/s$] by air density [$kg_{air}/m^3$] and volume [$m^3$] of the zone in which the source is to be located.\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$R_\alpha(t)$ = Sink strength at time $t$ [ $kg_\alpha /s$ ]\
+$G$ = Generation rate [ $kg_\alpha /s$ ]\
+$R$ = Effective removal rate [ $kg_{air} /s$ ]\
+Determine by multiplying the first-order removal rate of the contaminant [ $1/s$ ] by air density [ $kg_{air}/m^3$ ] and volume [ $m^3$ ] of the zone in which the source is to be located.\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -1055,11 +1055,11 @@ This model is dependent on the mass of air in the zone in which the source/sink 
 A deposition rate sink with a default name of `_SinkCsDrs_?` is created, where `?` is the number of deposition rate sink created.\
 The removal rate is calculated by:
 $$R_\alpha(t) = mult \cdot ctrl \cdot k_d \cdot V_z \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
-$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [$kg_\alpha /s$]\
-$V_z$ = Zone volume [$m^3$]\
-$k_d$ = Deposition rate [$1/s$]\
-$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [ $kg_\alpha /s$ ]\
+$V_z$ = Zone volume [ $m^3$ ]\
+$k_d$ = Deposition rate [ $1/s$ ]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [ $kg_{air}/m^3$ ]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -1091,11 +1091,11 @@ This model differs from the [Deposition Rate Sink Model](#sink---deposition-rate
 A deposition velocity sink with a default name of `_SinkCsDvs_?` is created, where `?` is the number of deposition velocity sink created.\
 The removal rate is calculated by:
 $$R_\alpha(t) = mult \cdot ctrl \cdot v_d \cdot A_s \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
-$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [$kg_\alpha /s$]\
-$v_d$ = Deposition velocity [$m/s$]\
-$A_s$ = Deposition surface area [$m^2$]\
-$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) at time $t$ [ $kg_\alpha /s$ ]\
+$v_d$ = Deposition velocity [ $m/s$ ]\
+$A_s$ = Deposition surface area [ $m^2$ ]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [ $kg_{air}/m^3$ ]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -1133,15 +1133,15 @@ The removal rate is calculated by:
 $$R_\alpha(t) = v_d \cdot (mult \cdot A_s) \cdot \rho_{air}(t) \cdot C_\alpha(t)$$
 The resuspension rate is calculated by:
 $$S_\alpha(t) = (ctrl \cdot r \cdot A_r) \cdot L_\alpha(t)$$
-$R_\alpha(t)$ = Sink strength (removal rate by deposition) of contaminant $\alpha$ from zone air to surface at time $t$ [$kg_\alpha /s$]\
-$v_d$ = Deposition velocity [$m/s$]\
-$A_s$ = Deposition surface area [$m^2$]\
-$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [$kg_{air}/m^3$]\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [$kg_\alpha / kg_{air}$]\
-$S_\alpha(t)$ = Source strength (resuspension) of contaminant $\alpha$ from surface to zone air at time $t$ [$kg_\alpha /s$]\
-$r$ = Resuspension rate [$1/s$]\
-$A_r$ = Resuspension surface area [$m^2$]\
-$L_\alpha(t)$ = Concentration of contaminant $\alpha$ on the deposition surface at time $t$ [$kg_\alpha / m^2$]\
+$R_\alpha(t)$ = Sink strength (removal rate by deposition) of contaminant $\alpha$ from zone air to surface at time $t$ [ $kg_\alpha /s$ ]\
+$v_d$ = Deposition velocity [ $m/s$ ]\
+$A_s$ = Deposition surface area [ $m^2$ ]\
+$\rho_{air}(t)$ = Density of air in the sink zone at time $t$ [ $kg_{air}/m^3$ ]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone at time $t$ [ $kg_\alpha / kg_{air}$ ]\
+$S_\alpha(t)$ = Source strength (resuspension) of contaminant $\alpha$ from surface to zone air at time $t$ [ $kg_\alpha /s$ ]\
+$r$ = Resuspension rate [ $1/s$ ]\
+$A_r$ = Resuspension surface area [ $m^2$ ]\
+$L_\alpha(t)$ = Concentration of contaminant $\alpha$ on the deposition surface at time $t$ [ $kg_\alpha / m^2$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units] 
 
@@ -1185,14 +1185,14 @@ The boundary layer diffusion controlled reversible sink/source model with a line
 A boundary layer diffusion sink with a default name of `_SinkCsBls_?` is created, where `?` is the number of boundary layer diffusion sink created.\
 The removal rate is calculated by:
 $$R_\alpha(t) = ctrl \cdot h \cdot d \cdot A_s \cdot [C_\alpha(t) - C_s(t) / k]$$
-$R_\alpha(t)$ = Sink strength of contaminant $\alpha$ from zone air transferred onto a surface at time $t$ [$kg_\alpha /s$]\
+$R_\alpha(t)$ = Sink strength of contaminant $\alpha$ from zone air transferred onto a surface at time $t$ [ $kg_\alpha /s$ ]\
 $ctrl$ = Schedule or control value [no units]\
-$h$ = Film mass transfer coefficient over the sink [$m/s$]\
-$d$ = Film density of air [$kg_{air}/m^3$]\
-$A_s$ = Surface area of the adsorbent [$m^2$]\
-$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone air at time $t$ [$kg_\alpha / kg_{air}$]\
+$h$ = Film mass transfer coefficient over the sink [ $m/s$ ]\
+$d$ = Film density of air [ $kg_{air}/m^3$ ]\
+$A_s$ = Surface area of the adsorbent [ $m^2$ ]\
+$C_\alpha(t)$ = Concentration of contaminant $\alpha$ in the zone air at time $t$ [ $kg_\alpha / kg_{air}$ ]\
 $C_s(t)$ = Concentration of contaminant $\alpha$ in the adsorbent at time $t$\
-$k$ = Henry adsorption constant or the partition coefficient [$kg_{air}/kg_{surface}$]\
+$k$ = Henry adsorption constant or the partition coefficient [ $kg_{air}/kg_{surface}$ ]\
 $mult$ = Source/sink multiplier [no units]\
 $ctrl$ = Schedule or control value [no units]
 
@@ -1474,7 +1474,7 @@ Create an airflow element of Q = C(dP)^n with one-way flow using power-law model
 The volume flow of the airflow is calculated as:
 $$Q = C(dP)^n$$
 $Q$ = Volume flow rate of the airflow.\
-$C$ = Flow coefficient [$m^3/s/Pa^n$].\
+$C$ = Flow coefficient [ $m^3/s/Pa^n$ ].\
 $dP$ = Pressure difference across the airflow element (between zones).\
 $n$ = Flow exponent [dimensionless].
 
@@ -1505,7 +1505,7 @@ Create an airflow element of F = C(dP)^n with one-way flow using power-law model
 The mass flow of the airflow is calculated as:
 $$F = C(dP)^n$$
 $F$ = Mass flow rate of the airflow.\
-$C$ = Flow coefficient [$kg/s/Pa^n$].\
+$C$ = Flow coefficient [ $kg/s/Pa^n$ ].\
 $dP$ = Pressure difference across the airflow element (between zones).\
 $n$ = Flow exponent [dimensionless].
 
@@ -1790,8 +1790,8 @@ The relationship between the pressure drop and the volume flow rate is calculate
 $$dP = aQ + bQ^2$$
 $dP$ = The pressure drop.\
 $Q$ = The volume flow rate.\
-$a$ = The flow coefficients [$Pa \cdot s/sm^3$].\
-$b$ = The flow coefficients [$Pa \cdot (s/sm^3)^2$].
+$a$ = The flow coefficients [ $Pa \cdot s/sm^3$ ].\
+$b$ = The flow coefficients [ $Pa \cdot (s/sm^3)^2$ ].
  - **Inputs**:
     - **_name** [required]:
         - Type: Text [Item]
@@ -1820,8 +1820,8 @@ The relationship between the pressure drop and the mass flow rate is calculated 
 $$dP = aF + bF^2$$
 $dP$ = The pressure drop.\
 $F$ = The volume flow rate.\
-$a$ = The flow coefficients [$Pa \cdot s/kg$].\
-$b$ = The flow coefficients [$Pa \cdot (s/kg)^2$].
+$a$ = The flow coefficients [ $Pa \cdot s/kg$ ].\
+$b$ = The flow coefficients [ $Pa \cdot (s/kg)^2$ ].
  - **Inputs**:
     - **_name** [required]:
         - Type: Text [Item]
