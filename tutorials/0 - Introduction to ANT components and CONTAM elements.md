@@ -2232,8 +2232,22 @@ Cubic spline models enable you to create airflow elements based on a curve fit t
 
 ## 09-Library
 ![Library components](./img/icons-library.png)
+### Library manager
+### Library
+### External library
+
 ## 10-Ambient
 ![Ambient components](./img/icons-ambient.png)
+### CTM file creator
+
+### Custom CTM file
+
+### Weather file creator
+
+### Wind pressure profile
+
+### Weather and wind properties
+
 ## 11-Simulation
 ![Simulation components](./img/icons-simulation.png)
 ### Project
@@ -2242,3 +2256,9 @@ Cubic spline models enable you to create airflow elements based on a curve fit t
 ### Help
 ## 12-Results
 ![Results components](./img/icons-results.png)
+### Results
+### Contour
+### Legend
+### Plot
+### Moments
+### Loop
