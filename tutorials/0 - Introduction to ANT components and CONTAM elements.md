@@ -77,6 +77,9 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Airflow element - P vs F (Cubic spline flow models)](#airflow-element---p-vs-f-cubic-spline-flow-models)
     - [Airflow element - P vs Q (Cubic spline flow models)](#airflow-element---p-vs-q-cubic-spline-flow-models)
  - [09-Library](#09-library)
+    - [Library manager](#library-manager)
+    - [Library](#library)
+    - [External library](#external-library)
  - [10-Ambient](#10-ambient)
  - [11-Simulation](#11-simulation)
  - [12-Results](#12-results)
@@ -2233,8 +2236,48 @@ Cubic spline models enable you to create airflow elements based on a curve fit t
 ## 09-Library
 ![Library components](./img/icons-library.png)
 ### Library manager
+Manage and save the library of species, reaction, day schedule, and wind pressure profile (WPP) for the project.\
+Click the *Save library* button on the component to specify the saving path and save the library to the file.
+ - **Inputs**:
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the library.
+    - **_elements**:
+        - Type: Species / Reaction / Day schedule / Wind pressure profile [List]
+        - Default: None
+        - Description: A list of CONTAM/ANT elements that will be saved to the library file. Available elements include species, reaction, day schedule, and wind pressure profile (WPP). All input elements must be the same element type. 
+
 ### Library
+Load the system library of species, filter, day schedule, and wind pressure profile (WPP) for the project.\
+Four element types are available in the system library: species, reaction, day schedule, and wind pressure profile (WPP). The library will be loaded by selecting the type button on the component.
+ - **Inputs**:
+    - **options**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A list of text that represents the element names in the specified library. The list is shown as a dropdown list by default. It allows users to select the desired element from the dropdown list. The original library files are stored in the *lib* folder under the folder of the ANT plugin file (in the *Components Folder*). Species and filter elements are stored in the LB0 files, day schedule elements are stored in the LB1 file, and wind pressure profile (WPP) elements are stored in the LB2 file. If users want to change the elements of the system library files, they can modify the original library files accordingly, although this is not suggested.
+ - **Outputs**:
+    - **selection**:
+        - Type: Species / Reaction / Day schedule / Wind pressure profile [Item]
+        - Description: The element that is selected and loaded from the library.
+
 ### External library
+Load the external library of species, filter, day schedule, and wind pressure profile (WPP) for the project.\
+Four element types are available in the system library: species, reaction, day schedule, and wind pressure profile (WPP). The library will be loaded by importing the library file path of the same library type as the selection of the type buttons on the component.
+
+ - **Inputs**:
+    - **_lib** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The file path of the library file. Species and filter elements are stored in the LB0 files, day schedule elements are stored in the LB1 file, and wind pressure profile (WPP) elements are stored in the LB2 file. Correct input files are required to meet the according element type selected on the component.
+    - **options**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A list of text that represents the element names in the specified library. The list is shown as a dropdown list by default. It allows users to select the desired element from the dropdown list. Species and filter elements are stored in the LB0 files, day schedule elements are stored in the LB1 file, and wind pressure profile (WPP) elements are stored in the LB2 file.
+ - **Outputs**:
+    - **selection**:
+        - Type: Species / Reaction / Day schedule / Wind pressure profile [Item]
+        - Description: The element that is selected and loaded from the library.
 
 ## 10-Ambient
 ![Ambient components](./img/icons-ambient.png)
