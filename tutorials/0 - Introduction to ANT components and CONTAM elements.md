@@ -2282,7 +2282,42 @@ Four element types are available in the system library: species, reaction, day s
 ## 10-Ambient
 ![Ambient components](./img/icons-ambient.png)
 ### CTM file creator
-
+Create a contaminant (CTM) file of a specified contaminant/species in a site from the U.S. EPA Air Quality System (AQS) database using its API.\ 
+The U.S. EPA AQS database is only available for some sites in the U.S. The component will return an error if the site is not available in the database. To apply a valid API key for using the component properly, right-click (or double click) the component to open the *Enter EPA API Key* panel and input your own API key. The API key can be obtained from the [U.S. EPA AQS website](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup).
+ - **Inputs**:
+    - **_state** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The code of the specified state from the list.
+    - **_county** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The code of the specified county from the list. The list of counties will be updated according to the selected state.
+    - **_site** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The code of the specified site from the list. The list of sites will be updated according to the selected county and state. If the site is not available in the database, the component will return a warning and no list of sites will be shown up.
+    - **_species** [required]:
+        - Type: Text / Species [List]
+        - Default: None
+        - Description: A list of species element or text of the species name that will be calculated for the exposure. The species needs to be defined and calculated in the simulation. Currently, only six species are available in the EPA AQS database: CO, NO2, Ozone, PM10, PM2.5, and SO2. The species name is case-insensitive. The component will return an error if the species is not available for the specified site in the database.
+    - **start date**:
+        - Type: Text [Item]
+        - Default: 1/1
+        - Description: The start date of the CTM file. The date format is `M/d`.
+    - **end date**:
+        - Type: Text [Item]
+        - Default: 12/31
+        - Description: The end date of the CTM file. The date format is `M/d`.
+    - **year**:
+        - Type: Integer [Item]
+        - Default: 2017
+        - Description: The year of the CTM file. 
+ - **Outputs**:
+    - **CTM**:
+        - Type: Text [Item]
+        - Description: The file path of the generated contaminant (CTM) file of the specified contaminants/species. 
+        
 ### Custom CTM file
 
 ### Weather file creator
