@@ -2317,8 +2317,10 @@ The U.S. EPA AQS database is only available for some sites in the U.S. The compo
     - **CTM**:
         - Type: Text [Item]
         - Description: The file path of the generated contaminant (CTM) file of the specified contaminants/species. 
-        
+
 ### Custom CTM file
+Create a contaminant (CTM) file of a specified contaminant/species with custom data.\
+Three modes of data profile are available: 1) const(ant), 2) cyclic, and 3) custom. The mode can be changed by selecting the *data profile* buttons on the component. The constant mode represents the a constant contaminant concentration over the whole duration in the CTM file. The cyclic mode allows users to input a daily change of contaminant concentration change (from time 0 to time 24) and the same daily data will be used for each day between the start and end dates. The custom mode allows users to input a fully custom data profile of contaminant concentrations.
 
 ### Weather file creator
 
