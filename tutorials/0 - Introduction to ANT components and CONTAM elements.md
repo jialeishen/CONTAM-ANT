@@ -81,8 +81,23 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Library](#library)
     - [External library](#external-library)
  - [10-Ambient](#10-ambient)
+    - [CTM file creator](#ctm-file-creator)
+    - [Custom CTM file](#custom-ctm-file)
+    - [Weather file creator](#weather-file-creator)
+    - [Wind pressure profile](#wind-pressure-profile)
+    - [Weather and wind properties](#weather-and-wind-properties)
  - [11-Simulation](#11-simulation)
+    - [Project](#project)
+    - [Simulation parameters](#simulation-parameters)
+    - [Simulation](#simulation)
+    - [Help](#help)
  - [12-Results](#12-results)
+    - [Results](#results)
+    - [Contour](#contour)
+    - [Legend](#legend)
+    - [Plot](#plot)
+    - [Moments](#moments)
+    - [Loop](#loop)
 <!--te-->
 CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. Detailed introductions of CONTAM elements can be found in [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34). Some elements are introduced here for better understanding of ANT components.
 
@@ -105,7 +120,7 @@ Zones with default names of `_zone_?` are created, where `?` is the number of zo
     - **init ctm conc**: 
         - Type: Number [List]
         - Default: 0 for all contaminants
-        - Description: Initial concentrations of simulated contaminants (specified in [Project](#project) component). Must match the size of contaminant inputs in [Project](#project) component. Same input for all specified zones (in **_zone**).
+        - Description: Initial concentrations of simulated contaminants (specified in [Project](#project) component). Must match the size of contaminant inputs in [Project](#project) component. Same input for all specified zones (in **_zone**). Unit of each contaminant concentration is specified by users in [Contaminant/Species](#contaminantspecies) component, [Edit contaminant/species](#edit-contaminantspecies) component, or [Library](#library) component.
     - **srcs/sinks**: 
         - Type: Source/Sink [List]
         - Default: None
@@ -195,17 +210,17 @@ Create generic openings.\
 Each generic opening contains an airflow path defined in **_path**. For openings with *fan and forced-flow models*, airflow direction is visualized and can be changed by right-clicking the component and reverse the flow direction.
 - **Inputs**:
     - **_openings** [required]:
-        - Type: Brep/surface geometry [List]
+        - Type: Brep/surface/point geometry [List]
         - Default: None
-        - Description: Generic opening geometry (brep/surface) acquired from Rhino.
+        - Description: Generic opening geometry (brep/surface/point) acquired from Rhino.
     - **_path** [required]:
         - Type: Airflow path [Item]
         - Default: None
         - Description: Airflow path of generic openings. Same input for all specified generic openings (in **_openings**).
 - **Outputs**:
     - **openings**:
-        - Type: Brep/surface geometry [List]
-        - Description: Generic opening geometry (brep/surface) with updated settings.
+        - Type: Brep/surface/point geometry [List]
+        - Description: Generic opening geometry (brep/surface/point) with updated settings.
 
 ## 02-HVAC
 ![HVAC system components](./img/icons-hvac.png)
@@ -748,7 +763,7 @@ The original calculator is a web application on CONTAM website: [Particle Distri
         - Description: A relative file path of the generated species library file (LB0).
     - **pm CTM**:
         - Type: Text [Item]
-        - Description: A relative file path of the generated CTM file of particles.
+        - Description: A relative file path of the generated CTM file of particles. It is notable that the species concentrations in the CTM file have been converted into the default mass fraction concentration ($kg_{\alpha}/kg_{air}$) by the component itself. No further conversion is needed.
 
 ## 06-Source/Sink
 ![Source components](./img/icons-src.png)
@@ -1122,7 +1137,7 @@ $ctrl$ = Schedule or control value [no units]
     - **mult**:
         - Type: Number [Item]
         - Default: 1
-        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element (e.g., the leakage area per area model). Right-click the component and select *Multiplier = Surface area* for the multiplier. The multiplier will be set up as the area of the associated surface.
  - **Outputs**:
     - **sink**:
         - Type: Sink [Item]
@@ -1176,7 +1191,7 @@ $ctrl$ = Schedule or control value [no units]
     - **mult**:
         - Type: Number [Item]
         - Default: 1
-        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element.
+        - Description: Multiplier. A constant value by which the ***sink strength*** will be multiplied during simulation (the resuspension strength won't be multiplied). With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element. Right-click the component and select the desired setting for the multiplier, including 1) *Multiplier = Zone floor area*; 2) *Multiplier = Zone wall area*; 3) *Multiplier = Zone ceiling area*. The multiplier will be set up as the according area of the associated zone.
  - **Outputs**:
     - **sink**:
         - Type: Sink [Item]
@@ -2300,7 +2315,7 @@ The U.S. EPA AQS database is only available for some sites in the U.S. The compo
     - **_species** [required]:
         - Type: Text / Species [List]
         - Default: None
-        - Description: A list of species element or text of the species name that will be calculated for the exposure. The species needs to be defined and calculated in the simulation. Currently, only six species are available in the EPA AQS database: CO, NO2, Ozone, PM10, PM2.5, and SO2. The species name is case-insensitive. The component will return an error if the species is not available for the specified site in the database.
+        - Description: A list of species element or text of the species name that will be applied in the CTM file. Currently, only six species are available in the EPA AQS database: CO, NO2, Ozone, PM10, PM2.5, and SO2. The species name is case-insensitive. The component will return an error if the species is not available for the specified site in the database.
     - **start date**:
         - Type: Text [Item]
         - Default: 1/1
@@ -2316,18 +2331,204 @@ The U.S. EPA AQS database is only available for some sites in the U.S. The compo
  - **Outputs**:
     - **CTM**:
         - Type: Text [Item]
-        - Description: The file path of the generated contaminant (CTM) file of the specified contaminants/species. 
+        - Description: A relative file path of the generated contaminant (CTM) file of the specified contaminants/species. It is notable that the species concentrations in the CTM file have been converted into the default mass fraction concentration ($kg_{\alpha}/kg_{air}$) by the component itself. No further conversion is needed.
 
 ### Custom CTM file
 Create a contaminant (CTM) file of a specified contaminant/species with custom data.\
 Three modes of data profile are available: 1) const(ant), 2) cyclic, and 3) custom. The mode can be changed by selecting the *data profile* buttons on the component. The constant mode represents the a constant contaminant concentration over the whole duration in the CTM file. The cyclic mode allows users to input a daily change of contaminant concentration change (from time 0 to time 24) and the same daily data will be used for each day between the start and end dates. The custom mode allows users to input a fully custom data profile of contaminant concentrations.
+ - **Inputs**:
+    - **_species** [required] 
+        - Type: Text / Species [List]
+        - Default: None
+        - Description: A list of species element or text of the species name that will be applied in the CTM file. The species name is case-insensitive.
+    - **start date**:
+        - Type: Text [Item]
+        - Default: 1/1
+        - Description: The start date of the CTM file. The date format is `M/d`. This input start date will be invalid when the *custom* data profile mode is used as the start date will be specified in the input data.
+    - **end date**:
+        - Type: Text [Item]
+        - Default: 12/31
+        - Description: The end date of the CTM file. The date format is `M/d`. This input end date will be invalid when the *custom* data profile mode is used as the end date will be specified in the input data.
+    - **data**:
+        - Type: Number / Text [List]
+        - Default: 0 for all species
+        - Description: A list of numbers or texts that represents the contaminant concentration profile of the specified species. The data profile can be in three modes: 1) const(ant), 2) cyclic, and 3) custom. The mode can be changed by selecting the *data profile* buttons on the component. The constant mode represents the a constant contaminant concentration over the whole duration in the CTM file. The cyclic mode allows users to input a daily change of contaminant concentration change (from time 0 to time 24) and the same daily data will be used for each day between the start and end dates. The custom mode allows users to input a fully custom data profile of contaminant concentrations. Unit of each contaminant concentration is specified by users in [Contaminant/Species](#contaminantspecies) component, [Edit contaminant/species](#edit-contaminantspecies) component, or [Library](#library) component.
+            - For *constant* mode, a list number of constant concentrations is required as the input. The size of the list needs to match the size of the specified species in **_species**. If only one number is input, this number will be used for all specified species. Alternatively, a line of text that represents the concentrations for different species is also acceptable. 
+            - For *cyclic* mode, a list texts that represents the contaminant concentrations of all specified species at different time is required as the input. Each text must be presented as a text in the format of `time value_1 (value_2 value_3 ...)`. The number of values needs to be the same size of the specified species. Time and values can be separated by a space` `, a comma`,`, or a tab`    `. For example, `6 1 2 3` and `6,1,2,3` are both valid concentration pairs for species 1, species 2 and species 3 at time 6AM. `time` needs to be in the format of `H:mm:ss`, `H:mm`, or simply `H`. For example, `6`, `6:00`, and `6:00:00` are all valid time formats for 6AM. A valid cyclic data profile input must be started with time 0 (`0`, `0:00`, or `0:00:00`) and ended with time 24 (`24`, `24:00`, or `24:00:00`). 
+            - For *custom* mode, a list texts that represents the contaminant concentrations of all specified species at custom date and time is required as the input. Each text must be presented as a text in the format of `date time value_1 (value_2 value_3 ...)`. The number of values needs to be the same size of the specified species. Date, time, and values can be separated by a space` `, a comma`,`, or a tab`    `. For example, `1/1 6 1 2 3` and `1/1,6,1,2,3` are both valid concentration pairs for species 1, species 2 and species 3 at time 6AM on 1/1. `date` needs to be in the format of `M/d`. `time` needs to be in the format of `H:mm:ss`, `H:mm`, or simply `H`. For example, `6`, `6:00`, and `6:00:00` are all valid time formats for 6AM. A valid custom data profile input must be started with time 0 (`0`, `0:00`, or `0:00:00`) of the specified start date and ended with time 24 (`24`, `24:00`, or `24:00:00`) of the specified end date.
+ - **Outputs**:
+    - **CTM**:
+        - Type: Text [Item]
+        - Description: A relative file path of the generated contaminant (CTM) file of the specified contaminants/species. It is notable that the species concentrations in the CTM file have been converted into the default mass fraction concentration ($kg_{\alpha}/kg_{air}$) by the component itself. No further conversion is needed.
 
 ### Weather file creator
+Create a weather (WTH) file for CONTAM/ANT simulation from a specified EnergyPlus weather (EPW) file.\
+This component runs the CONTAM Weather File Creator 2.0 (CONTAM_EPWtoWTH.exe in the ANT root path) to generate the WTH file. CONTAM Weather File Creator 2.0 and its documents can be accessed on the [CONTAM website](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software/contam-weather-file). Daylight savings time (DST) can be applied by right-clicking the component and selecting the *Use Daylight Savings Time (DST)* option.
+ - **Inputs**:
+    - **_EPW** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The file path of the specified EnergyPlus weather (EPW) file. The EPW file can be downloaded from the [EnergyPlus website](https://energyplus.net/weather) or the [EPW map tool of Ladybug](https://www.ladybug.tools/epwmap/).
+    - **start date**:
+        - Type: Text [Item]
+        - Default: 1/1
+        - Description: The start date of the WTH file. The date format is `M/d`.
+    - **end date**:
+        - Type: Text [Item]
+        - Default: 12/31
+        - Description: The end date of the WTH file. The date format is `M/d`.
+    - **first day**: 
+        - Type: Text [Item]
+        - Default: Sunday
+        - Description: The week day of the first day in the WTH file. This will set the Day Type fields in the WTH file starting on this day and cycling through the seven days of the week where Day Type values from 1 through 7 corresponds to Sunday through Saturday, respectively.
+    - **DST start date**:
+        - Type: Text [Item]
+        - Default: 3/12
+        - Description: The start date of the daylight savings time (DST). The date format is `M/d`. This input will be valid when the *Use Daylight Savings Time (DST)* option in the component menu is selected.
+    - **DST end date**:
+        - Type: Text [Item]
+        - Default: 11/5
+        - Description: The end date of the daylight savings time (DST). The date format is `M/d`. This input will be valid when the *Use Daylight Savings Time (DST)* option in the component menu is selected.
+ - **Outputs**:
+    - **WTH**:
+        - Type: Text [Item]
+        - Description: A relative file path of the generated weather (WTH) file.
 
 ### Wind pressure profile
+Create a wind pressure profile (WPP) element for the project. Wind pressure profile element is used to account for the wind direction effects in flow elements.\
+CONTAM/ANT refers to the function relating the average wind pressure coefficient for the face of a building to the angle of incidence of the wind on the face of the building as the wind pressure profile. Three options of curve fitting for input data points are available, 1) linear, 2) cubic, and 3) 5-point. The curve fitting method can be changed by selecting the *curve fit* buttons on the component. The *linear* fit simply connects the data points and linearly interpolates between the data points. The *cubic* fit connects all the user data points using a nonlinear curve fit between the points (cubic spline). The *5-point* fit requires five data points – one for each wind direction angle 0°, 90°, 180°, 270° and 360°. The curve fits a trend line to these five data points (ignoring any others) according to the following equation developed by Walker and Wilson: 
+$$C_p(\theta) = \frac{1}{2} \cdot \biggl[ \Bigl( C_p(0\degree) + C_p(180\degree) \Bigr)\cdot \Bigl( cos^2\theta \Bigr)^{\frac{1}{4}} + \Bigl( C_p(0\degree) - C_p(180\degree) \Bigr)\cdot \Bigl( cos\theta \Bigr)^{\frac{3}{4}} + \Bigl( C_p(90\degree) + C_p(270\degree) \Bigr)\cdot \Bigl( sin^2\theta \Bigr)^{2} + \Bigl( C_p(90\degree) - C_p(270\degree) \Bigr)\cdot \Bigl( sin\theta \Bigr) \biggr]$$
+
+$C_p(\theta)$ = Win pressure coefficient at degree $\theta$ [dimensionless]. 
+
+ - **Inputs**:
+    - **_name** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: A unique name used to identify the wind pressure profile element.
+    - **desc**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: Detailed description of the wind pressure profile element.
+    - **data**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list of texts that represents the angle-coefficient pairs of the wind pressure profile. The angle-coefficient pair defines the efficient of the wind pressure profile element at the given angle [in degree unit]. Each pair must be presented as a text in the format of `angle coefficient`. Angle and coefficient can be separated by a space` `, a comma`,`, a tab`    `, a colon`:`, or a dashline`-`. For example, `90 0.5`, `90,0.5`, and `90:0.5` are all valid angle-coefficient pairs. The angle-coefficient pairs need to start from angle = 0° and end at angle = 360°. At least three points are required for the *cubic* fit mode. The *5-point* fit requires five data points: one for each wind direction angle 0°, 90°, 180°, 270° and 360°. The curve fits a trend line to these five data points. Any other points besides these five points will be ignored.
+ - **Outputs**:
+    - **wpp**:
+        - Type: Wind pressure profile [Item]
+        - Description: A wind pressure profile element with updated settings.
 
 ### Weather and wind properties
+Create a weather and wind properties element (ambient properties element) for the project.\
+This component is used to manage the weather and wind properties and parameters, including ambient temperature, barometric pressure, wind speed, wind direction and also outdoor contaminant levels. The type of weather data you require for a simulation depends on the type of simulation you are performing, whether you want to account for the effects of wind, and whether or not you are simulating contaminants. If you are performing a steady-state airflow simulation, you will only need steady state weather and wind data. If you are performing a transient airflow simulation, you can use either steady state or transient weather data. Transient weather data is implemented through the use of weather files or WTH files. If you are performing transient contaminant simulations, you can use either steady-state or transient ambient contaminant data as well. Transient ambient contaminant data is implemented via the use of ambient contaminant files or CTM files. 
+Wind pressure can be a significant driving force for air infiltration through a building envelope. It is a function of wind speed, wind direction, building configuration, and local terrain effects. CONTAM/ANT enables you to account for the effects of wind pressure on flow paths through the building envelope (external airflow paths). The equation for wind pressure on the building surface is:
+$$P_w = \frac{\rho_{air} \cdot V_H^2}{2} \cdot C_p$$
+$P_w$ = Wind pressure on the building surface.\
+$\rho_{air}$ = Ambient air density.\
+$V_H$ = Approach wind speed at the upwind wall height (usually the height of the building) $H$.\
+$C_p$ = Wind pressure coefficient [dimensionless].
 
+The wind pressure coefficient can be further generalized in terms of a local terrain effects coefficient and the direction of the wind relative to the wall under consideration. Three types of surrounding terrains are optional, 1) urban, 2) suburban, and 3) airport. The type can be changed by selecting the *surrounding terrain* option buttons on the component. The following equation is that used by CONTAM/ANT when calculating wind pressures on the building.
+$$P_w = \frac{\rho_{air} \cdot V_{met}^2}{2} \cdot C_h \cdot C_p(\theta)$$
+$P_w$ = Wind pressure on the building surface.\
+$\rho_{air}$ = Ambient air density.\
+$V_{met}$ = Wind speed measured at meteorological station.\
+$C_h$ = Wind speed modifier coefficient accounting for terrain and elevation effects [dimensionless].\
+$C_p(\theta)$ = Coefficient that is a function of the relative wind direction. CONTAM\ANT refers to this function as the *wind pressure profile* that can be defined in the [wind pressure profile](#wind-pressure-profile) component.
+
+The relative wind direction is given by 
+$$\theta = \theta_w - \theta_s$$
+$\theta_w$ = Wind azimuth angle (N = 0°, E = 90°, etc.) [degree].\
+$\theta_s$ = Surface azimuth angle [degree].
+
+The wind pressure modifier $C_h$ accounts for the difference between $V_{met}$ and $V_{H}$. The value for $C_h$ will typically be constant for all openings on a given building. A value can be defined in this component that will be used for each flow path connected to the ambient. Alternatively, the value can be defined for each airflow path individually in the **modifier** of the [Airflow path](#airflow-path) component. The following equation is used to calculate the wind speed modifier $C_h$:
+$$C_h = \frac{V_H^2}{V_{met}^2} = A_0^2 \cdot \left( \frac{H}{H_{ref}} \right)^{2a}$$
+$H$ = Wall height.\
+$H_{ref}$ = Reference height.\
+$A_0$ and $a$ = Coefficients that depend on the surrounding terrain (see the following table).
+
+|Terrain Type|Coefficient ($A_0$)|Exponent ($a$)|
+|---|---|---|
+|Urban|0.35|0.40|
+|Suburban|0.60|0.28|
+|Airport|1.00|0.15|
+
+The wind speed $V_{met}$ is usually measured at an airport (open terrain) at an elevation, $H_{met}$ = 10 m, above the ground. The wind speed $V_0$ at that same elevation at the building site is given by 
+
+$$V_0 = A_0 \cdot V$$
+
+The wind speed $V_H$ at the top of the wall, elevation $H$, is then given by 
+
+$$V_H = V_{0} \cdot \left( \frac{H}{H_{met}} \right)^{a}$$
+
+An updated method, from that presented in ASHRAE 1993, of accounting for local terrain effects is presented Chapter 16 of ASHRAE 2005. Using this method, $V_H$ is calculated according to the following equation: 
+
+$$V_H = V_{met} \cdot \left( \frac{\delta_{met}}{H_{met}} \right)^{a_{met}} \left( \frac{H}{\delta} \right)^a$$
+
+$\delta_{met}$ = Wind boundary layer thickness for the meteorological station.\
+$\delta$ = Wind boundary layer thickness for the local building terrain.\
+$a_{met}$ = Wind boundary layer exponent for the meteorological station.\
+$a$ = Wind boundary layer exponent for the local building terrain.
+
+Therefore, in order to implement the updated method, you must adjust the value of $A_0$ according to the following equation: 
+
+$$A_0 = \left( \frac{\delta_{met}}{H_{met}} \right)^{a_{met}} \left( \frac{H}{\delta} \right)^a$$
+
+ - **Inputs**: 
+    - **north**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Relative north, the clockwise angle from y-axis of Rhino canvas to true north. The angle is in degree unit. The direction to relative north will be used relating wall angles to true north for determining wind direction effects. This value is set to 0° by default, which means the y-axis of Rhino canvas is pointing to the true north.
+    - **wind height**:
+        - Type: Number [Item]
+        - Default: 10 m
+        - Description: The height of the upwind wall of the building ($H$). Entering a value of zero will reduce the wind speed modifier to zero. This will cause computed wind pressures to be zero no matter what the wind speed, unless you override the wind pressure coefficients of exterior airflow paths.
+    - **altitude**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: The altitude of the building site. This value is used to determine a default absolute barometric pressure for the steady state weather data.
+    
+    ── Steady ──
+    - **ambt temperature**:
+        - Type: Number [Item]
+        - Default: 20 °C
+        - Description: The ambient temperature of the building site. This value is used to calculate outside air density and building stack effects. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **pressure**:
+        - Type: Number [Item]
+        - Default: 101325 Pa
+        - Description: The absolute barometric pressure of the building site (not corrected to sea level).
+    - **RH**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Relative humidity as a fraction, i.e., between 0.0 and 1.0. This value will be used along with Ambient Temperature and Pressure to calculate the Humidity Ratio and Mass Fraction of H2O.
+    - **wind speed**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Magnitude of the wind velocity. Unit can be changed by right-clicking the component and selecting the desired one.
+    - **wind dir**:
+        - Type: Number [Item]
+        - Default: 0
+        - Description: Wind direction from which the wind blows as measured in degrees clockwise from true north.
+    - **day type**:
+        - Type: Number [Item]
+        - Default: 1
+        - Description: This is the type of day you want to use when performing a simulation with steady airflows and no weather file. The Day Type corresponds to one of the twelve day schedules that you can create (1-12).
+
+    ── Transient ──
+    - **CTM**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The file path of the contaminant (CTM) file. CTM files are used to define the ambient contaminant concentrations of the building site for transient simulations.
+    - **WTH**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The file path of the weather (WTH) file. WTH files are used to define the ambient weather conditions (ambient temperature, barometric pressure, wind speed, wind direction) of the building site for transient simulations.
+    - **WPC**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The file path of the wind pressure contaminant (WPC) file. WPC files are used to account for the variation of external wind pressures and outdoor contaminant concentrations over the building envelope. This method addresses the need to allow for the use of general, spatially varying wind pressure and ambient contaminant concentrations such as those from wind tunnel experiments or atmospheric models, e.g., plume or puff dispersion simulation tools. The WPC file provides exterior pressure and/or contaminant concentrations time histories for every flow path that connects to the ambient zone including duct terminals and outdoor air intakes of simple air handling systems.
+    
 ## 11-Simulation
 ![Simulation components](./img/icons-simulation.png)
 ### Project
