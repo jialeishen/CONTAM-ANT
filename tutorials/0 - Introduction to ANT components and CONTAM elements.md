@@ -2533,8 +2533,20 @@ $$A_0 = \left( \frac{\delta_{met}}{H_{met}} \right)^{a_{met}} \left( \frac{H}{\d
 ![Simulation components](./img/icons-simulation.png)
 ### Project
 Create a CONTAM project (PRJ) file for simulation.\
-Airflow path settings\
-Project can be set up to steady-state simulation or transient simulation. 
+Airflow path settings can be set up by right-clicking the component and selected the desired one. Three options are available: 1) Simple paths - single airflow path per wall, 2) Detailed paths - three airflow paths per wall, and 3) Custom paths. 
+
+|Type|Description|
+|---|---|
+|Simple paths|The default airflow path is the *Simple paths* setting. It indicates that only one airflow path will be created for each wall and each surface of other types (floor, ceiling).|
+|Detailed paths|The *Detailed paths* setting indicates that three airflow paths will be created for each wall.|
+|Custom paths|The *Custom paths* setting allows users to create custom airflow paths for each wall. The custom airflow paths can be created by the [Airflow path](#airflow-path) component. The *Simple paths* and *Detailed paths* settings will be invalid when the *Custom paths* setting is selected.|
+
+
+1. ***Simple paths***: The default airflow path is the *Simple paths* setting. It indicates that only one airflow path will be created for each wall and each surface of other types (floor, ceiling). 
+2. ***Detailed paths***: The *Detailed paths* setting indicates that three airflow paths will be created for each wall. 
+3. ***Custom paths***: The *Custom paths* setting allows users to create custom airflow paths for each wall. The custom airflow paths can be created by the [Airflow path](#airflow-path) component. The *Simple paths* and *Detailed paths* settings will be invalid when the *Custom paths* setting is selected.
+
+Project can be set up to 1) steady-state simulation or 2) transient simulation by right-clicking the component and selecting the desired one between *Sim Type*. The default simulation type is the *Steady-state* setting. It indicates that the project will be set up for steady-state simulation for both airflow and contaminant simulations. The *Transient* setting indicates that the project will be set up for transient simulation for both airflow and contaminant simulations. The *Sim Type* selection will be invalid when the input **sim set** of the component has a valid input from the [Simulation paraeters](#simulation-parameters) component. The *airflow method* and *contaminant method* settings from the [Simulation paraeters](#simulation-parameters) component will be applied to the project.
 
  - **Inputs**: 
     - **_zones**: [required]:
