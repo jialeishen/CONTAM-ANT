@@ -871,7 +871,9 @@ Create a contaminant/species source with exponentially decaying with time accord
 A decaying source with a default name of `_SrcCsEds_?` is created, where `?` is the number of decaying source created.\
 This model may be appropriate for some sources of volatile organic compounds (VOCs).\
 The generation rate is calculated by:
+
 $$S_\alpha(t) = mult \cdot ctrl \cdot G_0 \cdot e^{-\Delta t/\tau _c}$$
+
 $S_\alpha(t)$ = Source strength at time $t$ [ $kg_\alpha /s$ ]\
 $G_0$ = Initial generation rate [ $kg_\alpha /s$ ]\
 $\Delta t$ = Elapsed time since the start of emission [ $s$ ]\
@@ -1329,9 +1331,13 @@ Create an occupant disability-adjusted life years ([DALYs](https://www.who.int/d
 Read simulation results and calculate occupancy exposure and health impacts to specified contaminants over a certain period of time.\
 The exposure is calculated based on contaminant concentrations in zones and occupant schedule, breathing rate, and filtration by personal protective equipment (PPE) such as masks. The health impacts include 1) disability-adjusted life years ([DALYs](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/158)) for general contaminants and 2) infection risk for infectious respiratory diseases. The calculated metrics can be switched by clicking the metrics option button on the component.\
 Mortality does not give a complete picture of the burden of disease borne by individuals in different populations. The overall burden of disease is assessed using the disability-adjusted life year (DALY), a time-based measure that combines years of life lost due to premature mortality (YLLs) and years of life lost due to time lived in states of less than full health, or years of healthy life lost due to disability (YLDs). One DALY represents the loss of the equivalent of one year of full health. For health issues related to the air contaminants, DALYs can be calculated based on the inhalation exposure and DALYs factors through the Intake-DALY (ID) approach. DALYs are usually expressed per 100,000 population per year. Thus, it is suggested to evaluate DALYs for full-year simulations in ANT. For those air contaminants with sufficient epidemiological data (e.g., PM2.5, CO, NO2, Ozone, and SO2), the Intake-Incidence-DALY (IND) approach can be applied. However, it is not yet ready in the current version of ANT. The calculation of DALYs through the ID approach can be represented as:
+
 $$DALYs = \frac {\partial DALY}{\partial intake} \times intake$$
+
 $$\frac {\partial DALY}{\partial intake} = (\frac {\partial DALY}{\partial intake})_{cancer} \times ADAF + (\frac {\partial DALY}{\partial intake})_{non-cancer}$$
+
 $$intake = \int_{t1}^{t2} (1 - \eta _{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
+
 $\frac {\partial DALY}{\partial intake}$ = DALY factor per intake.\
 $(\frac {\partial DALY}{\partial intake})_{cancer}$ and $(\frac {\partial DALY}{\partial intake})_{non-cancer}$ = DALY factors for cancer and non-cancer effects, respectively.\
 $ADAF$ = Cancer age-dependent adjustment factor (ADAF).\
@@ -1347,6 +1353,7 @@ $t1$ and $t2$ = Start and end time of the exposure period. For DALYs calculation
 Infection risk for infectious respiratory diseases is calculated based on the exposure through the [Wells-Riley model](https://doi.org/10.1111/j.1600-0668.2009.00621.x), which depends on the inhaled dose of infectious pathogen. In ANT, contaminants with number concentrations are required for infection risk estimation, i.e., #/m³, #/cm³, #/ft³, or #/lb. It requires particulate types of contaminants to be defined as the infetious pathogen. The infection risk is calculated based on the "quanta" of the infectious pathogen inhaled, which is the number of infectious pathogen required to cause infection in 63% of susceptible occupants. Unit "quanta" cannot be directly defined in CONTAM or ANT. Therefore, the number concentrations (#/m³, #/cm³, #/ft³, or #/lb) are used as the alternatives for "quanta" units of the infectious pathegon in ANT. In this case, #/m³ equals quanta/m³, for example. Other units related to the number concentrations (#) are changed accordingly. For example, the contaminant generation rate #/h is equivalent to quanta/h. Quanta generation rates of some typical respiratory diseases (including COVID-19) can be found in a [research paper](https://doi.org/10.1016/j.buildenv.2021.107926) and a [review paper](https://doi.org/10.1080/23744731.2021.1977693). Typically, a generation rate of 100 quanta/h is very commonly applied for SARS-CoV-2 (particularly the Omicron variant). The calculation of infection risk (the Wells-Riley model) can be represented as:
 
 $$P = \frac{N_C}{N_S} = 1 - e^{-intake}$$
+
 $$intake = \int_{t1}^{t2} (1 - \eta _{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
 
 $P$ = Infection probability [dimensionless].\
