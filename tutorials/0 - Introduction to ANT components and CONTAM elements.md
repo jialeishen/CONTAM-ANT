@@ -1412,20 +1412,20 @@ $t1$ and $t2$ = Start and end time of the exposure period. For infection risk ca
         - Type: Number [Tree]
         - Description: A tree (list or item) of numbers that represents the exposure to a specific contaminant ($intake$), the DALYs for this contaminant ($DALYs$), or the infection risk of an infectious pathogen ($P$) of the susceptible occupant (the occupant being exposed to the contaminant). For exposure metrics mode, when the input *DALY factors* has a valid input, DALYs are calculated. Otherwise, exposure ($intake$ without calculating DALYs) is calculated and exported. The exposure and DALYs metrics are expressed by an item of a final number. The infection risk is expressed by a list of numbers representing the infection probability over time (for daily or receding durations), or an item of accumulated infection risk. The unit of the exposure is expressed in $kg_{\alpha}$. The unit of DALYs is DALYs per 100,000 population per exposure duration. The unit of infection risk is dimensionless.
     - **conc seq**:
-        - Type: Number [Tree]
-        - Description: A tree (list) element of contaminant concentration sequence that represents the time-sequence concentration level the occupant is exposed to (depending on the occupant's schedule of locations).
+        - Type: Number [List]
+        - Description: A list element of contaminant concentration sequence that represents the time-sequence concentration level the occupant is exposed to (depending on the occupant's schedule of locations).
     - **breath seq**:
-        - Type: Number [Tree]
-        - Description: A tree (list) element of breathing rate sequence, which depends on the occupant's breathing rate schedule.
+        - Type: Number [List]
+        - Description: A list element of breathing rate sequence, which depends on the occupant's breathing rate schedule.
     - **PPE eff seq**:
-        - Type: Number [Tree]
-        - Description: A tree (list) element of personal protective equipment (PPE) filtration efficiency sequence.
+        - Type: Number [List]
+        - Description: A list element of personal protective equipment (PPE) filtration efficiency sequence.
     - **loc seq**:
-        - Type: Text [Tree]
-        - Description: A tree (list) element of occupant location sequence (zone names), which depends on the occupant's schedule of locations.
+        - Type: Text [List]
+        - Description: A list element of occupant location sequence (zone names), which depends on the occupant's schedule of locations.
     - **time seq**:
-        - Type: Text [Tree]
-        - Description: A tree (list) element of time sequence (text). The text of each item is in the format of `date time type`, more specifically `M/d HH:mm:ss ddd`, e.g., `1/1 12:00:00 Fri`. The time sequence depends on the input start and end *data & time* and the time sequence in the result files.
+        - Type: Text [List]
+        - Description: A list element of time sequence (text). The text of each item is in the format of `date time type`, more specifically `M/d HH:mm:ss ddd`, e.g., `1/1 12:00:00 Fri`. The time sequence depends on the input start and end *data & time* and the time sequence in the result files.
 
 ## 08-Airflow
 ![Airflow path components](./img/icons-airflow-path.png)
@@ -2679,7 +2679,7 @@ The *Help* button on the component will open the [help page](https://github.com/
 ### Results
 Read and process the results from the simulation (SIM) file and/or the SQLite (SQLITE3) file.\
 Six types of result periods can be selected: 1) custom, 2) average (avg), 3) full, 4) max, 5) min, and 6) summary (sum). The period type can be changed by selecting the option buttons on the component. The *custom* option indicates that the result of the specified date and time defined by the input **date & time** will be calculated and output as the **data**. The *average* option indicates that the average result over the full period of the input **_results** data will be calculated and output. The *full* option indicates that the full results over the full period of the input **_results** data will be calculated and output. The *max* option indicates that the maximum result over the full period of the input **_results** data will be calculated and output. The *min* option indicates that the minimum result over the full period of the input **_results** data will be calculated and output. The *summary* option indicates that the summary of the full result over the full period of the input **_results** data will be calculated and output.\
-The units of the output data will be in the units specified by the users, e.g., the concentration unit defined in the [Contaminant/Species](#contaminantspecies) component for species results. The size of the output data depends on the visible zones (brep geometries) in the Rhino canvas. 
+The units of the species concentration data will be in the units specified by the users, e.g., the concentration unit defined in the [Contaminant/Species](#contaminantspecies) component for species results. The units for temperature and pressure are in K and Pa, respectively. The size of the output data depends on the visible zones (brep geometries) in the Rhino canvas. 
 
  - **Inputs**:
     - **_results** [required]:
@@ -2693,18 +2693,112 @@ The units of the output data will be in the units specified by the users, e.g., 
     - **_element** [required]:
         - Type: Text / Species [Item]
         - Default: None
-        - Description: The species element or the text represents the species name or other elements (e.g., temperature and pressure) that will be used to extract the result data.
+        - Description: The element that is specified for outputing the coresponding result data. In order to output species concentration results, the input can be the species element specified in the project or a text that represents its name. To output room temperature data, the input text should be `temperature`. To output room pressure data, the input text should be `pressure`. The units of the species concentration data will be in the units specified by the users, e.g., the concentration unit defined in the [Contaminant/Species](#contaminantspecies) component for species results. The units for temperature and pressure are in K and Pa, respectively.
  - **Outputs**:
     - **data**:
+        - Type: Number [Tree]
+        - Description: The tree (list or item) of result data of the specified element. The data type depends on the type of the specified element. The data type can be number (e.g., species concentration, temperature, pressure) or text (e.g., date & time, species name). The size of the output data depends on the visible zones (brep geometries) in the Rhino canvas. The length of data for each zone depends on the specified period type. For the period types of *custom*, *aerage*, *max*, *min*, and *sum*, each zone will output a single number representing the desired state of that zone. For the *full* period type, each zone will output a list of numbers representing the full time-sequence data of the specified element in that zone during the specified period. The units of the species concentration data will be in the units specified by the users, e.g., the concentration unit defined in the [Contaminant/Species](#contaminantspecies) component for species results. The units for temperature and pressure are in K and Pa, respectively.
+    - **geom**:
+        - Type: Brep geometry [List]
+        - Description: A list element of brep geometries that represent all zones of the project. The order of brep geometries should match the order of results in the **data** output.
+    - **time seq**:
+        - Type: Text [List]
+        - Description: A list element of time sequence (text) for the *full* period type. The text of each item is in the format of `date time type`, more specifically `M/d HH:mm:ss ddd`, e.g., `1/1 12:00:00 Fri`. The time sequence depends on the input start and end *data & time* and the time sequence in the result files.
     
-
 ### Contour
-Create a contour diagram.
+Create a contour diagram on the original brep geometries.\
+Visualization type (2D or 3D), text size and color can be changed by right-clicking the component and selecting the desired ones. The button on the component needs to be turned on to enable the visualization.
+ - **Inputs**:
+    - **contour**:
+        - Type: Color in RGB [List]
+        - Default: None
+        - Description: A list element of colors that are represented by RGB values. The length of the list should be the same as the length of the **_geom** input. The color of each item will be applied to the corresponding zone in the **_geom** input. A ***Gradient*** component (*Params ─ Input ─ Gradient*) can be used to generate a list of colors that represents the variation of the desired result data.
+    - **text**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list element of texts that you want to display on the contour diagram. Typically, it can be the value of the result data that is represented by the contour diagram (e.g., species concentrations or room temperatures). The length of the list should be the same as the length of the **_geom** input. The text of each item will be applied to the centroid of the corresponding zone in the **_geom** input. The size and color of the text can be changed by right-clicking the component and selecting the desired ones.
+    - **_geom** [required]:
+        - Type: Brep geometry [List]
+        - Default: None
+        - Description: A list element of brep geometries that represent all zones of the project. The order of brep geometries should match the order of results in **contour** and **text** inputs.
+    - **legend**:
+        - Type: Legend [Item]
+        - Default: None
+        - Description: A legend element that represents the design of the legend for the contour diagram. The legend element can be generated by the [Legend](#legend) component. The size of the text on the legend can be changed by right-clicking the component and selecting the desired one.
+        
 ### Legend
-Create a legend for a contour diagram.
+Create a legend for a contour diagram.\
+The legend will be generated on the left side of each active viewport.
+ - **Inputs**:
+    - **_title** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The title of the legend. It will be displayed on the top of the legend.
+    - **_color** [required]:
+        - Type: Color in RGB [List]
+        - Default: None
+        - Description: A list element of colors that are represented by RGB values. The list represents the color of each segment on the legend. The legend will be generated on the left side of each active viewport. Items in the color list will be drawn from the bottom to the top of the viewport. A ***Gradient*** component (*Params ─ Input ─ Gradient*) can be used to generate a list of colors that represents the variation of the desired legend segments.
+    - **_text** [required]:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list element of texts that you want to display by the legend. The list represents the text of each segment on the legend. Typically, it can be the value of the data that is represented by the legend segment (e.g., species concentrations or room temperatures).
+ - **Outputs**:
+    - **legend**:
+        - Type: Legend [Item]
+        - Description: A legend element that represents the design of the legend for the contour diagram. It is actually a JSON file with the specified information. The legend element can be used by the [Contour](#contour) component.
+
 ### Plot
-Create a plot diagram.
+Create a plot diagram on the X-Y plane.\
+A list of polyline plots of the result data will be generated on the X-Y plane. The X-axis represents the time sequence of the result data. The Y-axis represents the value of the result data. Each polyline plot represents the result data of each item specified in the **_data** input. The size of the texts on the plot diagram can be changed by right-clicking the component and selecting the desired one. The visualization of the time sequence can be changed by right-clicking the component and selecting the desired one (hourly / daily / weekly / monthly). The plot diagrams can be generated for only visible zones in the Rhino canvas. The zone name will be displayed by each plot. The plot diagrams for all input data can also be genrated. The visualization type can be changed by right-clicking the component and selecting the desired one (visible zones / full data). The scale of the Y-axis for each plot can be changed by right-clicking the component and selecting between local max/min and global max/min. When the global max/min is selected, the scale of the Y-axis will be the same for all plots. By default, all plots will be generated on individual diagrams. The plots can also be generated on a single diagram by right-clicking the component and selecting *Stacked plots*. The button on the component needs to be turned on to enable the visualization. The datasets of the plots can be exported to a CSV file by right-clicking the component and selecting *Save datasets*.
+
+ - **Inputs**:
+    - **_data** [required]:
+        - Type: Number [Tree]
+        - Default: None
+        - Description: The tree element of result data. Each item of the tree represents a list of data in time sequence. A list of data can also be provided, which is equivalent to a tree with one item. The data will be plotted on the X-Y plane. The Y-axis represents the value of the result data. The scale of the Y-axis for each plot can be changed by right-clicking the component and selecting between local max/min and global max/min. When the global max/min is selected, the scale of the Y-axis will be the same for all plots.
+    - **_origin** [required]:
+        - Type: Point [Item]
+        - Default: None
+        - Description: The origin point of the plot diagram. The origin point will be the bottom left corner of the plot diagram.
+    - **time seq**:
+        - Type: Text [List]
+        - Default: None
+        - Description: A list element of time sequence (text). The text of each item is in the format of `date time type`, more specifically `M/d HH:mm:ss ddd`, e.g., `1/1 12:00:00 Fri`. The time sequence will be displayed on the X-axis of the plot diagrams drawn on the X-Y plane. The length of the list should be the same as the length of each list of the **_data** input. 
+    - **title**:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The title of the plot diagrams. It will be displayed on the top of each plot diagram.
+
 ### Moments
 Create a list of moments (date & time) between the specified start and end date/time with a certain interval.
+ - **Inputs**:
+    - **_start date & time** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The text that represents the start date and time of the desired period. The text must be presented as a text in the format of `date time`. Date and time can be separated by a space` `, a comma`,`, or a tab`    `. For example, `1/1 12` and `1/1,12` are both valid date-time pairs. `date time` needs to be in the format of `M/d H:mm:ss`, `M/d H:mm`, or simply `M/d H`. For example, `1/1 12`, `1/1 12:00`, and `1/1 12:00:00` are all valid formats for January 1st 12PM.
+    - **_end date & time** [required]:
+        - Type: Text [Item]
+        - Default: None
+        - Description: The text that represents the end date and time of the desired period. The text must be presented as a text in the format of `date time`. Date and time can be separated by a space` `, a comma`,`, or a tab`    `. For example, `1/1 12` and `1/1,12` are both valid date-time pairs. `date time` needs to be in the format of `M/d H:mm:ss`, `M/d H:mm`, or simply `M/d H`. For example, `1/1 12`, `1/1 12:00`, and `1/1 12:00:00` are all valid formats for January 1st 12PM.
+    - **interval**:
+        - Type: Number [Item]
+        - Default: 60 min
+        - Description: The interval between each moment. The unit is in minutes.
+ - **Outputs**:
+    - **date & time**:
+        - Type: Text [List]
+        - Description: A list of texts that represents the moments (date & time) between the specified start and end date/time with the specified interval. The text of each output item is in the format of `date time`, more specifically `M/d HH:mm:ss`, e.g., `1/1 12:00:00`.
+
 ### Loop
-Get an element from a list of elements by looping through the list when working with a Trigger component.
+Get an element from a list of elements by looping through the list when working with a ***Trigger*** component (*Params ─ Util ─ Trigger*).\
+The looping will be reset when right-clicking the component and clicking the *Reset* option.
+
+ - **Inputs**:
+    - **_list** [required]:
+        - Type: Any [List]
+        - Default: None
+        - Description: A list of elements that you want to loop through.
+ - **Outputs**:
+    - **item**:
+        - Type: Any [Item]
+        - Description: An element from the input list. The element will be updated when the ***Trigger*** component is triggered.
