@@ -1334,15 +1334,15 @@ Mortality does not give a complete picture of the burden of disease borne by ind
 
 $$DALYs = \frac {\partial DALY}{\partial intake} \times intake$$
 
-$$\frac {\partial DALY}{\partial intake} = (\frac {\partial DALY}{\partial intake})_{cancer} \times ADAF + (\frac {\partial DALY}{\partial intake})_{non-cancer}$$
+$$\frac {\partial DALY}{\partial intake} = ( \frac {\partial DALY}{\partial intake} ) _{cancer} \times ADAF + ( \frac {\partial DALY}{\partial intake} ) _{non-cancer}$$
 
 $$intake = \int_{t1}^{t2} (1 - \eta_{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
 
 $\frac {\partial DALY}{\partial intake}$ = DALY factor per intake.\
-$(\frac {\partial DALY}{\partial intake})_{cancer}$ and $(\frac {\partial DALY}{\partial intake})_{non-cancer}$ = DALY factors for cancer and non-cancer effects, respectively.\
+$( \frac {\partial DALY}{\partial intake} ) _{cancer}$ and $( \frac {\partial DALY}{\partial intake} ) _{non-cancer}$ = DALY factors for cancer and non-cancer effects, respectively.\
 $ADAF$ = Cancer age-dependent adjustment factor (ADAF).\
 $intake$ = Intake of the target contaminant.\
-$\eta _{PPE}$ = Filtration efficiency of PPE [dimensionless].\
+$\eta_{PPE}$ = Filtration efficiency of PPE [dimensionless].\
 $ctrl_{PPE}$ = Schedule or control PPE filtration efficiency [no units].\
 $C_{\alpha}(t)$ = Contaminant concentration of contaminant $\alpha$ in the zone where the susceptible occupant is located at time $t$.\
 $Q_{intake}$ = Breathing/inhalation rate.\
@@ -1354,7 +1354,7 @@ Infection risk for infectious respiratory diseases is calculated based on the ex
 
 $$P = \frac{N_C}{N_S} = 1 - e^{-intake}$$
 
-$$intake = \int_{t1}^{t2} (1 - \eta _{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
+$$intake = \int_{t1}^{t2} (1 - \eta_{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
 
 $P$ = Infection probability [dimensionless].\
 $N_C$ = Number of occupants infected [person(s)].\
