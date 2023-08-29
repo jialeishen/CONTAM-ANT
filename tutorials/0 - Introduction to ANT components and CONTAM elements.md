@@ -1338,7 +1338,7 @@ $$\frac {\partial DALY}{\partial intake} = ( \frac {\partial DALY}{\partial inta
 
 $$intake = \int_{t1}^{t2} (1 - \eta_{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
 
-$\frac {\partial DALY}{\partial intake}$ = DALY factor per intake.\
+$\frac {\partial DALY}{\partial intake}$ = DALY factor per intake (DALY factors for cancer effects for the factor with subscript $_{cancer}$; DALY factors for non-cancer effects for the factor with subscript $_{non-cancer}$).\
 $ADAF$ = Cancer age-dependent adjustment factor (ADAF).\
 $intake$ = Intake of the target contaminant.\
 $\eta_{PPE}$ = Filtration efficiency of PPE [dimensionless].\
@@ -1347,9 +1347,7 @@ $C_{\alpha}(t)$ = Contaminant concentration of contaminant $\alpha$ in the zone 
 $Q_{intake}$ = Breathing/inhalation rate.\
 $ctrl_{intake}$ = Schedule or control breathing/inhalation rate [no units].\
 $dt$ = Time step.\
-$t1$ and $t2$ = Start and end time of the exposure period. For DALYs calculation, $t1$ is the input start time and $t2$ is the input end time. It means that accumulated exposure during the whole exposure period is calculated.\
-$(\frac{\partial DALY}{\partial intake})_{cancer}$ = DALY factors for cancer effects.\
-$(\frac{\partial DALY}{\partial intake})_{non-cancer}$ = DALY factors for non-cancer effects.
+$t1$ and $t2$ = Start and end time of the exposure period. For DALYs calculation, $t1$ is the input start time and $t2$ is the input end time. It means that accumulated exposure during the whole exposure period is calculated.
 
 Infection risk for infectious respiratory diseases is calculated based on the exposure through the [Wells-Riley model](https://doi.org/10.1111/j.1600-0668.2009.00621.x), which depends on the inhaled dose of infectious pathogen. In ANT, contaminants with number concentrations are required for infection risk estimation, i.e., #/m³, #/cm³, #/ft³, or #/lb. It requires particulate types of contaminants to be defined as the infetious pathogen. The infection risk is calculated based on the "quanta" of the infectious pathogen inhaled, which is the number of infectious pathogen required to cause infection in 63% of susceptible occupants. Unit "quanta" cannot be directly defined in CONTAM or ANT. Therefore, the number concentrations (#/m³, #/cm³, #/ft³, or #/lb) are used as the alternatives for "quanta" units of the infectious pathegon in ANT. In this case, #/m³ equals quanta/m³, for example. Other units related to the number concentrations (#) are changed accordingly. For example, the contaminant generation rate #/h is equivalent to quanta/h. Quanta generation rates of some typical respiratory diseases (including COVID-19) can be found in a [research paper](https://doi.org/10.1016/j.buildenv.2021.107926) and a [review paper](https://doi.org/10.1080/23744731.2021.1977693). Typically, a generation rate of 100 quanta/h is very commonly applied for SARS-CoV-2 (particularly the Omicron variant). The calculation of infection risk (the Wells-Riley model) can be represented as:
 
