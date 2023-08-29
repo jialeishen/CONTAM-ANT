@@ -1339,8 +1339,6 @@ $$\frac {\partial DALY}{\partial intake} = ( \frac {\partial DALY}{\partial inta
 $$intake = \int_{t1}^{t2} (1 - \eta_{PPE} \cdot ctrl_{PPE} ) \cdot C_{\alpha}(t) \cdot Q_{intake} \cdot ctrl_{intake} \cdot dt$$
 
 $\frac {\partial DALY}{\partial intake}$ = DALY factor per intake.\
-$(\frac {\partial DALY}{\partial intake}) _{cancer}$ = DALY factors for cancer effects.\
-$(\frac {\partial DALY}{\partial intake}) _{non-cancer}$ = DALY factors for non-cancer effects.\
 $ADAF$ = Cancer age-dependent adjustment factor (ADAF).\
 $intake$ = Intake of the target contaminant.\
 $\eta_{PPE}$ = Filtration efficiency of PPE [dimensionless].\
