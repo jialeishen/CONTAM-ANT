@@ -99,7 +99,10 @@ ANT conponents are organized into 12 categories, each of which is represented by
     - [Moments](#moments)
     - [Loop](#loop)
 <!--te-->
-CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. Detailed introductions of CONTAM elements can be found in [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34). Some elements are introduced here for better understanding of ANT components.
+CONTAM elements are essential for creating CONTAM projects (PRJ) and are associated with ANT components and created by ANT components. Detailed introductions of CONTAM elements can be found in [CONTAM User Guide](https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34). Some elements are introduced here for better understanding of ANT components.\
+Before the introduction to ANT components, there are several general rules that apply to all ANT components:
+1. Input variables starting with a underscore `_` are required inputs for a component (e.g., **_zones** input of the [Zone](#zone) component is required). Inputs with corresponding types must be provided, otherwise the component won't process and a warning bubble will show up. Inputs without a underscore are optional inputs for a component (e.g., **temperature** input of the [Zone](#zone) component is optional). If not provided, the component will continue without those settings, or use the default values.
+2. Most ANT components have the preview feature. The corresponding elements created by the component can be previewed by right-clicking the component and turn on the *Preview* option. A **preview** output will be available on the component, which contains the detailed information of the generated elements in a JSON format. It can be connected to other components for further processing. The preview feature is useful for checking the settings of the elements created by the component.
 
 ## 01-Geometry
 ![geometry components](./img/icons-geometry.png)
