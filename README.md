@@ -51,7 +51,7 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 # Tutorials
 [0 - Introduction to ANT components and CONTAM elements](./tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
 
-[1 - Basic settings and creating zones](./tutorials/1%20-%20Basic%20settings%20and%20creating%20zones)
+[1 - Basic settings and creating zones](./tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
 
 # Example cases
 ## Example 1 - A simple house
