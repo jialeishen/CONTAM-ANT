@@ -30,10 +30,10 @@ The Grasshopper window will appear. You are ready to find and use ANT there.
 **Always save your Rhino and Grasshopper documents before you start using ANT**. Some components in ANT may require the document file names and paths to work properly. Without saving your files, your ANT project may not work as expected. The Rhino document is in `.3dm` format and the Grasshopper document is in `.gh` format. You can save them in the same folder.
 
  > Save Rhino file
-    > - Click `File` on the menu bar of Rhino and click `Save` or `Save As...`.
-
+ > - Click `File` on the menu bar of Rhino and click `Save` or `Save As...`.
+ 
  > Save Grasshopper file
-    > - Click `File` on the menu bar of Grasshopper and click `Save Document` or `Save Document As...`
+ > - Click `File` on the menu bar of Grasshopper and click `Save Document` or `Save Document As...`
 
 #### 3. Start ANT
 If ANT is successfully installed, you can find it in the `ANT` tab in Grasshopper. If you cannot find the `ANT` tab, please check if you have installed ANT correctly ([how to install ANT?](../README.md#installation)).
