@@ -392,7 +392,7 @@ Create filter efficiency data for simple gaseous filter element.
     - **_effs** [required]:
         - Type: Text [List]
         - Default: None
-        - Description: A list of texts that represents the loading-efficiency pairs of the filter element. The loading-efficiency pair defines the efficiency of the filter element at the given loading. Each pair must be presented as a text in the format of `loading efficiency`. Loading and efficiency can be separated by a space` `, a comma`,`, a tab`    `, a colon`:`, or a dashline`-`. For example, `0.1 0.9`, `0.1,0.9`, and `0.1:0.9` are all valid loading-efficiency pairs.
+        - Description: A list of texts that represents the loading-efficiency pairs of the filter element. The loading-efficiency pair defines the efficiency of the filter element at the given loading. Each pair must be presented as a text in the format of `loading efficiency`. Loading and efficiency can be separated by a space` `, a comma`,`, a tab`    `, or a colon`:`. For example, `0.1 0.9`, `0.1,0.9`, and `0.1:0.9` are all valid loading-efficiency pairs.
 - **Outputs**:
     - **filter data**:
         - Type: Filter efficiency data (simple gaseous) [Item]
@@ -486,7 +486,7 @@ Three types of day schedules are available: dimensionless, temperature, and occu
     - **_data** [required]:
         - Type: Text [List]
         - Default: None
-        - Description: A list of texts that represents the day schedule data. Each text must be presented as a text in the format of `time value`. Time and value can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0 0.1`, `0,0.1`, and `0-0.1` are all valid time-value pairs.
+        - Description: A list of texts that represents the day schedule data. Each text must be presented as a text in the format of `time value`. Time and value can be separated by a space` `, a comma`,`, or a tab`    `. For example, `0 0.1` and `0,0.1` are both valid time-value pairs.
             - `time`: needs to be in the format of `H:mm:ss`, `H:mm`, or simply `H`. For example, `6`, `6:00`, and `6:00:00` are all valid time formats for 6AM. A valid day schedule must be started with time 0 (`0`, `0:00`, or `0:00:00`) and ended with time 24 (`24`, `24:00`, or `24:00:00`). 
             - `value`: 
                 - Dimensionless day schedule: `value` needs to be a number between 0 and 1.
@@ -717,7 +717,7 @@ The original calculator is a web application on CONTAM website: [Particle Distri
     - **user-defined bins**:
         - Type: Text [List]
         - Default: None
-        - Description: A list of texts that represents the user-defined bins. If this input is not empty, the inputs of **bins**, **min diam**, **max diam**, and *mode settings* will be ignored. The size of list represents the number of bins. Each text must be presented as a text in the format of `diameter[µm]  concentration[#/cm³] (concentration[#/cm³] concentration[#/cm³])` (mode 1: `concentration[#/cm³]` × 1; mode 2: `concentration[#/cm³]` × 2; mode 3: `concentration[#/cm³]` × 3). Variables can be separated by a space` `, a comma`,`, a tab`    `, or a dashline`-`. For example, `0.1 100`, `0.1,100`, and `0.1-100` are all valid user-defined bins. The selection of *number of modes* needs to match the size of each text of user-defined bin (e.g., if mode = 3, the bin text should be `diameter, conc 1, conc 2, conc 3`). For example, `0.1, 100, 200, 300` represents the particle distribution has 3 modes, the concentration of particles in 0.1 µm diameter is 100 #/cm³, 200 #/cm³, and 300 #/cm³ for mode 1, 2, and 3, respectively. 
+        - Description: A list of texts that represents the user-defined bins. If this input is not empty, the inputs of **bins**, **min diam**, **max diam**, and *mode settings* will be ignored. The size of list represents the number of bins. Each text must be presented as a text in the format of `diameter[µm]  concentration[#/cm³] (concentration[#/cm³] concentration[#/cm³])` (mode 1: `concentration[#/cm³]` × 1; mode 2: `concentration[#/cm³]` × 2; mode 3: `concentration[#/cm³]` × 3). Variables can be separated by a space` `, a comma`,`, or a tab`    `. For example, `0.1 100` and `0.1,100` are all valid user-defined bins. The selection of *number of modes* needs to match the size of each text of user-defined bin (e.g., if mode = 3, the bin text should be `diameter, conc 1, conc 2, conc 3`). For example, `0.1, 100, 200, 300` represents the particle distribution has 3 modes, the concentration of particles in 0.1 µm diameter is 100 #/cm³, 200 #/cm³, and 300 #/cm³ for mode 1, 2, and 3, respectively. 
         
     ── mode 1 ──
     - **µ_log** (or **µ** for normal distribution):
@@ -2423,7 +2423,7 @@ $C_p(\theta)$ = Win pressure coefficient at degree $\theta$ [dimensionless].
     - **data**:
         - Type: Text [List]
         - Default: None
-        - Description: A list of texts that represents the angle-coefficient pairs of the wind pressure profile. The angle-coefficient pair defines the efficient of the wind pressure profile element at the given angle [in degree unit]. Each pair must be presented as a text in the format of `angle coefficient`. Angle and coefficient can be separated by a space` `, a comma`,`, a tab`    `, a colon`:`, or a dashline`-`. For example, `90 0.5`, `90,0.5`, and `90:0.5` are all valid angle-coefficient pairs. The angle-coefficient pairs need to start from angle = 0° and end at angle = 360°. At least three points are required for the *cubic* fit mode. The *5-point* fit requires five data points: one for each wind direction angle 0°, 90°, 180°, 270° and 360°. The curve fits a trend line to these five data points. Any other points besides these five points will be ignored.
+        - Description: A list of texts that represents the angle-coefficient pairs of the wind pressure profile. The angle-coefficient pair defines the efficient of the wind pressure profile element at the given angle [in degree unit]. Each pair must be presented as a text in the format of `angle coefficient`. Angle and coefficient can be separated by a space` `, a comma`,`, a tab`    `, or a colon`:`. For example, `90 0.5`, `90,0.5`, and `90:0.5` are all valid angle-coefficient pairs. The angle-coefficient pairs need to start from angle = 0° and end at angle = 360°. At least three points are required for the *cubic* fit mode. The *5-point* fit requires five data points: one for each wind direction angle 0°, 90°, 180°, 270° and 360°. The curve fits a trend line to these five data points. Any other points besides these five points will be ignored.
  - **Outputs**:
     - **wpp**:
         - Type: Wind pressure profile [Item]
