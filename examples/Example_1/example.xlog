@@ -1,17 +1,21 @@
+Program:  C:\Users\jns42\AppData\Roaming\Grasshopper\Libraries\ANT\contamx3.exe
+  Version:  3.5.0.0 release 64bit
+  Compiler: Visual C++ 1929
+  Created:  Thu Oct 26 15:18:50 2023
+Project (_file_name):  example.prj
+cwd: C:\Users\jns42\OneDrive - NIST\CONTAM\CONTAM-ANT\examples\Example_1
+prj arg = example.prj
+_pdrive , _pdir , _prjname example, _pext .prj
+  Updated:  Mon Oct 30 14:18:31 2023
+Calling arguments (2):
+	argv[0] = C:\Users\jns42\AppData\Roaming\Grasshopper\Libraries\ANT\contamx3.exe
+	argv[1] = example.prj
+Running ContamX 3.5.0.0 on example.prj
+  Calls to SetupSimulation = 1
 
-Upgrade project:
-From File: C:/Users/jns42/OneDrive - NIST/CONTAM/CONTAM-ANT/examples/Example_1/example.prj
-To File: C:\Users\jns42\AppData\Local\Temp\1\PROJECT.TMP
-fileCopy
-  from C:/Users/jns42/OneDrive - NIST/CONTAM/CONTAM-ANT/examples/Example_1/example.prj
-  to C:/Users/jns42/OneDrive - NIST/CONTAM/CONTAM-ANT/examples/Example_1/example.tmp
-From Version: 3.4
-To Version: 3.4
-Upgrade not required.
-
-Reading project file: C:/Users/jns42/OneDrive - NIST/CONTAM/CONTAM-ANT/examples/Example_1/example.prj
+Reading project file: example.prj
 Run Control section read successfully.
-Species section read successfully.
+Speices section read successfully.
 Level section read successfully.
 Day Schedule section read successfully.
 Week Schedule section read successfully.
@@ -22,8 +26,7 @@ Filter section read successfully.
 Source/Sink Element section read successfully.
 Airflow Element section read successfully.
 Airflow Element section read successfully.
-Control Super Element section read successfully.
-Controls section read successfully.
+Control Networks section read successfully.
 AHS section read successfully.
 Zone section read successfully.
 Zone CC section read successfully.
@@ -35,6 +38,115 @@ Source/Sink section read successfully.
 Occupant Day Schedule section read successfully.
 Occupant Exposure section read successfully.
 Note section read successfully.
-fileCopy
-  from C:/Users/jns42/OneDrive - NIST/CONTAM/CONTAM-ANT/examples/Example_1/example.prj
-  to C:\Users\jns42\AppData\Local\Temp\1\/PROJECT.BKP
+EnvListWpc_setup() creating Envelope path lists:
+ _nEnvPaths_Wpc 0, _useWPCwp 0, _wPBridge 1
+  30 envelope paths|terminals for WPC
+  30 envelope paths|terminals|leaks for CSM/CEX
+Read PRJ : 53804 bytes allocated, 21020 freed, 32784 net
+Number of --
+      contaminants:    1
+     day schedules:    0
+    week schedules:    0
+           filters:    0
+         reactions:    0
+     wind profiles:    1
+   source elements:    0
+     flow elements:   12
+     airflow nodes:    8
+     airflow paths:   46
+      source/sinks:    0
+Airflow control --
+   cnvgSS: 1
+   tsdens: 0
+   densZP: 0
+   stackD: 0
+   dodMdt: 0
+
+Airflow Equations:
+   7 variable pressure nodes
+   1 constant pressure nodes
+  Number of equations: 8
+    Non-zero elements: 40
+Initial fill fraction: 0.625
+ Matrix Profile Analysis:
+      Average Profile: 2.86
+            Bandwidth: 6
+Determining equation reordering:
+Equations will be reordered.
+      Average Profile: 2.43
+            Bandwidth: 4
+ Skyline Matrix:
+     Number of rows: 7
+     Lower Triangle: 17 elements
+     Upper Triangle: 0 elements
+     Fill fraction: 0.490
+Solve nonlinear equations by Newton-Raphson with variable trust region.
+  relcnvg = 1e-05, abscnvg = 2e-06, itmax = 30
+Solve Jacobian SLAE by symmetric SKYline method.
+
+Trace Species Mass Transfer Equations:
+
+Set up Mf matrix:
+   0 boundary layer sink nodes
+   0 deposition/resuspension nodes
+   7 variable Mf zone nodes
+   0 variable Mf jctn nodes
+   1 constant Mf zone nodes
+   1 contaminants
+  Number of equations: 8
+    Non-zero elements: 54
+Initial fill fraction: 0.844
+ Matrix Profile Analysis:
+      Average Profile: 2.86
+            Bandwidth: 6
+Solve simultaneous linear equations by non-symmetric SKYline method.
+Determining equation reordering:
+Equations will be reordered.
+ Optimized Matrix:
+      Average Profile: 2.43
+            Bandwidth: 4
+ Skyline Matrix:
+     Number of rows: 7
+     Lower Triangle: 17 elements
+     Upper Triangle: 17 elements
+     Fill fraction: 0.837
+Arrays: 63672 bytes allocated, 27524 freed, 36148 net
+Start: 65135 bytes allocated, 27892 freed, 37243 net
+Running steady-state initialization:
+ DATE: Jan01   time: 00:00:00
+End Steady-state Initialization
+      11 calls to FillAf()
+       7 calls to luf_sky_s()
+
+Solving mass transport system with trapezoidal solver 
+
+set_urst_init():
+  nzone 7, npath 46, nctm 1, njct 0, ndct 0
+  ncss+nbls+ndvr 0, nctrl 0, date0 1, date1 31
+  SizeData 1432
+
+
+================= SimEnd() called Jan31 24:00:00 =================
+
+    8928 time steps
+    8928 time step iterations
+    8932 calls to SolveAf()
+   28616 calls to FillAf()
+   19681 calls to luf_sky_s()
+   19681 calls to lus_sky_s()
+    8928 calls to solve_Mft()
+    8928 calls to luf_sky_n()
+    8928 calls to lus_sky_n()
+
+NR its. :    0    1    2    3    4    5    6    7
+JfacBins:   38 1206 4843 2605  231    6    2    1
+
+rangeDWC: 0 lam, 0 trns, 0 turbulent
+
+Maximum air exchange rate: ~178.8 ACH in zone 7 at 05:00:00 on Jan19
+Maximum gage pressure: 1.9 Pa in zone 5 at 05:00:00 on Jan19
+Minimum gage pressure: -3.0 Pa in zone 1 at 06:00:00 on Jan19
+
+End: 66247 bytes allocated, 30099 freed, 36148 net
+Final: 66247 bytes allocated, 66247 freed, 0 net
+Simulation completed successfully.

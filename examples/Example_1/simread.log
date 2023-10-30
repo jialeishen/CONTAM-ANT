@@ -1,0 +1,27 @@
+Program: simread.exe
+  Version:  3.4.0.2 release 32 bit
+  Compiler: Visual C++ 1929
+Time:  Tue Oct 10 18:53:31 2023
+Parameter: example.sim
+SIM file header data: (24)
+ Number of zones:        7
+ Number of paths:       46
+ Number of species:      1
+ Number of junctions:    0
+ Number of ducts:        0
+ Listing time step:   3600 s
+ Initial date:           1
+ Initial time:           0 s
+ Final date:            31
+ Final time:         86400 s
+ Link flow results available
+ Node flow results available
+ Node mass results available
+ Number of flow nodes:   8
+ Number of mass nodes:   8
+ Number of flow links:  46
+Data begins at 564 in SIM file.
+
+Results available from Jan01 00:00:00 to Jan31 24:00:00
+  user selected start date: Jan01
+  user selected end date: Jan31
