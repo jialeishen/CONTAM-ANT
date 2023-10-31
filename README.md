@@ -4,6 +4,7 @@
 <!--ts-->
  - [Introduction](#introduction)
  - [Installation](#installation)
+ - [Version](#version)
  - [Support Forum](#support-forum)
  - [Tutorials](#tutorials)
  - [Example cases](#example-cases)
@@ -45,6 +46,9 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
         ```
 4. Restart Rhino/Grasshopper and enjoy.
 
+# Version
+The latest version of ANT is **0.1.0**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](./ANT%20Revision%20History.md).
+
 # Support Forum
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)
 
@@ -54,6 +58,7 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 [1 - Basic settings and creating zones](./tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
 
 # Example cases
+Example cases only compatible with the latest version of ANT. Please check the latest version of ANT from [Food4Rhino](https://www.food4rhino.com/en/app/ant).
 ## Example 1 - A simple house
 ### Building geometry in Rhino
 ![Example 1 - Building geometry](./examples/Example_1/img/geometry_w_bkg.png)

@@ -29,6 +29,7 @@ Updates:
 
 Updates:
 - The units of removal rate for constant coefficient source and sink elements are added to the component menu.
+- The options of using 1/2 and 1/3 of surface area as the multiplier for airflow path settings are added to the component menu.
 
 ## Version 0.0.0 and revisions
 *Release Date: August 8, 2023*
@@ -38,4 +39,12 @@ The initial release of ANT was named by *Version 1.0.0*. However, the version nu
 Some minor revisions were made to fix the issues in the initial release. But the revisions were not recorded by changing the version number. Major updates are listed below.
 
 Updates: 
+ - The option of selecting surface area as multiplier for airflow path settings is added to the component menu. (*August 17, 2023*)
+ - The option of selecting room surface area as the multiplier for deposition sink is added to the component menu. (*August 18, 2023*)
+ - The surfaces that are directly connected with the ground will be assigned as exterior floor/wall surfaces by default. (*August 23, 2023*)
+ - The results component can read not only species concentrations but also temperatures and pressures of the zones by specifying "temperature" or "pressure" in "_element" input (changed from "_species"). (*August 24, 2023*)
+ - The loop component is updated with an option to reset the loop from the first item. (*August 28, 2023*)
  - A static dictionary is created for those components that require a unique name, including AHS and Source/Sink, to store the index for every instance of the component class based on the individual Guid for each instance. This update is to fix the issue that duplicating a abovementioned component will create a new component with the same name as the original one. (*August 29, 2023*)
+ - The project component will read WTH and CTM files specified to the project file to assign the start/end simulation date and time for the project, if they are not specified separately. Some earlier issues with this feature are fixed. (*August 31, 2023*)
+ - The AHS and source/sink components will show their individual names in the message when they are created. (*September 5, 2023*)
+
