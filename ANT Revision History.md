@@ -1,6 +1,12 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.1.1
+*Release Date: October 31, 2023*
+
+Updates: 
+ - The result component can output temperature, pressure and air density data. Set the "_element" input of the result component to text "temperature", "pressure", or "density" to enable the function. 
+
 ## Version 0.1.0
 *Release Date: October 30, 2023*
 
