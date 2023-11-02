@@ -1,6 +1,13 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.1.2
+*Release Date: November 1, 2023*
+
+Updates: 
+ - Zone component can take a string of number as the "temperature" input.
+ - The order of adding elements to project in the project component is reorganized for adding all elements properly.
+
 ## Version 0.1.1
 *Release Date: October 31, 2023*
 
