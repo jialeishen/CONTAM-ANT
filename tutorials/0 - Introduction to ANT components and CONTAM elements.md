@@ -1142,7 +1142,7 @@ $ctrl$ = Schedule or control value [no units]
     - **mult**:
         - Type: Number [Item]
         - Default: 1
-        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element (e.g., the leakage area per area model). Right-click the component and select *Multiplier = Surface area* for the multiplier. The multiplier will be set up as the area of the associated surface.
+        - Description: Multiplier. A constant value by which the sink strength will be multiplied during simulation. With this feature you could define a source/sink element having a source strength per unit area then use the multiplier as the area of the zone for each source/sink that uses the per unit area source/sink element (e.g., the leakage area per area model). Right-click the component and select the desired setting for the multiplier, including 1) *Multiplier = Zone floor area*; 2) *Multiplier = Zone wall area*; 3) *Multiplier = Zone ceiling area*. The multiplier will be set up as the according area of the associated zone.
  - **Outputs**:
     - **sink**:
         - Type: Sink [Item]
@@ -1453,7 +1453,7 @@ Create an airflow path element.
     - **modifier**:
         - Type: Number [Item]
         - Default: 0.36
-        - Description: The modifier for differences between wind velocity profiles at the building site and that at a measurement location, e.g., an airport weather station.
+        - Description: The modifier for differences between wind velocity profiles at the building site and that at a measurement location, e.g., an airport weather station. Right-click the component and select the desired setting for the multiplier, including 1) *Multiplier = Zone floor area*; 2) *Multiplier = Zone wall area*; 3) *Multiplier = Zone ceiling area*. The multiplier will be set up as the according area of the associated zone.
     - **sched**:
         - Type: Week schedule (dimensionless) [Item]
         - Default: None

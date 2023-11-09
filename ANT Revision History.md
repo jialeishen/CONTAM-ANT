@@ -1,6 +1,14 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.2.0
+*Release Date: November 9, 2023*
+
+Updates: 
+ - Issues with some airflow elements (stairwell, two-way openings, etc.) have been fixed.
+ - Buttons to select airflow element type for windows and doors have been added to the window and door components.
+ - Issues with the azimuth angle for exterior openings have been fixed.
+
 ## Version 0.1.2
 *Release Date: November 1, 2023*
 
