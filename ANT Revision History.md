@@ -1,6 +1,11 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.2.1
+*Release Date: November 20, 2023*
+Updates: 
+ - The issue with outputting flow status (pressure, temperature, air density) from projects without contaminants using the result component has been resolved.
+
 ## Version 0.2.0
 *Release Date: November 9, 2023*
 
