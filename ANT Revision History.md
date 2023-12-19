@@ -1,6 +1,19 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.2.3
+*Release Date: December 18, 2023*
+Updates: 
+ - The Project component now will create a JSON file to store link flow information (LFI), e.g. location & direction, for visualizing airflows. 
+ - A new Vector component is added to viz airflows. 
+ - The Contour and Plot components now allow for customizing text color and size.
+
+## Version 0.2.2 
+*Release Date: November 30, 2023*
+
+Updates:
+ - The algorithm for determining interior surfaces has been changed to make it compatible for concave geometries.
+
 ## Version 0.2.1
 *Release Date: November 20, 2023*
 

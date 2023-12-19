@@ -6,7 +6,7 @@ Project (_file_name):  example.prj
 cwd: C:\Users\jns42\OneDrive - NIST\CONTAM\CONTAM-ANT\examples\Example_1
 prj arg = example.prj
 _pdrive , _pdir , _prjname example, _pext .prj
-  Updated:  Mon Oct 30 14:18:31 2023
+  Updated:  Mon Dec 18 14:02:11 2023
 Calling arguments (2):
 	argv[0] = C:\Users\jns42\AppData\Roaming\Grasshopper\Libraries\ANT\contamx3.exe
 	argv[1] = example.prj
@@ -40,9 +40,9 @@ Occupant Exposure section read successfully.
 Note section read successfully.
 EnvListWpc_setup() creating Envelope path lists:
  _nEnvPaths_Wpc 0, _useWPCwp 0, _wPBridge 1
-  30 envelope paths|terminals for WPC
-  30 envelope paths|terminals|leaks for CSM/CEX
-Read PRJ : 53804 bytes allocated, 21020 freed, 32784 net
+  62 envelope paths|terminals for WPC
+  62 envelope paths|terminals|leaks for CSM/CEX
+Read PRJ : 62828 bytes allocated, 29532 freed, 33296 net
 Number of --
       contaminants:    1
      day schedules:    0
@@ -53,7 +53,7 @@ Number of --
    source elements:    0
      flow elements:   12
      airflow nodes:    8
-     airflow paths:   46
+     airflow paths:   78
       source/sinks:    0
 Airflow control --
    cnvgSS: 1
@@ -110,20 +110,20 @@ Equations will be reordered.
      Lower Triangle: 17 elements
      Upper Triangle: 17 elements
      Fill fraction: 0.837
-Arrays: 63672 bytes allocated, 27524 freed, 36148 net
-Start: 65135 bytes allocated, 27892 freed, 37243 net
+Arrays: 72696 bytes allocated, 36036 freed, 36660 net
+Start: 74415 bytes allocated, 36660 freed, 37755 net
 Running steady-state initialization:
  DATE: Jan01   time: 00:00:00
 End Steady-state Initialization
-      11 calls to FillAf()
-       7 calls to luf_sky_s()
+       9 calls to FillAf()
+       5 calls to luf_sky_s()
 
 Solving mass transport system with trapezoidal solver 
 
 set_urst_init():
-  nzone 7, npath 46, nctm 1, njct 0, ndct 0
+  nzone 7, npath 78, nctm 1, njct 0, ndct 0
   ncss+nbls+ndvr 0, nctrl 0, date0 1, date1 31
-  SizeData 1432
+  SizeData 2200
 
 
 ================= SimEnd() called Jan31 24:00:00 =================
@@ -131,22 +131,22 @@ set_urst_init():
     8928 time steps
     8928 time step iterations
     8932 calls to SolveAf()
-   28616 calls to FillAf()
-   19681 calls to luf_sky_s()
-   19681 calls to lus_sky_s()
+   26666 calls to FillAf()
+   17729 calls to luf_sky_s()
+   17729 calls to lus_sky_s()
     8928 calls to solve_Mft()
     8928 calls to luf_sky_n()
     8928 calls to lus_sky_n()
 
-NR its. :    0    1    2    3    4    5    6    7
-JfacBins:   38 1206 4843 2605  231    6    2    1
+NR its. :    0    1    2    3    4    5    6    7    8    9   10   11   12
+JfacBins:   38 1341 6506  873  138   23    9    1    2    0    0    0    1
 
 rangeDWC: 0 lam, 0 trns, 0 turbulent
 
-Maximum air exchange rate: ~178.8 ACH in zone 7 at 05:00:00 on Jan19
-Maximum gage pressure: 1.9 Pa in zone 5 at 05:00:00 on Jan19
-Minimum gage pressure: -3.0 Pa in zone 1 at 06:00:00 on Jan19
+Maximum air exchange rate: ~178.4 ACH in zone 7 at 05:00:00 on Jan19
+Maximum gage pressure: 0.2 Pa in zone 3 at 13:00:00 on Jan04
+Minimum gage pressure: -3.9 Pa in zone 5 at 15:00:00 on Jan10
 
-End: 66247 bytes allocated, 30099 freed, 36148 net
-Final: 66247 bytes allocated, 66247 freed, 0 net
+End: 76295 bytes allocated, 39635 freed, 36660 net
+Final: 76295 bytes allocated, 76295 freed, 0 net
 Simulation completed successfully.

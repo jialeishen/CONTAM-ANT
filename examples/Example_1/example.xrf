@@ -6,7 +6,7 @@ Results available
   at 3600 second time steps
 
 8 nodes  (ambient, 7 zones, 0 junctions)
-46 links  (46 paths, 0 ducts, 0 other)
+78 links  (78 paths, 0 ducts, 0 other)
 
 Cross reference data:
 SIM data     PRJ data
@@ -65,4 +65,36 @@ Link  43  =  path  43
 Link  44  =  path  44
 Link  45  =  path  45
 Link  46  =  path  46
-46 links  (46 paths, 0 ducts, 0 terminals, 0 leaks)
+Link  47  =  path  47
+Link  48  =  path  48
+Link  49  =  path  49
+Link  50  =  path  50
+Link  51  =  path  51
+Link  52  =  path  52
+Link  53  =  path  53
+Link  54  =  path  54
+Link  55  =  path  55
+Link  56  =  path  56
+Link  57  =  path  57
+Link  58  =  path  58
+Link  59  =  path  59
+Link  60  =  path  60
+Link  61  =  path  61
+Link  62  =  path  62
+Link  63  =  path  63
+Link  64  =  path  64
+Link  65  =  path  65
+Link  66  =  path  66
+Link  67  =  path  67
+Link  68  =  path  68
+Link  69  =  path  69
+Link  70  =  path  70
+Link  71  =  path  71
+Link  72  =  path  72
+Link  73  =  path  73
+Link  74  =  path  74
+Link  75  =  path  75
+Link  76  =  path  76
+Link  77  =  path  77
+Link  78  =  path  78
+78 links  (78 paths, 0 ducts, 0 terminals, 0 leaks)
