@@ -3,6 +3,7 @@ The history of major enhancements and fixes to ANT is provided below.
 
 ## Version 0.2.3
 *Release Date: December 18, 2023*
+
 Updates: 
  - The Project component now will create a JSON file to store link flow information (LFI), e.g. location & direction, for visualizing airflows. 
  - A new Vector component is added to viz airflows. 
