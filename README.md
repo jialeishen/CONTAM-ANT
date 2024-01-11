@@ -47,7 +47,7 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 4. Restart Rhino/Grasshopper and enjoy.
 
 # Version
-The latest version of ANT is **0.2.4**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](./ANT%20Revision%20History.md).
+The latest version of ANT is **0.2.5**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](./ANT%20Revision%20History.md).
 
 # Support Forum
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)

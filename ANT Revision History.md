@@ -1,6 +1,13 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.2.5
+*Release Date: January 11, 2024*
+
+Updates: 
+
+ - The BREP intersection algorithm in the Project component has been updated to fix the geometry intersection issue. 
+
 ## Version 0.2.4
 *Release Date: January 9, 2024*
 
