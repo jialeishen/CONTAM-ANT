@@ -1,6 +1,13 @@
 # ANT Revision History
 The history of major enhancements and fixes to ANT is provided below.
 
+## Version 0.2.6
+*Release Date: February 8, 2024*
+
+Updates:
+
+ - The issue with BREP intersection has been fixed.
+
 ## Version 0.2.5
 *Release Date: January 11, 2024*
 
