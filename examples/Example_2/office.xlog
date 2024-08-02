@@ -1,0 +1,152 @@
+Program:  C:\Users\jns42\AppData\Roaming\Grasshopper\Libraries\ANT\contamx3.exe
+  Version:  3.5.0.0 release 64bit
+  Compiler: Visual C++ 1929
+  Created:  Thu Oct 26 15:18:50 2023
+Project (_file_name):  office.prj
+cwd: C:\Users\jns42\OneDrive - NIST\CONTAM\CONTAM-ANT\examples\Example_2
+prj arg = office.prj
+_pdrive , _pdir , _prjname office, _pext .prj
+  Updated:  Thu Aug  1 18:43:13 2024
+Calling arguments (2):
+	argv[0] = C:\Users\jns42\AppData\Roaming\Grasshopper\Libraries\ANT\contamx3.exe
+	argv[1] = office.prj
+Running ContamX 3.5.0.0 on office.prj
+  Calls to SetupSimulation = 1
+
+Reading project file: office.prj
+Run Control section read successfully.
+Speices section read successfully.
+Level section read successfully.
+Day Schedule section read successfully.
+Week Schedule section read successfully.
+WindP Profile section read successfully.
+Kinetic Reaction section read successfully.
+Filter Element section read successfully.
+Filter section read successfully.
+Source/Sink Element section read successfully.
+Airflow Element section read successfully.
+Airflow Element section read successfully.
+Control Networks section read successfully.
+AHS section read successfully.
+Zone section read successfully.
+Zone CC section read successfully.
+Path section read successfully.
+Duct Junction section read successfully.
+Duct Junction CC section read successfully.
+Duct Segment section read successfully.
+Source/Sink section read successfully.
+Occupant Day Schedule section read successfully.
+Occupant Exposure section read successfully.
+Note section read successfully.
+EnvListWpc_setup() creating Envelope path lists:
+ _nEnvPaths_Wpc 0, _useWPCwp 0, _wPBridge 1
+  93 envelope paths|terminals for WPC
+  99 envelope paths|terminals|leaks for CSM/CEX
+Read PRJ : 312804 bytes allocated, 116612 freed, 196192 net
+Number of --
+      contaminants:    3
+     day schedules:    7
+    week schedules:    5
+           filters:    1
+         reactions:    0
+     wind profiles:    2
+   source elements:    8
+     flow elements:   20
+     airflow nodes:   46
+     airflow paths:  367
+      source/sinks:  114
+Airflow control --
+   cnvgSS: 1
+   tsdens: 0
+   densZP: 0
+   stackD: 0
+   dodMdt: 0
+
+Airflow Equations:
+  33 variable pressure nodes
+  13 constant pressure nodes
+  Number of equations: 46
+    Non-zero elements: 216
+Initial fill fraction: 0.102
+ Matrix Profile Analysis:
+      Average Profile: 7.39
+            Bandwidth: 28
+Determining equation reordering:
+Equations will be reordered.
+      Average Profile: 4.61
+            Bandwidth: 12
+ Skyline Matrix:
+     Number of rows: 33
+     Lower Triangle: 152 elements
+     Upper Triangle: 0 elements
+     Fill fraction: 0.170
+Solve nonlinear equations by Newton-Raphson with variable trust region.
+  relcnvg = 1e-05, abscnvg = 2e-06, itmax = 30
+Solve Jacobian SLAE by symmetric SKYline method.
+
+Trace Species Mass Transfer Equations:
+
+Set up Mf matrix:
+   0 boundary layer sink nodes
+   0 deposition/resuspension nodes
+  45 variable Mf zone nodes
+   0 variable Mf jctn nodes
+   1 constant Mf zone nodes
+   3 contaminants
+  Number of equations: 138
+    Non-zero elements: 984
+Initial fill fraction: 0.052
+ Matrix Profile Analysis:
+      Average Profile: 32.87
+            Bandwidth: 102
+Solve simultaneous linear equations by non-symmetric SKYline method.
+Determining equation reordering:
+Equations will be reordered.
+ Optimized Matrix:
+      Average Profile: 4.98
+            Bandwidth: 12
+ Skyline Matrix:
+     Number of rows: 135
+     Lower Triangle: 672 elements
+     Upper Triangle: 672 elements
+     Fill fraction: 0.081
+Arrays: 406884 bytes allocated, 164636 freed, 242248 net
+Start: 410915 bytes allocated, 167572 freed, 243343 net
+Running steady-state initialization:
+ DATE: Jan01   time: 00:00:00
+End Steady-state Initialization
+      14 calls to FillAf()
+       9 calls to luf_sky_s()
+
+Solving mass transport system with trapezoidal solver 
+
+set_urst_init():
+  nzone 45, npath 367, nctm 3, njct 0, ndct 0
+  ncss+nbls+ndvr 114, nctrl 0, date0 1, date1 7
+  SizeData 11416
+
+
+================= SimEnd() called Jan07 24:00:00 =================
+
+    2016 time steps
+    2016 time step iterations
+    2020 calls to SolveAf()
+   21190 calls to FillAf()
+   16079 calls to luf_sky_s()
+   16079 calls to lus_sky_s()
+    2016 calls to solve_Mft()
+    2016 calls to luf_sky_n()
+    2016 calls to lus_sky_n()
+
+NR its. :    0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20
+JfacBins:   14   43  468  317   87   26   11    8    1   16   59  163  176  244  193  125   41   15    7    5    1
+
+rangeDWC: 0 lam, 0 trns, 0 turbulent
+
+Maximum air exchange rate: ~13.1 ACH in zone 14 at 17:00:00 on Jan01
+Maximum gage pressure: 5.8 Pa in zone 21 at 04:00:00 on Jan07
+Minimum gage pressure: -7.2 Pa in zone 32 at 07:55:00 on Jan01
+
+End: 419779 bytes allocated, 177531 freed, 242248 net
+Final: 419779 bytes allocated, 419779 freed, 0 net
+Simulation completed successfully.

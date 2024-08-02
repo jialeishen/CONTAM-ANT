@@ -75,3 +75,5 @@ Animation of contaminant concentration change
 ![Example 1 - Animation of contaminant concentration change](./examples/Example_1/img/animation.gif)
 Plot of contaminant concentrations in different zones
 ![Example 1 - Plot of contaminant concentrations in different zones](./examples/Example_1/img/plot_3.png)
+
+## Example 2 - DOE prototype medium office
