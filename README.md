@@ -19,7 +19,7 @@ ANT is a multizone indoor air quality (IAQ) and ventilation analysis plug-in on 
 
 CONTAM is a program (family) developed by NIST to accomplish multizone IAQ and ventilation analyses. ContamP and ContamX APIs were used in ANT to develop GH components to create CONTAM project elements (such as zones, paths, air handling system, and occupancy), generate project files (.prj) and run simulations. The original CONTAM and associated tools can be found on [NIST website](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software) and a Python wrapper for ContamX (CONTAM simulation engine) is available on [PyPI](https://pypi.org/project/contamxpy/).
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/structure.png" alt="ANT structure" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/structure.png" alt="ANT structure" style="width:100%; height:auto;">
 
 The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"). It implies the link between CONTAM and ANT, but also embodies the mission of ANT. Besides the regular functions of CONTAM, the highlighted features of ANT mainly include
  - capability of establishing straightforward and realistic 3D building/room models for CONTAM analyses (compared to the conventional way of drawing 2D models on the sketchpad within CONTAMW),
@@ -62,25 +62,25 @@ Example cases only compatible with the latest version of ANT. Please check the l
 ## Example 1 - A simple house
 ### Building geometry in Rhino
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/geometry_w_bkg.png" alt="Example 1 - Building geometry" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/geometry_w_bkg.png" alt="Example 1 - Building geometry" style="width:100%; height:auto;">
 
 ### ANT model in Grasshopper
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/screenshot%20-%20ANT%202.png" alt="Example 1 - ANT model" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/screenshot%20-%20ANT%202.png" alt="Example 1 - ANT model" style="width:100%; height:auto;">
 
 ### Visualization of simulation results
 Contours of contaminant concentrations
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/contour_2.png" alt="Example 1 - Contours of contaminant concentrations" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/contour_2.png" alt="Example 1 - Contours of contaminant concentrations" style="width:100%; height:auto;">
 
 <!--3D contours of contaminant concentrations
 ![Example 1 - 3D contours of contaminant concentrations](./examples/Example_1/img/contour_1.png)-->
 Animation of contaminant concentration change
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/animation.gif" alt="Example 1 - Animation of contaminant concentration change" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/animation.gif" alt="Example 1 - Animation of contaminant concentration change" style="width:100%; height:auto;">
 
 Plot of contaminant concentrations in different zones
 
-<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/plot_3.png" alt="Example 1 - Plot of contaminant concentrations in different zones" style="width:70%; height:auto;">
+<img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/plot_3.png" alt="Example 1 - Plot of contaminant concentrations in different zones" style="width:100%; height:auto;">
 
 ## Example 2 - DOE prototype medium office
