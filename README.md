@@ -47,15 +47,15 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 4. Restart Rhino/Grasshopper and enjoy.
 
 # Version
-The latest version of ANT is **0.2.6**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/ANT%20Revision%20History.md).
+The latest version of ANT is **0.2.6**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](https://github.com/jialeishen/CONTAM-ANT/blob/main/ANT%20Revision%20History.md).
 
 # Support Forum
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)
 
 # Tutorials
-[0 - Introduction to ANT components and CONTAM elements](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
+[0 - Introduction to ANT components and CONTAM elements](https://github.com/jialeishen/CONTAM-ANT/blob/main/tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
 
-[1 - Basic settings and creating zones](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
+[1 - Basic settings and creating zones](https://github.com/jialeishen/CONTAM-ANT/blob/main/tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
 
 # Example cases
 Example cases only compatible with the latest version of ANT. Please check the latest version of ANT from [Food4Rhino](https://www.food4rhino.com/en/app/ant).
