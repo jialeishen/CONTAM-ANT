@@ -61,21 +61,26 @@ The latest version of ANT is **0.2.6**. The version number of ANT is aligned wit
 Example cases only compatible with the latest version of ANT. Please check the latest version of ANT from [Food4Rhino](https://www.food4rhino.com/en/app/ant).
 ## Example 1 - A simple house
 ### Building geometry in Rhino
+
 <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/geometry_w_bkg.png" alt="Example 1 - Building geometry" style="width:70%; height:auto;">
 
 ### ANT model in Grasshopper
+
 <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/screenshot%20-%20ANT%202.png" alt="Example 1 - ANT model" style="width:70%; height:auto;">
 
 ### Visualization of simulation results
 Contours of contaminant concentrations
+
 <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/contour_2.png" alt="Example 1 - Contours of contaminant concentrations" style="width:70%; height:auto;">
 
 <!--3D contours of contaminant concentrations
 ![Example 1 - 3D contours of contaminant concentrations](./examples/Example_1/img/contour_1.png)-->
 Animation of contaminant concentration change
+
 <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/animation.gif" alt="Example 1 - Animation of contaminant concentration change" style="width:70%; height:auto;">
 
 Plot of contaminant concentrations in different zones
+
 <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/plot_3.png" alt="Example 1 - Plot of contaminant concentrations in different zones" style="width:70%; height:auto;">
 
 ## Example 2 - DOE prototype medium office
