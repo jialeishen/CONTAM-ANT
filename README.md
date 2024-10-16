@@ -1,5 +1,5 @@
 # ANT
- ![ANT logo](logo/banner.png)
+ ![ANT logo](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/logo/banner.png)
  
 <!--ts-->
  - [Introduction](#introduction)
@@ -19,7 +19,7 @@ ANT is a multizone indoor air quality (IAQ) and ventilation analysis plug-in on 
 
 CONTAM is a program (family) developed by NIST to accomplish multizone IAQ and ventilation analyses. ContamP and ContamX APIs were used in ANT to develop GH components to create CONTAM project elements (such as zones, paths, air handling system, and occupancy), generate project files (.prj) and run simulations. The original CONTAM and associated tools can be found on [NIST website](https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software) and a Python wrapper for ContamX (CONTAM simulation engine) is available on [PyPI](https://pypi.org/project/contamxpy/).
 
- ![ANT structure](examples/Example_1/img/structure.png)
+ ![ANT structure](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/structure.png)
 
 The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"). It implies the link between CONTAM and ANT, but also embodies the mission of ANT. Besides the regular functions of CONTAM, the highlighted features of ANT mainly include
  - capability of establishing straightforward and realistic 3D building/room models for CONTAM analyses (compared to the conventional way of drawing 2D models on the sketchpad within CONTAMW),
@@ -47,33 +47,33 @@ The name "ANT" originates from "**contam**in**ant**" (or "**contam**-in-**ant**"
 4. Restart Rhino/Grasshopper and enjoy.
 
 # Version
-The latest version of ANT is **0.2.6**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](./ANT%20Revision%20History.md).
+The latest version of ANT is **0.2.6**. The version number of ANT is aligned with the 3.5 version of CONTAM APIs and simulation engine (contamx3.exe). The revision history of ANT is provided in [ANT Revision History](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/ANT%20Revision%20History.md).
 
 # Support Forum
  - [Google Group of ANT](https://groups.google.com/g/contam-ant)
 
 # Tutorials
-[0 - Introduction to ANT components and CONTAM elements](./tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
+[0 - Introduction to ANT components and CONTAM elements](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/tutorials/0%20-%20Introduction%20to%20ANT%20components%20and%20CONTAM%20elements.md)
 
-[1 - Basic settings and creating zones](./tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
+[1 - Basic settings and creating zones](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/tutorials/1%20-%20Basic%20settings%20and%20creating%20zones.md)
 
 # Example cases
 Example cases only compatible with the latest version of ANT. Please check the latest version of ANT from [Food4Rhino](https://www.food4rhino.com/en/app/ant).
 ## Example 1 - A simple house
 ### Building geometry in Rhino
-![Example 1 - Building geometry](./examples/Example_1/img/geometry_w_bkg.png)
+![Example 1 - Building geometry](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/geometry_w_bkg.png)
 
 ### ANT model in Grasshopper
-![Example 1 - ANT model](./examples/Example_1/img/screenshot%20-%20ANT%202.png)
+![Example 1 - ANT model](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/screenshot%20-%20ANT%202.png)
 
 ### Visualization of simulation results
 Contours of contaminant concentrations
-![Example 1 - Contours of contaminant concentrations](./examples/Example_1/img/contour_2.png)
+![Example 1 - Contours of contaminant concentrations](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/contour_2.png)
 <!--3D contours of contaminant concentrations
 ![Example 1 - 3D contours of contaminant concentrations](./examples/Example_1/img/contour_1.png)-->
 Animation of contaminant concentration change
-![Example 1 - Animation of contaminant concentration change](./examples/Example_1/img/animation.gif)
+![Example 1 - Animation of contaminant concentration change](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/animation.gif)
 Plot of contaminant concentrations in different zones
-![Example 1 - Plot of contaminant concentrations in different zones](./examples/Example_1/img/plot_3.png)
+![Example 1 - Plot of contaminant concentrations in different zones](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/examples/Example_1/img/plot_3.png)
 
 ## Example 2 - DOE prototype medium office
