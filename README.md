@@ -1,6 +1,6 @@
 # ANT
- ![ANT logo](https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/logo/banner.png)
- 
+ <img src="https://raw.githubusercontent.com/jialeishen/CONTAM-ANT/main/logo/banner.png" alt="ANT logo" style="width:100%; height:auto;">
+
 <!--ts-->
  - [Introduction](#introduction)
  - [Installation](#installation)
